@@ -29,24 +29,59 @@ var application = function() {
 
 }
 
+var initMiddleware = function(app, services) {
+
+  var config = services.get('config');
+
+  if ('development' == config.get('NODE_ENV')) {
+    app.use(express.logger());
+  }
+
+  app.use(express.favicon());
+  app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
+  app.use(express.json());
+  app.use(express.urlencoded());
+  app.use(express.methodOverride());
+  app.use(app.router);
+
+  if ('development' == config.get('NODE_ENV')) {
+
+    app.use(express.errorHandler());
+
+  } else {
+
+    app.use(function(err, req, res, next) {
+
+      if (err instanceof services.get('errors').user) {
+
+        res.json(err.statusCode, {error: err.message});
+
+      } else {
+
+        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+
+      }
+
+    });
+
+  }
+
+}
+
 application.prototype.loadConfig = function(configPath) {
 
   nconf
     .overrides({
-      'NODE_ENV': 'development',
+      'NODE_ENV': process.env.NODE_ENV || 'development',
       'rootPath': configPath + '/../../'
     })
     .env()
-    .file('all', configPath + '/environments/all.json')
-    .file('other', configPath + '/environments/' + nconf.get('NODE_ENV') + '.json');
+    .file('all', configPath + '/all.json')
+    .file('other', configPath + '/' + nconf.get('NODE_ENV') + '.json');
 
   this.services.register('config', nconf);
 
-  var inits = requireIndex(configPath + '/initializers');
-
-  for (var i in inits) {
-    inits[i].apply(this);
-  }
+  initMiddleware(this.app, this.services);
 
 }
 
@@ -55,6 +90,11 @@ application.prototype.loadServices = function(servicesPath) {
   var services = requireIndex(servicesPath);
 
   for (var name in services) {
+
+    if ('object' == typeof services[name] && services[name].index) {
+      services[name] = services[name].index;
+    }
+
     this.services.register(name, new services[name]());
   }
 
@@ -78,6 +118,7 @@ application.prototype.loadModules = function(modulePath) {
     if ('app.js' == filename) {
 
       var subApp = express();
+      initMiddleware(subApp, self.services);
 
       var mountPrefix = directory.replace(modulePath, '');
       var actions = requireIndex(directory + '/actions');
@@ -115,6 +156,7 @@ application.prototype.loadModules = function(modulePath) {
     var indexFile = path.resolve(config.get('rootPath') + config.get('frontendPath') + '/index.html');
 
     var subApp = express();
+    initMiddleware(subApp, self.services);
 
     subApp.get('*', function(req, res, next) {
       res.sendfile(indexFile);
