@@ -34,33 +34,38 @@ var initMiddleware = function(app, services) {
   var config = services.get('config');
 
   if ('development' == config.get('NODE_ENV')) {
-    app.use(express.logger());
+    app.use(require('morgan')());
   }
 
-  app.use(express.favicon());
+  app.use(require('static-favicon')());
   app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
-  app.use(express.json());
-  app.use(express.urlencoded());
-  app.use(express.methodOverride());
-  app.use(app.router);
+  app.use(require('body-parser')());
+  app.use(require('method-override')());
 
+}
+
+var addFinalMiddleware = function(app, services) {
+
+  var config = services.get('config');
   if ('development' == config.get('NODE_ENV')) {
 
-    app.use(express.errorHandler());
+    app.use(require('errorhandler')());
 
   } else {
 
     app.use(function(err, req, res, next) {
 
       if (err instanceof services.get('errors').user) {
-
         res.json(err.statusCode, {error: err.message});
-
       } else {
-
-        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
-
+        next(err);
       }
+
+    });
+
+    app.use(function(err, req, res, next) {
+
+      res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
 
     });
 
@@ -143,6 +148,8 @@ application.prototype.loadModules = function(modulePath) {
 
       var subAppLoaded = require(file)(subApp, actions);
 
+      addFinalMiddleware(subApp, self.services);
+
       self.app.use(mountPrefix, subAppLoaded);
 
     }
@@ -166,7 +173,11 @@ application.prototype.loadModules = function(modulePath) {
       res.json(404, {error: 'This API method does not exist.'});
     });
 
+    addFinalMiddleware(subApp, self.services);
+
     self.app.use('/', subApp);
+
+    addFinalMiddleware(self.app, self.services);
 
   });
 
