@@ -1,0 +1,22 @@
+{
+  "name": "mean-boilerplate",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "bootable": "^0.2.2",
+    "express": "3.x.x",
+    "connect-powered-by": "0.1.x",
+    "debug": "^0.8.0",
+    "dependable": "^0.2.5",
+    "nconf": "^0.6.9",
+    "mongoose": "^3.8.8",
+    "express-di": "^0.1.3",
+    "requireindex": "^1.1.0",
+    "express-namespace": "^0.1.1"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "postinstall": "bower install --config.interactive=false",
+    "postupdate": "bower update --config.interactive=false"
+  }
+}
