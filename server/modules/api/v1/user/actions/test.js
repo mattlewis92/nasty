@@ -1,6 +1,5 @@
-module.exports = {
-  action: function() {
-    this.json({hello: this._processed.hello});
-  },
-  before: ['user#something']
-};
+module.exports = function(something, res) {
+
+  res.json({hello: something});
+
+}

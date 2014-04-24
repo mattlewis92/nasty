@@ -1,6 +1,5 @@
-module.exports = function(next) {
+module.exports = function(req, res, next) {
 
-  this._processed.hello = 'world';
-  next();
+  next(null, 'world!');
 
 }
