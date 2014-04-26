@@ -1,7 +1,9 @@
 # Custom
 .DS_Store
 .idea
-
+frontend/development/vendor
+frontend/production
+frontend/development/less/compiled
 
 # Logs
 logs

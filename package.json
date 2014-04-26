@@ -20,7 +20,11 @@
   },
   "scripts": {
     "start": "node server/index.js",
-    "postinstall": "bower install --config.interactive=false",
-    "postupdate": "bower update --config.interactive=false"
+    "install": "bower install --config.interactive=false",
+    "update": "bower update --config.interactive=false"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.4",
+    "grunt-bower-install": "^1.4.0"
   }
 }
