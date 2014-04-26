@@ -33,6 +33,8 @@ var initMiddleware = function(app, services) {
 
   var config = services.get('config');
 
+  app.set('env', config.get('NODE_ENV'));
+
   if ('development' == config.get('NODE_ENV')) {
     app.use(require('morgan')());
   }
@@ -41,6 +43,10 @@ var initMiddleware = function(app, services) {
   app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
   app.use(require('body-parser')());
   app.use(require('method-override')());
+  app.use(require('mean-seo')({
+    cacheClient: 'disk', // Can be 'disk' or 'redis'
+    cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
+  }));
 
 }
 
