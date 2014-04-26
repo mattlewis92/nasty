@@ -8,64 +8,14 @@ var express = require('express')
 
 require('express-di');
 
-var initMiddleware = function(app, services) {
-
-  var config = services.get('config');
-
-  app.set('env', config.get('NODE_ENV'));
-
-  if ('development' == config.get('NODE_ENV')) {
-    app.use(require('morgan')());
-  }
-
-  app.use(require('static-favicon')());
-  app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
-  app.use(require('body-parser')());
-  app.use(require('method-override')());
-  app.use(require('mean-seo')({
-    cacheClient: 'disk', // Can be 'disk' or 'redis'
-    cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
-  }));
-
-}
-
-var addFinalMiddleware = function(app, services) {
-
-  var config = services.get('config');
-  if ('development' == config.get('NODE_ENV')) {
-
-    app.use(require('errorhandler')());
-
-  } else {
-
-    app.use(function(err, req, res, next) {
-
-      if (err instanceof services.get('errors').user) {
-        res.json(err.statusCode, {error: err.message});
-      } else {
-        next(err);
-      }
-
-    });
-
-    app.use(function(err, req, res, next) {
-
-      res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
-
-    });
-
-  }
-
-}
-
 var application = function() {
 
   var app = express();
 
-  app.services = dependable.container();
+  var di = dependable.container();
 
-  var originalRegisterFunction = app.services.register;
-  app.services.register = function(key, value) {
+  var originalRegisterFunction = di.register;
+  di.register = function(key, value) {
 
     app.factory(key, function(req, res, next) {
       next(null, value);
@@ -74,6 +24,8 @@ var application = function() {
     originalRegisterFunction(key, value);
 
   }
+
+  app.set('services', di);
 
   app.loadConfig = function(configPath) {
 
@@ -86,9 +38,9 @@ var application = function() {
       .file('all', configPath + '/all.json')
       .file('other', configPath + '/' + nconf.get('NODE_ENV') + '.json');
 
-    this.services.register('config', nconf);
+    this.get('services').register('config', nconf);
 
-    initMiddleware(this, this.services);
+    initMiddleware(this);
 
   }
 
@@ -102,7 +54,7 @@ var application = function() {
         services[name] = services[name].index;
       }
 
-      this.services.register(name, new services[name]());
+      this.get('services').register(name, new services[name]());
     }
 
   }
@@ -125,7 +77,7 @@ var application = function() {
       if ('app.js' == filename) {
 
         var subApp = express();
-        initMiddleware(subApp, self.services);
+        initMiddleware(subApp);
 
         var mountPrefix = directory.replace(modulePath, '');
         var actions = requireIndex(directory + '/actions');
@@ -150,7 +102,7 @@ var application = function() {
 
         var subAppLoaded = require(file)(subApp, actions);
 
-        addFinalMiddleware(subApp, self.services);
+        addFinalMiddleware(subApp);
 
         self.use(mountPrefix, subAppLoaded);
 
@@ -161,11 +113,11 @@ var application = function() {
     //Now let's add some default routes (as it's own sub app otherwise they'll override every other route)
     finder.on('end', function () {
 
-      var config = self.services.get('config');
+      var config = self.get('services').get('config');
       var indexFile = path.resolve(config.get('rootPath') + config.get('frontendPath') + '/index.html');
 
       var subApp = express();
-      initMiddleware(subApp, self.services);
+      initMiddleware(subApp);
 
       subApp.get('*', function(req, res, next) {
         res.sendfile(indexFile);
@@ -175,11 +127,11 @@ var application = function() {
         res.json(404, {error: 'This API method does not exist.'});
       });
 
-      addFinalMiddleware(subApp, self.services);
+      addFinalMiddleware(subApp);
 
       self.use('/', subApp);
 
-      addFinalMiddleware(self, self.services);
+      addFinalMiddleware(self);
 
     });
 
@@ -187,13 +139,63 @@ var application = function() {
 
   app.startServer = function(done) {
 
-    var config = this.services.get('config');
+    var config = this.get('services').get('config');
 
     http.createServer(this).listen(config.get('server:port'), config.get('server:address'), function() {
       var addr = this.address();
       console.info('HTTP server listening on %s:%d', addr.address, addr.port);
       return done();
     });
+
+  }
+
+  var initMiddleware = function(app) {
+
+    var config = di.get('config');
+
+    app.set('env', config.get('NODE_ENV'));
+
+    if ('development' == config.get('NODE_ENV')) {
+      app.use(require('morgan')());
+    }
+
+    app.use(require('static-favicon')());
+    app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
+    app.use(require('body-parser')());
+    app.use(require('method-override')());
+    app.use(require('mean-seo')({
+      cacheClient: 'disk', // Can be 'disk' or 'redis'
+      cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
+    }));
+
+  }
+
+  var addFinalMiddleware = function(app) {
+
+    var config = di.get('config');
+    if ('development' == config.get('NODE_ENV')) {
+
+      app.use(require('errorhandler')());
+
+    } else {
+
+      app.use(function(err, req, res, next) {
+
+        if (err instanceof di.get('errors').user) {
+          res.json(err.statusCode, {error: err.message});
+        } else {
+          next(err);
+        }
+
+      });
+
+      app.use(function(err, req, res, next) {
+
+        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+
+      });
+
+    }
 
   }
 
