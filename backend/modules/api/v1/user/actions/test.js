@@ -1,7 +1,9 @@
-module.exports = function(something, res, errors, next) {
+'use strict';
 
-  return next(new Error('This is an example user error!'));
+module.exports = function(errors, next, logger) {
 
-  res.json({hello: something});
+  logger.error('HELLO WORLD');
 
-}
+  return next(new errors.user('This is an example user error!'));
+
+};

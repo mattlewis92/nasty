@@ -4,6 +4,7 @@
 frontend/development/vendor
 frontend/production
 frontend/development/stylesheets/css
+logs
 
 # Logs
 logs

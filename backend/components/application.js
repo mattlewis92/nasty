@@ -1,9 +1,13 @@
+'use strict';
+
 var express = require('express')
   , nconf = require('nconf')
   , dependable = require('dependable')
   , http = require('http')
   , requireIndex = require('requireindex')
   , path = require('path')
+  , winston = require('winston')
+  , expressWinston = require('express-winston')
   , fs = require('fs');
 
 require('express-di');
@@ -18,12 +22,12 @@ var application = function() {
   di.register = function(key, value) {
 
     app.factory(key, function(req, res, next) {
-      next(null, value);
+      next(null, di.get(key));
     });
 
     originalRegisterFunction(key, value);
 
-  }
+  };
 
   app.set('services', di);
 
@@ -32,7 +36,8 @@ var application = function() {
     nconf
       .overrides({
         'NODE_ENV': process.env.NODE_ENV || 'development',
-        'rootPath': configPath + '/../../'
+        'rootPath': configPath + '/../../',
+        'logPath': configPath + '/../../logs/'
       })
       .env()
       .file('all', configPath + '/all.json')
@@ -42,7 +47,7 @@ var application = function() {
 
     initMiddleware(this);
 
-  }
+  };
 
   app.loadServices = function(servicesPath) {
 
@@ -50,14 +55,14 @@ var application = function() {
 
     for (var name in services) {
 
-      if ('object' == typeof services[name] && services[name].index) {
+      if ('object' === typeof services[name] && services[name].index) {
         services[name] = services[name].index;
       }
 
       this.get('services').register(name, new services[name](this));
     }
 
-  }
+  };
 
   app.loadModules = function(modulePath) {
 
@@ -70,11 +75,11 @@ var application = function() {
       });
     }
 
-    finder.on('file', function (file, stat) {
+    finder.on('file', function (file) {
       var filename = file.split('/').pop();
       var directory = file.replace('/' + filename, '');
 
-      if ('app.js' == filename) {
+      if ('app.js' === filename) {
 
         var subApp = express();
         initMiddleware(subApp);
@@ -92,7 +97,9 @@ var application = function() {
 
             //Also make the middleware available globally
             var globalName = mountPrefix.replace(/\//g, '_') + '_' + name;
-            if (globalName.charAt(0) == '_') globalName = globalName.substr(1);
+            if (globalName.charAt(0) === '_') {
+              globalName = globalName.substr(1);
+            }
             globalName = camelCase(globalName);
 
             self.factory(globalName, middleware[name]);
@@ -119,11 +126,11 @@ var application = function() {
       var subApp = express();
       initMiddleware(subApp);
 
-      subApp.get('*', function(req, res, next) {
+      subApp.get('*', function(req, res) {
         res.sendfile(indexFile);
       });
 
-      subApp.all('*', function(req, res, next) {
+      subApp.all('*', function(req, res) {
         res.json(404, {error: 'This API method does not exist.'});
       });
 
@@ -135,7 +142,7 @@ var application = function() {
 
     });
 
-  }
+  };
 
   app.startServer = function(done) {
 
@@ -147,17 +154,13 @@ var application = function() {
       return done();
     });
 
-  }
+  };
 
   var initMiddleware = function(app) {
 
     var config = di.get('config');
 
     app.set('env', config.get('NODE_ENV'));
-
-    if ('development' == config.get('NODE_ENV')) {
-      app.use(require('morgan')());
-    }
 
     app.use(require('static-favicon')());
     app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
@@ -168,12 +171,23 @@ var application = function() {
       cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
     }));
 
-  }
+    if (true === config.get('app:logRequests')) {
+      app.use(expressWinston.logger({
+        transports: [
+          new winston.transports.Console({
+            colorize: true
+          })
+        ]
+      }));
+    }
+
+
+  };
 
   var addFinalMiddleware = function(app) {
 
     var config = di.get('config');
-    if ('development' == config.get('NODE_ENV')) {
+    if ('development' === config.get('NODE_ENV')) {
 
       app.use(require('errorhandler')());
 
@@ -189,20 +203,29 @@ var application = function() {
 
       });
 
+      app.use(expressWinston.errorLogger({
+        transports: [
+          new winston.transports.Console({
+            colorize: true
+          }),
+          new (winston.transports.File)({ filename: config.get('logPath') + 'errors.' + config.get('NODE_ENV') + '.log' })
+        ]
+      }));
+
       app.use(function(err, req, res, next) {
 
         res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+
+        next(err);
 
       });
 
     }
 
-  }
+  };
 
   return app;
 
-}
-
-
+};
 
 module.exports = application;

@@ -1,3 +1,5 @@
+'use strict';
+
 var application = require(__dirname + '/components/application');
 
 var app = new application();

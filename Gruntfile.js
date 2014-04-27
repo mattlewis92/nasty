@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     express: {
       options: {
-        port: process.env.PORT || 3001,
+        port: process.env.PORT || 3002,
         delay: 0
       },
       dev: {
@@ -91,8 +91,7 @@ module.exports = function(grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish'),
-        force: true
+        reporter: require('jshint-stylish')
       },
       server: {
         src: [ '<%= backend.app %>/**/*.js']
