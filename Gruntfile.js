@@ -78,10 +78,9 @@ module.exports = function(grunt) {
       },
       express: {
         files: [
-          '<%= backend.app %>/index.js',
           '<%= backend.app %>/**/*.{js,json}'
         ],
-        tasks: ['newer:jshint:server', 'express:dev'],
+        tasks: ['newer:jshint:server', 'express:dev', 'wait'],
         options: {
           livereload: true,
           nospawn: true //Without this option specified express won't be reloaded
@@ -228,7 +227,7 @@ module.exports = function(grunt) {
       app:        {
         cwd:      '<%= frontend.dev %>',
         src:      'views/**/*.html',
-        dest:     'template.js',
+        dest:     '.tmp/template.js',
         options:  {
           usemin: 'app.min.js', // <~~ This came from the <!-- build:js --> block
           url:    function(url) { return '/' + url; }
@@ -236,6 +235,17 @@ module.exports = function(grunt) {
       }
     }
 
+  });
+
+  grunt.registerTask('wait', function () {
+    grunt.log.ok('Waiting for server reload...');
+
+    var done = this.async();
+
+    setTimeout(function () {
+      grunt.log.writeln('Done waiting!');
+      done();
+    }, 500);
   });
 
   grunt.registerTask('express-keepalive', 'Keep grunt running', function() {
@@ -273,6 +283,12 @@ module.exports = function(grunt) {
     'rev',
     'usemin',
     'clean:server'
+  ]);
+
+  grunt.registerTask('assets', [
+    'less',
+    'bowerInstall',
+    'includeSource'
   ]);
 
   grunt.registerTask('default', [
