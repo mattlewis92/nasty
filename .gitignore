@@ -3,7 +3,7 @@
 .idea
 frontend/development/vendor
 frontend/production
-frontend/development/less/compiled
+frontend/development/stylesheets/css
 
 # Logs
 logs

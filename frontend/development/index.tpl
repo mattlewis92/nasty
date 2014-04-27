@@ -19,7 +19,7 @@
         <!-- endbower -->
 
         <link href="stylesheets/css/common.css" rel="stylesheet" type="text/css" />
-        <link href="stylesheets/css/modules/user.css" rel="stylesheet" type="text/css">
+        <!-- include: "type": "css", "files": "stylesheets/css/modules/*.css" -->
 
         <!-- endbuild -->
 
@@ -44,7 +44,7 @@
         <script src="vendor/angular-touch/angular-touch.js"></script>
         <!-- endbower -->
 
-        <script type="text/javascript" src="js/test.js"></script>
+        <!-- include: "type": "js", "files": "js/**/*.js" -->
 
         <!-- endbuild -->
 
