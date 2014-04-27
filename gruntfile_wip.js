@@ -24,7 +24,7 @@ module.exports = function (grunt) {
       dist: 'frontend/production'
     },
     server: {
-      app: 'server'
+      app: 'backend'
     },
     express: {
       options: {

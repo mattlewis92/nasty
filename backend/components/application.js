@@ -54,7 +54,7 @@ var application = function() {
         services[name] = services[name].index;
       }
 
-      this.get('services').register(name, new services[name]());
+      this.get('services').register(name, new services[name](this));
     }
 
   }

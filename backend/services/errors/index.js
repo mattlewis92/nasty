@@ -1,7 +1,7 @@
 var requireIndex = require('requireindex');
 var util = require('util');
 
-module.exports = function() {
+module.exports = function(app) {
 
   var errors = requireIndex(__dirname);
 
