@@ -15,6 +15,7 @@
     "express-di": "4.x.x",
     "express-winston": "^0.2.5",
     "findit": "^1.1.1",
+    "helmet": "^0.4.0",
     "mean-seo": "0.0.5",
     "method-override": "^1.0.0",
     "mongoose": "3.8.13",
