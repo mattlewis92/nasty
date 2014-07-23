@@ -161,11 +161,16 @@ var application = function() {
     var config = di.get('config');
 
     app.set('env', config.get('NODE_ENV'));
+    app.enable('trust proxy');
+    app.disable('x-powered-by');
 
     app.use(require('static-favicon')());
 
     if ('production' === config.get('NODE_ENV')) {
-      app.use(require('compression')());
+      app.use(require('compression')({
+        filter: function (req, res) { return /json|text|javascript|css/.test(res.getHeader('Content-Type')) },
+        level: 9
+      }));
       app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
     } else {
       app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
