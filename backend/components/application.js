@@ -176,6 +176,7 @@ var application = function() {
     }));
     app.use(require('body-parser').json());
     app.use(require('method-override')());
+    app.use(require('connect-requestid'));
     app.use(require('mean-seo')({
       cacheClient: 'disk', // Can be 'disk' or 'redis'
       cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
