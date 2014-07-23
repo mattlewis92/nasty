@@ -163,8 +163,18 @@ var application = function() {
     app.set('env', config.get('NODE_ENV'));
 
     app.use(require('static-favicon')());
-    app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
-    app.use(require('body-parser')());
+
+    if ('production' === config.get('NODE_ENV')) {
+      app.use(require('compression')());
+      app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
+    } else {
+      app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
+    }
+
+    app.use(require('body-parser').urlencoded({
+      extended: true
+    }));
+    app.use(require('body-parser').json());
     app.use(require('method-override')());
     app.use(require('mean-seo')({
       cacheClient: 'disk', // Can be 'disk' or 'redis'
