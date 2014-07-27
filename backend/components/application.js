@@ -95,6 +95,7 @@ var application = function() {
       for (var key in tmp) {
         result[key] = tmp[key].middleware || {};
       }
+
       return result;
     }
 
@@ -102,7 +103,7 @@ var application = function() {
       var filename = file.split('/').pop();
       var directory = file.replace('/' + filename, '');
 
-      if ('app.js' === filename) {
+      if ('app.js' === filename && directory.indexOf('submodules') == -1) {
 
         var subApp = express();
         initMiddleware(subApp);
@@ -118,6 +119,24 @@ var application = function() {
           for (var name in middleware) {
             //Make this middleware available locally to it can be automatically injected
             subApp.factory(name, middleware[name]);
+          }
+
+        }
+
+        if (fs.existsSync(directory + '/submodules')) {
+
+          var submodules = requireAll(directory + '/submodules');
+          var subModuleMiddleware = parentModuleMiddleware;
+          var parentModuleName = mountPrefix.split('/').pop();
+
+          for (var key in submodules) {
+            if (submodules[key].middleware) {
+              subModuleMiddleware[parentModuleName][key] = submodules[key].middleware;
+            }
+          }
+
+          for (var key in submodules) {
+            submodules[key].app(subApp, submodules[key].actions, subModuleMiddleware);
           }
 
         }
