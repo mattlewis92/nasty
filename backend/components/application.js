@@ -53,6 +53,8 @@ var application = function() {
 
     initMiddleware(this);
 
+    return nconf;
+
   };
 
   app.loadServices = function(servicesPath) {
@@ -67,6 +69,8 @@ var application = function() {
 
       this.get('services').register(name, new services[name](this));
     }
+
+    return this.get('services');
 
   };
 
