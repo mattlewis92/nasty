@@ -8,7 +8,8 @@ var express = require('express')
   , path = require('path')
   , winston = require('winston')
   , expressWinston = require('express-winston')
-  , fs = require('fs');
+  , fs = require('fs')
+  , expressValidator = require('express-validator');
 
 require('express-di');
 
@@ -190,6 +191,7 @@ var application = function() {
       extended: true
     }));
     app.use(require('body-parser').json());
+    app.use(expressValidator());
     app.use(require('method-override')());
     app.use(require('connect-requestid'));
     app.use(require('helmet')());
@@ -198,6 +200,8 @@ var application = function() {
       app.use(expressWinston.logger({
         transports: [
           new winston.transports.Console({
+            prettyPrint: true,
+            timestamp: true,
             colorize: true
           })
         ]
@@ -210,40 +214,44 @@ var application = function() {
   var addFinalMiddleware = function(app) {
 
     var config = di.get('config');
-    if ('development' === config.get('NODE_ENV')) {
+    var isDevelopment = 'development' === config.get('NODE_ENV');
 
-      app.use(require('errorhandler')());
+    app.use(function(err, req, res, next) {
 
-    } else {
-
-      app.use(function(err, req, res, next) {
-
-        if (err instanceof di.get('errors').user) {
-          res.json(err.statusCode, {error: err.message});
-        } else {
+      if (true === err.displayToUser || isDevelopment) {
+        res.json(err.statusCode, {error: err.message});
+        if (isDevelopment) { //Log to console as well now
           next(err);
         }
-
-      });
-
-      app.use(expressWinston.errorLogger({
-        transports: [
-          new winston.transports.Console({
-            colorize: true
-          }),
-          new (winston.transports.File)({ filename: config.get('logPath') + 'errors.' + config.get('NODE_ENV') + '.log' })
-        ]
-      }));
-
-      app.use(function(err, req, res, next) {
-
-        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
-
+      } else {
         next(err);
+      }
 
-      });
+    });
 
+    var winstonTransports = [
+      new winston.transports.Console({
+        prettyPrint: true,
+        timestamp: true,
+        colorize: true
+      })
+    ];
+
+    if (!isDevelopment) {
+      winstonTransports.push(new (winston.transports.File)({ filename: config.get('logPath') + 'errors.' + config.get('NODE_ENV') + '.log' }));
     }
+
+    app.use(expressWinston.errorLogger({
+      transports: winstonTransports
+    }));
+
+    app.use(function(err, req, res, next) {
+
+      if (!isDevelopment) {
+        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+      }
+
+    });
 
   };
 

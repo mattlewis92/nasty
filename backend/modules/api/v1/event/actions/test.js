@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(res) {
+module.exports = function(req, res) {
 
   res.json({hello: 'world!'});
 

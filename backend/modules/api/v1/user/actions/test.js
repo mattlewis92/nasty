@@ -1,6 +1,11 @@
 'use strict';
 
-module.exports = function(errors, next, logger) {
+module.exports = function(req, errors, next, logger) {
+
+  req.assert('email', 'required').notEmpty();
+  if (req.validationErrors()) {
+    //return next(new errors.validation(req.validationErrors(true)));
+  }
 
   logger.error('HELLO WORLD');
 
