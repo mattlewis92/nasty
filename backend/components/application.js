@@ -45,6 +45,11 @@ var application = function() {
 
     this.get('services').register('config', nconf);
 
+    //Longer stack traces for non production environments
+    if ('production' !== nconf.get('NODE_ENV')) {
+      require('longjohn');
+    }
+
     initMiddleware(this);
 
   };
