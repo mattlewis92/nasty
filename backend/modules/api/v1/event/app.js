@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(app, actions, middleware) {
+module.exports = function(app, actions) {
 
-  app.get('/test', middleware.user.something, actions.test);
+  app.get('/test', actions.test);
 
   return app;
 

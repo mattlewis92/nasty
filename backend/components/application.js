@@ -36,9 +36,9 @@ var application = function() {
 
     nconf
       .overrides({
-        'NODE_ENV': process.env.NODE_ENV || 'development',
-        'rootPath': configPath + '/../../',
-        'logPath': configPath + '/../../logs/'
+        NODE_ENV: process.env.NODE_ENV || 'development',
+        rootPath: configPath + '/../../',
+        logPath: configPath + '/../../logs/'
       })
       .env()
       .file('all', configPath + '/all.json')
@@ -50,8 +50,6 @@ var application = function() {
     if ('production' !== nconf.get('NODE_ENV')) {
       require('longjohn');
     }
-
-    initMiddleware(this);
 
     return nconf;
 
@@ -75,6 +73,8 @@ var application = function() {
   };
 
   app.loadModules = function(modulePath) {
+
+    initMiddleware(this);
 
     var loadedModules = requireAll(modulePath);
 
@@ -103,7 +103,7 @@ var application = function() {
       var filename = file.split('/').pop();
       var directory = file.replace('/' + filename, '');
 
-      if ('app.js' === filename && directory.indexOf('submodules') == -1) {
+      if ('app.js' === filename && directory.indexOf('submodules') === -1) {
 
         var subApp = express();
         initMiddleware(subApp);
@@ -135,7 +135,7 @@ var application = function() {
             }
           }
 
-          for (var key in submodules) {
+          for (key in submodules) {
             submodules[key].app(subApp, submodules[key].actions, subModuleMiddleware);
           }
 
@@ -195,9 +195,11 @@ var application = function() {
     var config = di.get('config');
 
     app.set('env', config.get('NODE_ENV'));
+    app.set('services', di);
     app.enable('trust proxy');
     app.disable('x-powered-by');
 
+    app.use(require('express-domain-middleware'));
     app.use(require('static-favicon')());
 
     if ('production' === config.get('NODE_ENV')) {
@@ -218,6 +220,7 @@ var application = function() {
     app.use(require('method-override')());
     app.use(require('connect-requestid'));
     app.use(require('helmet')());
+    app.use(di.get('passport').initialize());
 
     if (true === config.get('app:logRequests')) {
       app.use(expressWinston.logger({
@@ -231,7 +234,6 @@ var application = function() {
       }));
     }
 
-
   };
 
   var addFinalMiddleware = function(app) {
@@ -241,11 +243,8 @@ var application = function() {
 
     app.use(function(err, req, res, next) {
 
-      if (true === err.displayToUser || isDevelopment) {
+      if (true === err.displayToUser) {
         res.json(err.statusCode, {error: err.message});
-        if (isDevelopment) { //Log to console as well now
-          next(err);
-        }
       } else {
         next(err);
       }
@@ -270,8 +269,11 @@ var application = function() {
 
     app.use(function(err, req, res, next) {
 
-      if (!isDevelopment) {
-        res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+      res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+
+      //hack for jshint :/
+      if ('never gonna happen' === config.get('NODE_ENV')) {
+        next();
       }
 
     });

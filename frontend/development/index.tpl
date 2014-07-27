@@ -19,7 +19,7 @@
         <!-- endbower -->
 
         <link href="stylesheets/css/common.css" rel="stylesheet" type="text/css" />
-        <!-- include: "type": "css", "files": "stylesheets/css/modules/*.css" -->
+        <!-- include: "type": "css", "files": "stylesheets/css/modules/*.css", "ordering": "top-down" -->
 
         <!-- endbuild -->
 
@@ -31,7 +31,7 @@
     </head>
     <body>
         <h1>Hello world!</h1>
-        <p>Welcome aboard! Visit <a href="http://locomotivejs.org/">locomotivejs.org</a> for details.</p>
+        <p>Welcome aboard! Visit <a href="https://github.com/mattlewis92/mean-boilerplate">the github page</a> for details.</p>
 
 
         <!-- build:js app.min.js -->
@@ -42,9 +42,13 @@
         <script src="vendor/angular-animate/angular-animate.js"></script>
         <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
         <script src="vendor/angular-touch/angular-touch.js"></script>
+        <script src="vendor/angular-classy/angular-classy.js"></script>
+        <script src="vendor/lodash/dist/lodash.compat.js"></script>
+        <script src="vendor/restangular/dist/restangular.js"></script>
+        <script src="vendor/angular-cache/dist/angular-cache.min.js"></script>
         <!-- endbower -->
 
-        <!-- include: "type": "js", "files": "js/**/*.js" -->
+        <!-- include: "type": "js", "files": "js/**/*.js", "ordering": "top-down" -->
 
         <!-- endbuild -->
 

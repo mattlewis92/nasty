@@ -2,8 +2,10 @@
 
 var mongoose = require('mongoose');
 var requireAll = require('require-all');
+var mongooseTypes = require('mongoose-types');
 var bluebird = require('bluebird');
 bluebird.promisifyAll(mongoose);
+mongooseTypes.loadTypes(mongoose);
 
 module.exports = function() {
 

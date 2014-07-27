@@ -1,14 +1,11 @@
 'use strict';
 
-module.exports = function(req, errors, next, logger) {
+module.exports = function(req, res) {
 
-  req.assert('email', 'required').notEmpty();
-  if (req.validationErrors()) {
-    //return next(new errors.validation(req.validationErrors(true)));
-  }
+  res.json({user: req.user});
 
-  logger.error('HELLO WORLD');
+  //logger.error('HELLO WORLD');
 
-  return next(new errors.user('This is an example user error!'));
+  //return next(new errors.user('This is an example user error!'));
 
 };

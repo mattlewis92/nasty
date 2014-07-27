@@ -1,8 +1,10 @@
 'use strict';
 
-module.exports = function(app, actions) {
+module.exports = function(app, actions, middleware) {
 
-  app.get('/test', actions.test);
+  app.get('/test', middleware.user.authenticate(app.get('services')), actions.test);
+  app.post('/register', actions.register);
+  app.post('/token', actions.token);
 
   return app;
 
