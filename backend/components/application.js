@@ -66,13 +66,26 @@ var application = function() {
 
   app.loadModules = function(modulePath) {
 
+    var loadedModules = requireAll(modulePath);
+
     var finder = require('findit')(modulePath);
     var self = this;
 
-    function camelCase(input) {
-      return input.toLowerCase().replace(/_(.)/g, function(match, group1) {
-        return group1.toUpperCase();
+    function getParentModuleMiddleware(path) {
+      var parts = path.split('/');
+      parts.pop(); //remove child module
+      parts.splice(0, 1); //remove first empty string
+
+      var tmp = loadedModules;
+      parts.forEach(function(part) {
+        tmp = tmp[part];
       });
+
+      var result = {};
+      for (var key in tmp) {
+        result[key] = tmp[key].middleware || {};
+      }
+      return result;
     }
 
     finder.on('file', function (file) {
@@ -85,6 +98,7 @@ var application = function() {
         initMiddleware(subApp);
 
         var mountPrefix = directory.replace(modulePath, '');
+        var parentModuleMiddleware = getParentModuleMiddleware(mountPrefix);
         var actions = requireAll(directory + '/actions');
 
         if (fs.existsSync(directory + '/middleware')) {
@@ -92,22 +106,13 @@ var application = function() {
           var middleware = requireAll(directory + '/middleware');
 
           for (var name in middleware) {
-            //Make this middleware available locally
+            //Make this middleware available locally to it can be automatically injected
             subApp.factory(name, middleware[name]);
-
-            //Also make the middleware available globally
-            var globalName = mountPrefix.replace(/\//g, '_') + '_' + name;
-            if (globalName.charAt(0) === '_') {
-              globalName = globalName.substr(1);
-            }
-            globalName = camelCase(globalName);
-
-            self.factory(globalName, middleware[name]);
           }
 
         }
 
-        var subAppLoaded = require(file)(subApp, actions);
+        var subAppLoaded = require(file)(subApp, actions, parentModuleMiddleware);
 
         addFinalMiddleware(subApp);
 

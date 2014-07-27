@@ -1,7 +1,7 @@
 'use strict';
 
-module.exports = function(apiV1UserSomething, res) {
+module.exports = function(res) {
 
-  res.json({hello3: apiV1UserSomething});
+  res.json({hello: 'world!'});
 
 };
