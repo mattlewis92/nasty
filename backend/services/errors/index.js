@@ -1,11 +1,11 @@
 'use strict';
 
-var requireIndex = require('requireindex');
+var requireAll = require('require-all');
 var util = require('util');
 
 module.exports = function() {
 
-  var errors = requireIndex(__dirname);
+  var errors = requireAll(__dirname);
 
   delete errors.index; //remove this file
 

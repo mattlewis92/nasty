@@ -4,7 +4,7 @@ var express = require('express')
   , nconf = require('nconf')
   , dependable = require('dependable')
   , http = require('http')
-  , requireIndex = require('requireindex')
+  , requireAll = require('require-all')
   , path = require('path')
   , winston = require('winston')
   , expressWinston = require('express-winston')
@@ -51,7 +51,7 @@ var application = function() {
 
   app.loadServices = function(servicesPath) {
 
-    var services = requireIndex(servicesPath);
+    var services = requireAll(servicesPath);
 
     for (var name in services) {
 
@@ -85,11 +85,11 @@ var application = function() {
         initMiddleware(subApp);
 
         var mountPrefix = directory.replace(modulePath, '');
-        var actions = requireIndex(directory + '/actions');
+        var actions = requireAll(directory + '/actions');
 
         if (fs.existsSync(directory + '/middleware')) {
 
-          var middleware = requireIndex(directory + '/middleware');
+          var middleware = requireAll(directory + '/middleware');
 
           for (var name in middleware) {
             //Make this middleware available locally
@@ -168,7 +168,7 @@ var application = function() {
 
     if ('production' === config.get('NODE_ENV')) {
       app.use(require('compression')({
-        filter: function (req, res) { return /json|text|javascript|css/.test(res.getHeader('Content-Type')) },
+        filter: function (req, res) { return /json|text|javascript|css/.test(res.getHeader('Content-Type')); },
         level: 9
       }));
       app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
