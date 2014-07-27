@@ -18,7 +18,7 @@ module.exports = function(services) {
         req.user = decoded.user;
         next();
       })
-      .catch(function(err) {
+      .catch(function() {
         next(new errors.user('Your session token has expired. You will need to login again.'));
       });
 

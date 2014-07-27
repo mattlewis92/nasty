@@ -1,5 +1,7 @@
 'use strict';
 
+process.env.TZ = 'Etc/UTC';
+
 var express = require('express')
   , nconf = require('nconf')
   , dependable = require('dependable')
