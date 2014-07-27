@@ -193,10 +193,6 @@ var application = function() {
     app.use(require('method-override')());
     app.use(require('connect-requestid'));
     app.use(require('helmet')());
-    app.use(require('mean-seo')({
-      cacheClient: 'disk', // Can be 'disk' or 'redis'
-      cacheDuration: 2 * 60 * 60 * 24 * 1000 // In milliseconds for disk cache
-    }));
 
     if (true === config.get('app:logRequests')) {
       app.use(expressWinston.logger({
