@@ -2,6 +2,8 @@
 
 var mongoose = require('mongoose');
 var requireAll = require('require-all');
+var bluebird = require('bluebird');
+bluebird.promisifyAll(mongoose);
 
 module.exports = function() {
 
