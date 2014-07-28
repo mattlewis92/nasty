@@ -4,7 +4,9 @@ var mongoose = require('mongoose');
 var requireAll = require('require-all');
 var mongooseTypes = require('mongoose-types');
 var bluebird = require('bluebird');
+var bcrypt = require('bcrypt');
 bluebird.promisifyAll(mongoose);
+bluebird.promisifyAll(bcrypt);
 mongooseTypes.loadTypes(mongoose);
 
 module.exports = function() {
@@ -20,7 +22,22 @@ module.exports = function() {
     delete models.index; //remove this file
 
     for (var model in models) {
-      models[model] = models[model](mongoose);
+      var elems = models[model];
+      var schema = new mongoose.Schema(elems.schema(mongoose));
+
+      if (elems.plugins) {
+        elems.plugins(mongoose, schema);
+      }
+
+      if (elems.pre) {
+        elems.pre(mongoose, schema);
+      }
+
+      if (elems.methods) {
+        elems.methods(mongoose, schema);
+      }
+
+      models[model] = mongoose.model(model, schema);
     }
 
     return models;
