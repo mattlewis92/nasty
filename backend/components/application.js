@@ -110,6 +110,10 @@ var application = function() {
       return result;
     }
 
+    function capitaliseFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     finder.on('file', function (file) {
       var filename = file.split('/').pop();
       var directory = file.replace('/' + filename, '');
@@ -122,16 +126,13 @@ var application = function() {
         var mountPrefix = directory.replace(modulePath, '');
         var parentModuleMiddleware = getParentModuleMiddleware(mountPrefix);
         var actions = requireAll(directory + '/actions');
+        var middlewareName, fullMiddlewareName;
 
-        if (fs.existsSync(directory + '/middleware')) {
-
-          var middleware = loadMiddleware(requireAll(directory + '/middleware'));
-
-          for (var name in middleware) {
-            //Make this middleware available locally to it can be automatically injected
-            subApp.factory(name, middleware[name]);
+        for (var module in parentModuleMiddleware) {
+          for (middlewareName in parentModuleMiddleware[module]) {
+            fullMiddlewareName = module + capitaliseFirstLetter(middlewareName);
+            subApp.factory(fullMiddlewareName, parentModuleMiddleware[module][middlewareName]);
           }
-
         }
 
         if (fs.existsSync(directory + '/submodules')) {
@@ -143,6 +144,11 @@ var application = function() {
           for (var key in submodules) {
             if (submodules[key].middleware) {
               subModuleMiddleware[parentModuleName][key] = loadMiddleware(submodules[key].middleware);
+
+              for (middlewareName in subModuleMiddleware[parentModuleName][key]) {
+                fullMiddlewareName = key + capitaliseFirstLetter(middlewareName);
+                subApp.factory(fullMiddlewareName, subModuleMiddleware[parentModuleName][key][middlewareName]);
+              }
             }
           }
 

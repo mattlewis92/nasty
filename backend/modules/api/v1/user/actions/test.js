@@ -1,8 +1,8 @@
 'use strict';
 
-module.exports = function(req, res) {
+module.exports = function(req, res, userAuthenticate) {
 
-  res.json({user: req.user});
+  res.json({user: userAuthenticate});
 
   //logger.error('HELLO WORLD');
 

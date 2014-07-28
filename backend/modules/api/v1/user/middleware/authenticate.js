@@ -16,7 +16,7 @@ module.exports = function(services) {
       .verifyAsync(accessToken, jwtKey + req.headers['finger-print'])
       .then(function(decoded) {
         req.user = decoded.user;
-        next();
+        next(null, decoded.user);
       })
       .catch(function() {
         next(new errors.user('Your session token has expired. You will need to login again.'));
