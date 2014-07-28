@@ -26,10 +26,13 @@ module.exports = function(req, res, next, errors, passport, config) {
     //User has authenticated correctly thus we create a JWT token
     /*jshint camelcase:false*/
     var token = jwt.sign(
-      { user: {_id: user._id }},
-      config.get('jwtKey') + req.body.browser_fingerprint,
-      {expiresInMinutes: 60 * 24 * 30 * 6}
-    ); //expires in 6 months
+      { user: {_id: user._id } },
+      config.get('jwtKey'),
+      {
+        expiresInMinutes: 60 * 24 * 30,  //expires in 30 days
+        audience: req.body.browser_fingerprint //The browsers fingerprint
+      }
+    );
     res.json({ token : token });
 
   }, { session: false })(req, res, next);

@@ -11,7 +11,7 @@ module.exports = function(services) {
     var errors = services.get('errors');
 
     jwt
-      .verifyAsync(accessToken, jwtKey + req.headers['x-finger-print'])
+      .verifyAsync(accessToken, jwtKey, { audience: req.headers['x-finger-print'] })
       .then(function(decoded) {
         req.user = decoded.user;
         next(null, decoded.user);
