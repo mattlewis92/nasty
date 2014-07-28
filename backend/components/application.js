@@ -83,6 +83,15 @@ var application = function() {
     var finder = require('findit')(modulePath);
     var self = this;
 
+    function loadMiddleware(middleware) {
+      for (var key in middleware) {
+        if (middleware[key].length !== 3) { //Make sure the middleware is only loaded once by checking the arguments length
+          middleware[key] = middleware[key](app.get('services'));
+        }
+      }
+      return middleware;
+    }
+
     function getParentModuleMiddleware(path) {
       var parts = path.split('/');
       parts.pop(); //remove child module
@@ -95,7 +104,7 @@ var application = function() {
 
       var result = {};
       for (var key in tmp) {
-        result[key] = tmp[key].middleware || {};
+        result[key] = loadMiddleware(tmp[key].middleware || {});
       }
 
       return result;
@@ -116,7 +125,7 @@ var application = function() {
 
         if (fs.existsSync(directory + '/middleware')) {
 
-          var middleware = requireAll(directory + '/middleware');
+          var middleware = loadMiddleware(requireAll(directory + '/middleware'));
 
           for (var name in middleware) {
             //Make this middleware available locally to it can be automatically injected
@@ -133,7 +142,7 @@ var application = function() {
 
           for (var key in submodules) {
             if (submodules[key].middleware) {
-              subModuleMiddleware[parentModuleName][key] = submodules[key].middleware;
+              subModuleMiddleware[parentModuleName][key] = loadMiddleware(submodules[key].middleware);
             }
           }
 
