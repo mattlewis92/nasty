@@ -11,7 +11,8 @@ var express = require('express')
   , winston = require('winston')
   , expressWinston = require('express-winston')
   , fs = require('fs')
-  , expressValidator = require('express-validator');
+  , expressValidator = require('express-validator')
+  , bluebird = require('bluebird');
 
 require('express-di');
 
@@ -51,6 +52,14 @@ var application = function() {
     //Longer stack traces for non production environments
     if ('production' !== nconf.get('NODE_ENV')) {
       require('longjohn');
+    }
+
+    var packageJson = JSON.parse(fs.readFileSync(nconf.get('rootPath') + 'package.json'));
+    if (packageJson.promisify) {
+      packageJson.promisify.forEach(function(libraryName) {
+        var library = require(libraryName);
+        bluebird.promisifyAll(library);
+      });
     }
 
     return nconf;
@@ -261,7 +270,7 @@ var application = function() {
     app.use(function(err, req, res, next) {
 
       if (true === err.displayToUser) {
-        res.json(err.statusCode, {error: err.message});
+        res.status(err.statusCode).json({error: err.message});
       } else {
         next(err);
       }

@@ -1,8 +1,6 @@
 'use strict';
 
 var winston = require('winston');
-var bluebird = require('bluebird');
-bluebird.promisifyAll(winston);
 
 module.exports = function() {
 

@@ -1,12 +1,8 @@
 'use strict';
 
-var mongoose = require('mongoose');
-var requireAll = require('require-all');
-var mongooseTypes = require('mongoose-types');
-var bluebird = require('bluebird');
-var bcrypt = require('bcrypt');
-bluebird.promisifyAll(mongoose);
-bluebird.promisifyAll(bcrypt);
+var mongoose = require('mongoose')
+  , requireAll = require('require-all')
+  , mongooseTypes = require('openifyit-mongoose-types');
 mongooseTypes.loadTypes(mongoose);
 
 module.exports = function() {
@@ -25,17 +21,11 @@ module.exports = function() {
       var elems = models[model];
       var schema = new mongoose.Schema(elems.schema(mongoose));
 
-      if (elems.plugins) {
-        elems.plugins(mongoose, schema);
-      }
-
-      if (elems.pre) {
-        elems.pre(mongoose, schema);
-      }
-
-      if (elems.methods) {
-        elems.methods(mongoose, schema);
-      }
+      ['plugins', 'pre', 'methods'].forEach(function(key) {
+        if (elems[key]) {
+          elems[key](mongoose, schema);
+        }
+      });
 
       models[model] = mongoose.model(model, schema);
     }

@@ -1,10 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcrypt')
-  , SALT_WORK_FACTOR = 10
-  , bluebird = require('bluebird');
-
-bluebird.promisifyAll(bcrypt);
+  , SALT_WORK_FACTOR = 10;
 
 module.exports = function(mongoose, schema) {
 

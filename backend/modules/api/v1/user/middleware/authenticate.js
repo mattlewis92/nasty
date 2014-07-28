@@ -1,8 +1,6 @@
 'use strict';
 
 var jwt = require('jsonwebtoken');
-var bluebird = require('bluebird');
-bluebird.promisifyAll(jwt);
 
 module.exports = function(services) {
 

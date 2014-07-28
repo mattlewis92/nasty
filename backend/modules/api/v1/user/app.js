@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, actions, middleware) {
+module.exports = function(app, actions) {
 
   app.get('/test', actions.test);
   app.post('/register', actions.register);
