@@ -7,11 +7,11 @@ module.exports = function(services) {
   return function(req, res, next) {
 
     var jwtKey = services.get('config').get('jwtKey');
-    var accessToken = req.headers['access-token'];
+    var accessToken = req.headers['x-access-token'];
     var errors = services.get('errors');
 
     jwt
-      .verifyAsync(accessToken, jwtKey + req.headers['finger-print'])
+      .verifyAsync(accessToken, jwtKey + req.headers['x-finger-print'])
       .then(function(decoded) {
         req.user = decoded.user;
         next(null, decoded.user);
