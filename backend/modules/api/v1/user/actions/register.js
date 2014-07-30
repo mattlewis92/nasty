@@ -18,12 +18,9 @@ module.exports = function(req, res, models, errors, next) {
     password: req.body.password
   });
 
-  user.saveAsync().then(function(savedUser) {
+  user.saveAsync().spread(function(savedUser) {
 
-    var plainUser = savedUser[0].toObject();
-    delete plainUser.password;
-    delete plainUser.__v;
-    res.json(plainUser);
+    res.json(savedUser.toObject());
 
   })
   .catch(function(err) {
