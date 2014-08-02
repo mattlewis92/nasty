@@ -4,7 +4,8 @@ module.exports = function(req, res, models, errors, next) {
 
   req.checkBody('email', 'Required').notEmpty();
   req.checkBody('email', 'Valid email required').isEmail();
-  req.checkBody('name', 'Required').notEmpty();
+  req.checkBody('forename', 'Required').notEmpty();
+  req.checkBody('surname', 'Required').notEmpty();
   req.checkBody('password', 'Required').notEmpty();
   req.checkBody('password', '8 to 20 characters required').len(8, 20);
 
@@ -13,7 +14,10 @@ module.exports = function(req, res, models, errors, next) {
   }
 
   var user = new models.user({
-    name: req.body.name,
+    name: {
+      first: req.body.forename,
+      last: req.body.surname
+    },
     email: req.body.email,
     password: req.body.password
   });

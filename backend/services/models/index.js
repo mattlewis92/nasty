@@ -7,6 +7,7 @@ var mongoose = require('mongoose')
 
 mongooseTypes.loadTypes(mongoose);
 require('mongoose-pagination');
+require('mongoose-long')(mongoose);
 
 module.exports = function() {
 
@@ -27,7 +28,7 @@ module.exports = function() {
         schema.options.toObject = {};
       }
 
-      ['plugins', 'pre', 'post', 'methods', 'options'].forEach(function(key) {
+      ['plugins', 'pre', 'post', 'methods', 'options', 'statics', 'virtuals'].forEach(function(key) {
         if (elems[key]) {
           elems[key](mongoose, schema);
         }
@@ -41,10 +42,14 @@ module.exports = function() {
 
       schema.options.toObject.transform = function (doc, ret, options) {
         delete ret.__v;
+        delete ret.id;
         if (originalTransform) {
           originalTransform(doc, ret, options);
         }
       };
+
+      schema.options.toObject.getters = true;
+      schema.options.toObject.virtuals = true;
 
       models[model] = mongoose.model(model, schema);
     }
