@@ -4,7 +4,9 @@
 var mongoose = require('mongoose')
   , requireAll = require('require-all')
   , mongooseTypes = require('openifyit-mongoose-types');
+
 mongooseTypes.loadTypes(mongoose);
+require('mongoose-pagination');
 
 module.exports = function() {
 
@@ -13,7 +15,7 @@ module.exports = function() {
     var mongo = config.get('mongo');
 
     var uri = 'mongodb://' + mongo.host + ':' + mongo.port + '/' + mongo.database;
-    mongoose.connect(uri);
+    mongoose.connect(uri, {server: {socketOptions: {keepAlive: 1}}});
 
     var models = requireAll(__dirname);
     delete models.index; //remove this file
@@ -25,7 +27,7 @@ module.exports = function() {
         schema.options.toObject = {};
       }
 
-      ['plugins', 'pre', 'methods', 'options'].forEach(function(key) {
+      ['plugins', 'pre', 'post', 'methods', 'options'].forEach(function(key) {
         if (elems[key]) {
           elems[key](mongoose, schema);
         }

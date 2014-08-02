@@ -22,9 +22,7 @@ module.exports = function(mongoose, schema) {
         user.password = hash;
         next();
       })
-      .catch(function(err) {
-        next(err);
-      });
+      .catch(next);
   });
 
 };

@@ -52,6 +52,7 @@ var application = function() {
     //Longer stack traces for non production environments
     if ('production' !== nconf.get('NODE_ENV')) {
       require('longjohn');
+      bluebird.longStackTraces();
     }
 
     var packageJson = JSON.parse(fs.readFileSync(nconf.get('rootPath') + 'package.json'));
