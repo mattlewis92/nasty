@@ -3,7 +3,6 @@
 process.env.TZ = 'Etc/UTC';
 
 var express = require('express')
-  , nconf = require('nconf')
   , dependable = require('dependable')
   , http = require('http')
   , requireAll = require('require-all')
@@ -35,41 +34,11 @@ var application = function() {
 
   app.set('services', di);
 
-  app.loadConfig = function(configPath) {
-
-    nconf
-      .overrides({
-        NODE_ENV: process.env.NODE_ENV || 'development',
-        rootPath: configPath + '/../../',
-        logPath: configPath + '/../../logs/'
-      })
-      .env()
-      .file('all', configPath + '/all.json')
-      .file('other', configPath + '/' + nconf.get('NODE_ENV') + '.json');
-
-    this.get('services').register('config', nconf);
-
-    //Longer stack traces for non production environments
-    if ('production' !== nconf.get('NODE_ENV')) {
-      require('longjohn');
-      bluebird.longStackTraces();
-    }
-
-    var packageJson = JSON.parse(fs.readFileSync(nconf.get('rootPath') + 'package.json'));
-    if (packageJson.promisify) {
-      packageJson.promisify.forEach(function(libraryName) {
-        var library = require(libraryName);
-        bluebird.promisifyAll(library);
-      });
-    }
-
-    return nconf;
-
-  };
-
-  app.loadServices = function(servicesPath) {
+  app.loadServices = function(servicesPath, rootPath) {
 
     var services = requireAll(servicesPath);
+
+    this.get('services').register('rootPath', rootPath);
 
     for (var name in services) {
 

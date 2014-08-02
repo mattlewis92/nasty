@@ -3,8 +3,7 @@
 var application = require(__dirname + '/components/application');
 
 var app = new application();
-app.loadConfig(__dirname + '/config');
-app.loadServices(__dirname + '/services');
+app.loadServices(__dirname + '/services', __dirname + '/../');
 app.loadModules(__dirname + '/modules');
 
 app.startServer(function(err) {
