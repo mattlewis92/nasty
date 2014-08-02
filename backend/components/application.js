@@ -271,7 +271,7 @@ var application = function() {
     app.use(function(err, req, res, next) {
 
       if (true === err.displayToUser) {
-        res.status(err.statusCode).json({error: err.message});
+        res.status(err.statusCode || 500).json({error: err.message});
       } else {
         next(err);
       }
@@ -290,20 +290,25 @@ var application = function() {
       winstonTransports.push(new (winston.transports.File)({ filename: config.get('logPath') + 'errors.' + config.get('NODE_ENV') + '.log' }));
     }
 
+    var logger = new (winston.Logger)({
+      transports: winstonTransports
+    });
+
+    bluebird.onPossiblyUnhandledRejection(function(error) {
+      logger.error(error);
+    });
+
     app.use(expressWinston.errorLogger({
       transports: winstonTransports
     }));
 
+    /*jshint unused:false*/
     app.use(function(err, req, res, next) {
 
-      res.json(500, {error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
-
-      //hack for jshint :/
-      if ('never gonna happen' === config.get('NODE_ENV')) {
-        next();
-      }
+      res.status(500).json({error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
 
     });
+    /*jshint unused:true*/
 
   };
 
