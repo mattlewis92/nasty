@@ -261,6 +261,12 @@ var application = function() {
       }));
     }
 
+    var i18n = di.get('i18n');
+    app.use(function(req, res, next) {
+      req.i18n = i18n(req.headers['accept-language'], req);
+      next();
+    });
+
   };
 
   var addFinalMiddleware = function(app) {
@@ -305,7 +311,7 @@ var application = function() {
     /*jshint unused:false*/
     app.use(function(err, req, res, next) {
 
-      res.status(500).json({error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+      res.status(500).json({error: req.i18n.__('An error occurred! Please try again or contact us if you believe this should have worked.')});
 
     });
     /*jshint unused:true*/

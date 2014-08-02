@@ -6,5 +6,11 @@
   "server": {
     "host": "127.0.0.1",
     "port": 3002
+  },
+  "i18n": {
+    "locales": ["en", "de"],
+    "defaultLocale": "en",
+    "directory": "%rootPath%/backend/locales",
+    "extension": ".json"
   }
 }

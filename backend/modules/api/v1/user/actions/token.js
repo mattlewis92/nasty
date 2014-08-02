@@ -20,7 +20,7 @@ module.exports = function(req, res, next, errors, passport, config) {
     }
 
     if (!user) {
-      return next(new errors.user(info.message || 'This user does not exist.', 401));
+      return next(new errors.user(info.message || req.i18n.__('This user does not exist.'), 401));
     }
 
     //User has authenticated correctly thus we create a JWT token
