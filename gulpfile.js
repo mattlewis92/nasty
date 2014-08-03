@@ -99,7 +99,7 @@ gulp.task('htmlhint', function() {
 
 gulp.task('csslint', ['less'], function() {
   return gulp
-    .src(files.css)
+    .src([files.css, '!' + directories.css + '/common.css'])
     .pipe(plugins.cached('csslint'))
     .pipe(plugins.csslint())
     .pipe(plugins.csslint.reporter())
