@@ -1,6 +1,6 @@
 var gulp = require('gulp'),
     plugins = require('gulp-load-plugins')(),
-    es = require('event-stream');
+    streamqueue = require('streamqueue');
 
 var directories = {
   frontend: {
@@ -35,9 +35,19 @@ gulp.task('open', function() {
 
 });
 
-gulp.task('server:start', function() {
+gulp.task('server:start:dev', function() {
 
   plugins.developServer.listen({ path: directories.server }, function(err) {
+    if (!err) {
+      gulp.start('open');
+    }
+  });
+
+});
+
+gulp.task('server:start:prod', function() {
+
+  plugins.developServer.listen({ path: directories.server, env: {NODE_ENV: 'production'} }, function(err) {
     if (!err) {
       gulp.start('open');
     }
@@ -139,7 +149,7 @@ var getTemplates = function() {
     .src(files.views)
     .pipe(plugins.angularHtmlify())
     .pipe(plugins.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(plugins.angularTemplatecache());
+    .pipe(plugins.angularTemplatecache({standalone: true}));
 
 };
 
@@ -147,19 +157,23 @@ var getBowerAssets = function(isProduction) {
   return gulp.src(require('main-bower-files')(), {read: !!isProduction});
 };
 
+var mergeStreams = function(stream1, stream2) {
+  return streamqueue({ objectMode: true }, stream1, stream2);
+}
+
 var getAppAssets = function(isProduction) {
 
   var css = gulp.src(files.css, {read: !!isProduction});
   var js = gulp.src(files.frontEndJs);
 
   if (isProduction) {
-    js = es.merge(
+    js = mergeStreams(
       js,
       getTemplates()
     );
   }
 
-  return es.merge(
+  return mergeStreams(
     css,
     js.pipe(plugins.angularFilesort())
   );
@@ -167,10 +181,11 @@ var getAppAssets = function(isProduction) {
 
 var getProductionAssets = function(fileExtension) {
 
-  return es.merge(
+  return mergeStreams(
     getBowerAssets(true),
     getAppAssets(true)
   ).pipe(plugins.filter('**/*.' + fileExtension));
+
 };
 
 gulp.task('inject', ['less'], function() {
@@ -279,9 +294,11 @@ gulp.task('build:images', ['build:manifest'], function() {
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
-gulp.task('build', ['build:images']);
+gulp.task('build', ['build:images'], function() {
+  gulp.start('server:start:prod');
+});
 
-gulp.task('watch', ['server:start'], function() {
+gulp.task('watch', ['server:start:dev'], function() {
 
   plugins.livereload.listen();
 
