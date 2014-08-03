@@ -1,8 +1,8 @@
 'use strict';
 
-var nconf = require('nconf')
-  , bluebird = require('bluebird')
-  , fs = require('fs');
+var nconf = require('nconf'),
+    bluebird = require('bluebird'),
+    fs = require('fs');
 
 module.exports = function() {
 

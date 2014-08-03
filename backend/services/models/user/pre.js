@@ -1,7 +1,7 @@
 'use strict';
 
-var bcrypt = require('bcrypt')
-  , SALT_WORK_FACTOR = 10;
+var bcrypt = require('bcrypt'),
+    SALT_WORK_FACTOR = 10;
 
 module.exports = function(mongoose, schema) {
 

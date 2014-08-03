@@ -1,7 +1,7 @@
 'use strict';
 
-var requireAll = require('require-all');
-var util = require('util');
+var requireAll = require('require-all'),
+    util = require('util');
 
 module.exports = function() {
 

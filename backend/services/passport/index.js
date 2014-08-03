@@ -1,7 +1,7 @@
 'use strict';
 
-var requireAll = require('require-all');
-var passport = require('passport');
+var requireAll = require('require-all'),
+    passport = require('passport');
 
 module.exports = function() {
 

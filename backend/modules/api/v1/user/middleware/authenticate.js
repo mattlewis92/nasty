@@ -6,9 +6,9 @@ module.exports = function(services) {
 
   return function(req, res, next) {
 
-    var jwtKey = services.get('config').get('jwtKey');
-    var accessToken = req.headers['x-access-token'];
-    var errors = services.get('errors');
+    var jwtKey = services.get('config').get('jwtKey'),
+        accessToken = req.headers['x-access-token'],
+        errors = services.get('errors');
 
     jwt
       .verifyAsync(accessToken, jwtKey, { audience: req.headers['x-finger-print'] })

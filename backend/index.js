@@ -1,8 +1,8 @@
 'use strict';
 
-var application = require(__dirname + '/components/application');
+var application = require(__dirname + '/components/application'),
+    app = new application();
 
-var app = new application();
 app.loadServices(__dirname + '/services', __dirname + '/../');
 app.loadModules(__dirname + '/modules');
 

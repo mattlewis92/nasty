@@ -1,9 +1,9 @@
 'use strict';
 /*jshint loopfunc: true */
 
-var mongoose = require('mongoose')
-  , requireAll = require('require-all')
-  , mongooseTypes = require('openifyit-mongoose-types');
+var mongoose = require('mongoose'),
+    requireAll = require('require-all'),
+    mongooseTypes = require('openifyit-mongoose-types');
 
 mongooseTypes.loadTypes(mongoose);
 require('mongoose-pagination');
@@ -13,17 +13,17 @@ module.exports = function() {
 
   return function(config) {
 
-    var mongo = config.get('mongo');
+    var mongo = config.get('mongo'),
+        uri = 'mongodb://' + mongo.host + ':' + mongo.port + '/' + mongo.database;
 
-    var uri = 'mongodb://' + mongo.host + ':' + mongo.port + '/' + mongo.database;
     mongoose.connect(uri, {server: {socketOptions: {keepAlive: 1}}});
 
     var models = requireAll(__dirname);
     delete models.index; //remove this file
 
     for (var model in models) {
-      var elems = models[model];
-      var schema = new mongoose.Schema(elems.schema(mongoose));
+      var elems = models[model],
+          schema = new mongoose.Schema(elems.schema(mongoose));
       if (!schema.options.toObject) {
         schema.options.toObject = {};
       }
@@ -40,7 +40,7 @@ module.exports = function() {
         originalTransform = schema.options.toObject.transform;
       }
 
-      schema.options.toObject.transform = function (doc, ret, options) {
+      schema.options.toObject.transform = function(doc, ret, options) {
         delete ret.__v;
         delete ret.id;
         if (originalTransform) {

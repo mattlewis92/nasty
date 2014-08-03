@@ -6,7 +6,6 @@
     "disallowSpacesInFunctionExpression": { "beforeOpeningRoundBrace": true },
     "requireMultipleVarDecl": true,
     "disallowEmptyBlocks": true,
-    "disallowSpacesInsideObjectBrackets": true,
     "disallowSpacesInsideArrayBrackets": true,
     "disallowSpacesInsideParentheses": true,
     "disallowQuotedKeysInObjects": "allButReserved",
@@ -24,7 +23,6 @@
     "disallowTrailingWhitespace": true,
     "disallowKeywordsOnNewLine": ["else"],
     "maximumLineLength": 160,
-    "requireCapitalizedConstructors": true,
     "requireDotNotation": true,
     "excludeFiles": ["node_modules/**"]
 }

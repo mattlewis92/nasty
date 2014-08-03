@@ -2,26 +2,25 @@
 
 process.env.TZ = 'Etc/UTC';
 
-var express = require('express')
-  , dependable = require('dependable')
-  , http = require('http')
-  , requireAll = require('require-all')
-  , path = require('path')
-  , winston = require('winston')
-  , expressWinston = require('express-winston')
-  , fs = require('fs')
-  , expressValidator = require('express-validator')
-  , bluebird = require('bluebird');
+var express = require('express'),
+  dependable = require('dependable'),
+  http = require('http'),
+  requireAll = require('require-all'),
+  path = require('path'),
+  winston = require('winston'),
+  expressWinston = require('express-winston'),
+  fs = require('fs'),
+  expressValidator = require('express-validator'),
+  bluebird = require('bluebird');
 
 require('express-di');
 
 var application = function() {
 
-  var app = express();
+  var app = express(),
+      di = dependable.container(),
+      originalRegisterFunction = di.register;
 
-  var di = dependable.container();
-
-  var originalRegisterFunction = di.register;
   di.register = function(key, value) {
 
     app.factory(key, function(req, res, next) {
@@ -57,10 +56,9 @@ var application = function() {
 
     initMiddleware(this);
 
-    var loadedModules = requireAll(modulePath);
-
-    var finder = require('findit')(modulePath);
-    var self = this;
+    var loadedModules = requireAll(modulePath),
+        finder = require('findit')(modulePath),
+        self = this;
 
     function loadMiddleware(middleware) {
       for (var key in middleware) {
@@ -93,19 +91,19 @@ var application = function() {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
-    finder.on('file', function (file) {
-      var filename = file.split('/').pop();
-      var directory = file.replace('/' + filename, '');
+    finder.on('file', function(file) {
+      var filename = file.split('/').pop(),
+          directory = file.replace('/' + filename, '');
 
       if ('app.js' === filename && directory.indexOf('submodules') === -1) {
 
         var subApp = express();
         initMiddleware(subApp);
 
-        var mountPrefix = directory.replace(modulePath, '');
-        var parentModuleMiddleware = getParentModuleMiddleware(mountPrefix);
-        var actions = requireAll(directory + '/actions');
-        var middlewareName, fullMiddlewareName;
+        var mountPrefix = directory.replace(modulePath, ''),
+            parentModuleMiddleware = getParentModuleMiddleware(mountPrefix),
+            actions = requireAll(directory + '/actions'),
+            middlewareName, fullMiddlewareName;
 
         for (var module in parentModuleMiddleware) {
           for (middlewareName in parentModuleMiddleware[module]) {
@@ -116,9 +114,9 @@ var application = function() {
 
         if (fs.existsSync(directory + '/submodules')) {
 
-          var submodules = requireAll(directory + '/submodules');
-          var subModuleMiddleware = parentModuleMiddleware;
-          var parentModuleName = mountPrefix.split('/').pop();
+          var submodules = requireAll(directory + '/submodules'),
+              subModuleMiddleware = parentModuleMiddleware,
+              parentModuleName = mountPrefix.split('/').pop();
 
           for (var key in submodules) {
             if (submodules[key].middleware) {
@@ -148,12 +146,12 @@ var application = function() {
     });
 
     //Now let's add some default routes (as it's own sub app otherwise they'll override every other route)
-    finder.on('end', function () {
+    finder.on('end', function() {
 
-      var config = self.get('services').get('config');
-      var indexFile = path.resolve(config.get('rootPath') + config.get('frontendPath') + '/index.html');
+      var config = self.get('services').get('config'),
+          indexFile = path.resolve(config.get('rootPath') + config.get('frontendPath') + '/index.html'),
+          subApp = express();
 
-      var subApp = express();
       initMiddleware(subApp);
 
       subApp.get('*', function(req, res) {
@@ -200,7 +198,9 @@ var application = function() {
 
     if ('production' === config.get('NODE_ENV')) {
       app.use(require('compression')({
-        filter: function (req, res) { return /json|text|javascript|css/.test(res.getHeader('Content-Type')); },
+        filter: function(req, res) {
+          return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
+        },
         level: 9
       }));
       app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
@@ -236,12 +236,12 @@ var application = function() {
       next();
     });
 
-  };
+  },
 
-  var addFinalMiddleware = function(app) {
+  addFinalMiddleware = function(app) {
 
-    var config = di.get('config');
-    var isDevelopment = 'development' === config.get('NODE_ENV');
+    var config = di.get('config'),
+        isDevelopment = 'development' === config.get('NODE_ENV');
 
     app.use(function(err, req, res, next) {
 
