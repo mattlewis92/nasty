@@ -30,7 +30,7 @@ gulp.task('open', function() {
 
   var url = 'http://' + server.host + ':' + server.port;
   return gulp
-    .src(directories.frontend.dev + '/index.html')
+    .src(directories.frontend.dev + '/index.tpl.html')
     .pipe(plugins.open('', {url: url}));
 
 });
