@@ -28,7 +28,8 @@
     "angular-touch": "~1.2.21",
     "angular-classy": "~0.4.2",
     "restangular": "~1.4.0",
-    "angular-cache": "~3.1.0"
+    "angular-cache": "~3.1.0",
+    "font-awesome": "~4.1.0"
   },
   "overrides": {
     "bootstrap": {
