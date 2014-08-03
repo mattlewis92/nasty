@@ -4,7 +4,7 @@
 frontend/development/vendor
 frontend/production
 frontend/development/stylesheets/css
-frontend/development/index.tpl.html
+frontend/development/index.html
 logs
 
 # Logs
