@@ -204,14 +204,14 @@ var banner = ['/**',
 gulp.task('build:assets:js', ['lint'], function() {
 
   return getProductionAssets('js')
-    .pipe(plugins.sourcemaps.init())
     .pipe(plugins.ngAnnotate())
+    .pipe(plugins.sourcemaps.init())
     .pipe(plugins.concat('app.js'))
     .pipe(plugins.uglify())
     .pipe(plugins.header(banner, { pkg : pkg } ))
     .pipe(plugins.rev())
     .pipe(plugins.sourcemaps.write('.'))
-    .pipe(plugins.filesize())
+    .pipe(plugins.size({showFiles: true}))
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
@@ -224,7 +224,7 @@ gulp.task('build:assets:css', ['lint', 'less'], function() {
     .pipe(plugins.header(banner, { pkg : pkg } ))
     .pipe(plugins.rev())
     .pipe(plugins.sourcemaps.write('.'))
-    .pipe(plugins.filesize())
+    .pipe(plugins.size({showFiles: true}))
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
