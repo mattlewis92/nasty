@@ -99,7 +99,7 @@ gulp.task('htmlhint', function() {
 
 gulp.task('csslint', ['less'], function() {
   return gulp
-    .src([files.css, '!' + directories.css + '/common.css'])
+    .src(files.css)
     .pipe(plugins.cached('csslint'))
     .pipe(plugins.csslint())
     .pipe(plugins.csslint.reporter())
@@ -113,7 +113,7 @@ gulp.task('csslint', ['less'], function() {
     }));
 });
 
-gulp.task('lint', ['jshint', 'jscs', 'htmlhint', 'csslint']);
+gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
 gulp.task('default', function() {
 
