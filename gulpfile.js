@@ -133,16 +133,52 @@ gulp.task('csslint', ['less'], function() {
 
 });
 
+var getTemplates = function() {
+
+  return gulp
+    .src(files.views)
+    .pipe(plugins.angularHtmlify())
+    .pipe(plugins.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
+    .pipe(plugins.angularTemplatecache());
+
+};
+
+var getBowerAssets = function(isProduction) {
+  return gulp.src(require('main-bower-files')(), {read: !!isProduction});
+};
+
+var getAppAssets = function(isProduction) {
+
+  var css = gulp.src(files.css, {read: !!isProduction});
+  var js = gulp.src(files.frontEndJs);
+
+  if (isProduction) {
+    js = es.merge(
+      js,
+      getTemplates()
+    );
+  }
+
+  return es.merge(
+    css,
+    js.pipe(plugins.angularFilesort())
+  );
+};
+
+var getProductionAssets = function(fileExtension) {
+
+  return es.merge(
+    getBowerAssets(true),
+    getAppAssets(true)
+  ).pipe(plugins.filter('**/*.' + fileExtension));
+};
+
 gulp.task('inject', ['less'], function() {
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
-    .pipe(plugins.inject(gulp.src(require('main-bower-files')(), {read: false}), {name: 'bower', relative: true}))
-    .pipe(plugins.inject(es.merge(
-      gulp.src(files.css, {read: false}),
-      gulp.src(files.frontEndJs).pipe(plugins.angularFilesort())
-    ), {relative: true}))
-    .pipe(plugins.inject(gulp.src(directories.frontend.dev + '/templates.js', {read: false}), {name: 'templates', relative: true})) //gross hack
+    .pipe(plugins.inject(getBowerAssets(), {name: 'bower', relative: true}))
+    .pipe(plugins.inject(getAppAssets(), {relative: true}))
     .pipe(plugins.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.dev));
 
@@ -156,45 +192,68 @@ gulp.task('build:clean', function() {
 
 });
 
-gulp.task('build:assets', ['build:templates', 'lint', 'less', 'inject', 'build:clean'], function() {
+var pkg = require('./package.json');
+var banner = ['/**',
+  ' * <%= pkg.name %> - <%= pkg.description %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license %>',
+  ' */',
+  ''].join('\n');
 
-  var pkg = require('./package.json');
-  var banner = ['/**',
-    ' * <%= pkg.name %> - <%= pkg.description %>',
-    ' * @version v<%= pkg.version %>',
-    ' * @link <%= pkg.homepage %>',
-    ' * @license <%= pkg.license %>',
-    ' */',
-    ''].join('\n');
+gulp.task('build:assets:js', ['lint'], function() {
+
+  return getProductionAssets('js')
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.ngAnnotate())
+    .pipe(plugins.concat('app.js'))
+    .pipe(plugins.uglify())
+    .pipe(plugins.header(banner, { pkg : pkg } ))
+    .pipe(plugins.rev())
+    .pipe(plugins.sourcemaps.write('.'))
+    .pipe(plugins.filesize())
+    .pipe(gulp.dest(directories.frontend.prod));
+});
+
+gulp.task('build:assets:css', ['lint', 'less'], function() {
+
+  return getProductionAssets('css')
+    .pipe(plugins.sourcemaps.init())
+    .pipe(plugins.concat('app.css'))
+    .pipe(plugins.minifyCss())
+    .pipe(plugins.header(banner, { pkg : pkg } ))
+    .pipe(plugins.rev())
+    .pipe(plugins.sourcemaps.write('.'))
+    .pipe(plugins.filesize())
+    .pipe(gulp.dest(directories.frontend.prod));
+});
+
+gulp.task('build:assets', ['lint', 'build:clean', 'build:assets:js', 'build:assets:css'], function() {
 
   return gulp
-    .src(directories.frontend.dev + '/index.html')
-    .pipe(plugins.usemin({
-      css: [
-        plugins.sourcemaps.init(),
-        'concat',
-        plugins.minifyCss(),
-        plugins.header(banner, { pkg : pkg } ),
-        plugins.rev(),
-        plugins.filesize(),
-        plugins.sourcemaps.write('.')
-      ],
-      js: [
-        plugins.sourcemaps.init(),
-        plugins.ngAnnotate(),
-        'concat',
-        plugins.uglify(),
-        plugins.header(banner, { pkg : pkg } ),
-        plugins.rev(),
-        plugins.filesize(),
-        plugins.sourcemaps.write('.')
-      ]
-    }))
+    .src(directories.frontend.dev + '/index.tpl.html')
+    .pipe(plugins.inject(
+      gulp.src(
+        [directories.frontend.prod + '/*.js', directories.frontend.prod + '/*.css'],
+        {read: false}),
+        {
+          transform: function(filepath, file, index, length, targetFile) {
+            var file = filepath.replace(directories.frontend.prod, '').replace(/\//g, '');
+            if (file.indexOf('.css') > -1) {
+              return '<link rel="stylesheet" href="' + file + '">';
+            } else if (file.indexOf('.js') > -1) {
+              return '<script src="' + file + '"></script>';
+            }
+          }
+        }
+      )
+    )
+    .pipe(plugins.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.prod));
 
 });
 
-gulp.task('build:manifest', function() {
+gulp.task('build:manifest', ['build:assets'], function() {
 
   return gulp
     .src(directories.frontend.prod + '/*')
@@ -209,7 +268,7 @@ gulp.task('build:manifest', function() {
 
 });
 
-gulp.task('build:images', function() {
+gulp.task('build:images', ['build:manifest'], function() {
 
   return gulp
     .src(files.images)
@@ -218,34 +277,9 @@ gulp.task('build:images', function() {
 
 });
 
-gulp.task('build:templates', function() {
-
-  gulp
-    .src(files.views)
-    .pipe(plugins.angularHtmlify())
-    .pipe(plugins.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(plugins.angularTemplatecache())
-    .pipe(gulp.dest(directories.frontend.dev));
-
-});
-
-gulp.task('build:clean-templates', function() { //This is a really gross hack, I'll think of a better solution at some point
-
-  gulp
-    .src(directories.frontend.dev + '/templates.js', {read: false})
-    .pipe(plugins.rimraf());
-
-  gulp.start('inject');
-
-});
-
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
-gulp.task('build', ['build:assets'], function() {
-  gulp.start('build:manifest');
-  gulp.start('build:images');
-  gulp.start('build:clean-templates');
-});
+gulp.task('build', ['build:images']);
 
 gulp.task('watch', ['server:start'], function() {
 
@@ -255,7 +289,14 @@ gulp.task('watch', ['server:start'], function() {
   gulp.watch(files.less, ['less']);
   gulp.watch(['bower.json', files.css, files.frontEndJs], ['inject']);
   gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
-  gulp.watch(['bower.json', files.css, files.frontEndJs, files.views]).on('change', plugins.livereload.changed);
+
+  gulp.watch([
+    'bower.json',
+    files.css,
+    files.frontEndJs,
+    files.views,
+    directories.frontend.dev + '/index.html'
+  ]).on('change', plugins.livereload.changed);
 
 });
 
