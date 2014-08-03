@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     plugins = require('gulp-load-plugins')(),
-    streamqueue = require('streamqueue');
+    streamqueue = require('streamqueue')
+    glob = require('glob');
 
 var directories = {
   frontend: {
@@ -235,6 +236,9 @@ gulp.task('build:assets:css', ['lint', 'less'], function() {
   return getProductionAssets('css')
     .pipe(plugins.sourcemaps.init())
     .pipe(plugins.concat('app.css'))
+    .pipe(plugins.uncss({
+      html: glob(directories.frontend.dev + '/**/*.html')
+    }))
     .pipe(plugins.minifyCss())
     .pipe(plugins.header(banner, { pkg : pkg } ))
     .pipe(plugins.rev())
