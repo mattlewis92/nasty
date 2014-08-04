@@ -18,6 +18,7 @@
     "express-validator": "^2.3.0",
     "express-winston": "^0.2.5",
     "findit": "^1.1.1",
+    "gulp-autoprefixer": "0.0.8",
     "helmet": "^0.4.0",
     "i18n-2": "^0.4.6",
     "jsonwebtoken": "^0.4.1",

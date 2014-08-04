@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-    plugins = require('gulp-load-plugins')(),
+    gp = require('gulp-load-plugins')(),
     streamqueue = require('streamqueue')
     glob = require('glob');
 
@@ -32,13 +32,13 @@ gulp.task('open', function() {
   var url = 'http://' + server.host + ':' + server.port;
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
-    .pipe(plugins.open('', {url: url}));
+    .pipe(gp.open('', {url: url}));
 
 });
 
 gulp.task('server:start:dev', function() {
 
-  plugins.developServer.listen({ path: directories.server }, function(err) {
+  gp.developServer.listen({ path: directories.server }, function(err) {
     if (!err) {
       gulp.start('open');
     }
@@ -48,7 +48,7 @@ gulp.task('server:start:dev', function() {
 
 gulp.task('server:start:prod', function() {
 
-  plugins.developServer.listen({ path: directories.server, env: {NODE_ENV: 'production'} }, function(err) {
+  gp.developServer.listen({ path: directories.server, env: {NODE_ENV: 'production'} }, function(err) {
     if (!err) {
       gulp.start('open');
     }
@@ -58,10 +58,10 @@ gulp.task('server:start:prod', function() {
 
 gulp.task('server:restart', function(cb) {
 
-  plugins.developServer.restart(function() {
+  gp.developServer.restart(function() {
 
     setTimeout(function() {
-      plugins.livereload.changed();
+      gp.livereload.changed();
       cb();
     }, 500);
 
@@ -73,9 +73,9 @@ gulp.task('less', function() {
 
   return gulp
     .src(files.less)
-    .pipe(plugins.plumber())
-    .pipe(plugins.cached('less'))
-    .pipe(plugins.less())
+    .pipe(gp.plumber())
+    .pipe(gp.cached('less'))
+    .pipe(gp.less())
     .pipe(gulp.dest(directories.css));
 
 });
@@ -84,10 +84,10 @@ gulp.task('jshint', function() {
 
   return gulp
     .src(files.js)
-    .pipe(plugins.cached('jshint'))
-    .pipe(plugins.jshint())
-    .pipe(plugins.jshint.reporter('jshint-stylish'))
-    .pipe(plugins.notify(function (file) {
+    .pipe(gp.cached('jshint'))
+    .pipe(gp.jshint())
+    .pipe(gp.jshint.reporter('jshint-stylish'))
+    .pipe(gp.notify(function (file) {
       if (file.jshint.success) {
         // Don't show something if success
         return false;
@@ -102,9 +102,9 @@ gulp.task('jscs', function() {
 
   return gulp
     .src(files.js)
-    .pipe(plugins.cached('jscs'))
-    .pipe(plugins.plumber({errorHandler: plugins.notify.onError('The JavaScript code standards check failed, please correct your code!')}))
-    .pipe(plugins.jscs('.jscsrc'));
+    .pipe(gp.cached('jscs'))
+    .pipe(gp.plumber({errorHandler: gp.notify.onError('The JavaScript code standards check failed, please correct your code!')}))
+    .pipe(gp.jscs('.jscsrc'));
 
 });
 
@@ -112,10 +112,10 @@ gulp.task('htmlhint', function() {
 
   return gulp
     .src(files.html)
-    .pipe(plugins.cached('htmlhint'))
-    .pipe(plugins.htmlhint('.htmlhintrc'))
-    .pipe(plugins.htmlhint.reporter())
-    .pipe(plugins.notify(function (file) {
+    .pipe(gp.cached('htmlhint'))
+    .pipe(gp.htmlhint('.htmlhintrc'))
+    .pipe(gp.htmlhint.reporter())
+    .pipe(gp.notify(function (file) {
       if (file.htmlhint.success) {
         // Don't show something if success
         return false;
@@ -130,10 +130,10 @@ gulp.task('csslint', ['less'], function() {
 
   return gulp
     .src(files.css)
-    .pipe(plugins.cached('csslint'))
-    .pipe(plugins.csslint())
-    .pipe(plugins.csslint.reporter())
-    .pipe(plugins.notify(function (file) {
+    .pipe(gp.cached('csslint'))
+    .pipe(gp.csslint())
+    .pipe(gp.csslint.reporter())
+    .pipe(gp.notify(function (file) {
       if (file.csslint.success) {
         // Don't show something if success
         return false;
@@ -148,9 +148,9 @@ var getTemplates = function() {
 
   return gulp
     .src(files.views)
-    .pipe(plugins.angularHtmlify())
-    .pipe(plugins.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(plugins.angularTemplatecache({standalone: true, module: 'app.templates'}));
+    .pipe(gp.angularHtmlify())
+    .pipe(gp.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
+    .pipe(gp.angularTemplatecache({standalone: true, module: 'app.templates'}));
 
 };
 
@@ -176,7 +176,7 @@ var getAppAssets = function(isProduction) {
 
   return mergeStreams(
     css,
-    js.pipe(plugins.angularFilesort())
+    js.pipe(gp.angularFilesort())
   );
 };
 
@@ -185,7 +185,7 @@ var getProductionAssets = function(fileExtension) {
   return mergeStreams(
     getBowerAssets(true),
     getAppAssets(true)
-  ).pipe(plugins.filter('**/*.' + fileExtension));
+  ).pipe(gp.filter('**/*.' + fileExtension));
 
 };
 
@@ -193,9 +193,9 @@ gulp.task('inject', ['less'], function() {
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
-    .pipe(plugins.inject(getBowerAssets(), {name: 'bower', relative: true}))
-    .pipe(plugins.inject(getAppAssets(), {relative: true}))
-    .pipe(plugins.rename('index.html'))
+    .pipe(gp.inject(getBowerAssets(), {name: 'bower', relative: true}))
+    .pipe(gp.inject(getAppAssets(), {relative: true}))
+    .pipe(gp.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.dev));
 
 });
@@ -204,7 +204,7 @@ gulp.task('build:clean', function() {
 
   gulp
     .src(directories.frontend.prod, { read: false })
-    .pipe(plugins.rimraf());
+    .pipe(gp.rimraf());
 
 });
 
@@ -220,30 +220,31 @@ var banner = ['/**',
 gulp.task('build:assets:js', ['lint'], function() {
 
   return getProductionAssets('js')
-    .pipe(plugins.ngAnnotate())
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.concat('app.js'))
-    .pipe(plugins.uglify())
-    .pipe(plugins.header(banner, { pkg : pkg } ))
-    .pipe(plugins.rev())
-    .pipe(plugins.sourcemaps.write('.'))
-    .pipe(plugins.size({showFiles: true}))
+    .pipe(gp.ngAnnotate())
+    .pipe(gp.sourcemaps.init())
+    .pipe(gp.concat('app.js'))
+    .pipe(gp.uglify())
+    .pipe(gp.header(banner, { pkg : pkg } ))
+    .pipe(gp.rev())
+    .pipe(gp.sourcemaps.write('.'))
+    .pipe(gp.size({showFiles: true}))
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
 gulp.task('build:assets:css', ['lint', 'less'], function() {
 
   return getProductionAssets('css')
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.concat('app.css'))
-    .pipe(plugins.uncss({
+    .pipe(gp.sourcemaps.init())
+    .pipe(gp.concat('app.css'))
+    .pipe(gp.uncss({
       html: glob(directories.frontend.dev + '/**/*.html')
     }))
-    .pipe(plugins.minifyCss())
-    .pipe(plugins.header(banner, { pkg : pkg } ))
-    .pipe(plugins.rev())
-    .pipe(plugins.sourcemaps.write('.'))
-    .pipe(plugins.size({showFiles: true}))
+    .pipe(gp.autoprefixer())
+    .pipe(gp.minifyCss())
+    .pipe(gp.header(banner, { pkg : pkg } ))
+    .pipe(gp.rev())
+    .pipe(gp.sourcemaps.write('.'))
+    .pipe(gp.size({showFiles: true}))
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
@@ -251,7 +252,7 @@ gulp.task('build:assets', ['lint', 'build:clean', 'build:assets:js', 'build:asse
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
-    .pipe(plugins.inject(
+    .pipe(gp.inject(
       gulp.src(
         [directories.frontend.prod + '/*.js', directories.frontend.prod + '/*.css'],
         {read: false}),
@@ -267,7 +268,7 @@ gulp.task('build:assets', ['lint', 'build:clean', 'build:assets:js', 'build:asse
         }
       )
     )
-    .pipe(plugins.rename('index.html'))
+    .pipe(gp.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.prod));
 
 });
@@ -276,7 +277,7 @@ gulp.task('build:manifest', ['build:assets'], function() {
 
   return gulp
     .src(directories.frontend.prod + '/*')
-    .pipe(plugins.manifest({
+    .pipe(gp.manifest({
       hash: true,
       preferOnline: true,
       network: ['http://*', 'https://*', '*'],
@@ -291,7 +292,7 @@ gulp.task('build:images', ['build:manifest'], function() {
 
   return gulp
     .src(files.images)
-    .pipe(plugins.imagemin())
+    .pipe(gp.imagemin())
     .pipe(gulp.dest(directories.frontend.prod + '/img'));
 
 });
@@ -304,7 +305,7 @@ gulp.task('build', ['build:images'], function() {
 
 gulp.task('watch', ['server:start:dev'], function() {
 
-  plugins.livereload.listen();
+  gp.livereload.listen();
 
   gulp.watch(files.server, ['server:restart']);
   gulp.watch(files.less, ['less']);
@@ -317,7 +318,7 @@ gulp.task('watch', ['server:start:dev'], function() {
     files.frontEndJs,
     files.views,
     directories.frontend.dev + '/index.html'
-  ]).on('change', plugins.livereload.changed);
+  ]).on('change', gp.livereload.changed);
 
 });
 

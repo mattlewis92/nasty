@@ -15,8 +15,9 @@ module.exports = function() {
     params.push(arguments[i]);
   }
 
-  var statusCode = arguments[i],
-      dontTranslate = arguments[i+1];
+  var statusCode = arguments[i];
+  i++;
+  var dontTranslate = arguments[i];
 
   Error.call(this);
   this.message = message;
