@@ -150,7 +150,7 @@ var getTemplates = function() {
     .src(files.views)
     .pipe(plugins.angularHtmlify())
     .pipe(plugins.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(plugins.angularTemplatecache({standalone: true}));
+    .pipe(plugins.angularTemplatecache({standalone: true, module: 'app.templates'}));
 
 };
 
@@ -169,8 +169,8 @@ var getAppAssets = function(isProduction) {
 
   if (isProduction) {
     js = mergeStreams(
-      js,
-      getTemplates()
+      getTemplates(),
+      js
     );
   }
 
