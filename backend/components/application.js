@@ -246,7 +246,22 @@ var application = function() {
     app.use(function(err, req, res, next) {
 
       if (true === err.displayToUser) {
-        res.status(err.statusCode || 500).json({error: err.message});
+        var message = err.message;
+        if (!err.dontTranslate) {
+          message = req.i18n.__.apply(req.i18n, [message].concat(err.translationParams));
+        }
+
+        var response = {error: message};
+        if (err.details) {
+          response.details = err.details;
+          for (var key in response.details) {
+            if (response.details[key].msg) {
+              response.details[key].msg = req.i18n.__(response.details[key].msg);
+            }
+          }
+        }
+
+        res.status(err.statusCode || 500).json(response);
       } else {
         next(err);
       }
@@ -280,7 +295,7 @@ var application = function() {
     /*jshint unused:false*/
     app.use(function(err, req, res, next) {
 
-      res.status(500).json({error: req.i18n.__('An error occurred! Please try again or contact us if you believe this should have worked.')});
+      res.status(500).json({error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
 
     });
     /*jshint unused:true*/

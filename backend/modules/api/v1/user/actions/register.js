@@ -30,7 +30,7 @@ module.exports = function(req, res, models, errors, next) {
   .catch(function(err) {
 
     if (err.cause && 11000 === err.cause.code) {
-      next(new errors.user(req.i18n.__('A user with this email address already exists.')));
+      next(new errors.user('A user with this email address already exists.'));
     } else {
       next(err);
     }

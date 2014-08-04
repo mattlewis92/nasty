@@ -1,3 +1,7 @@
 {
-	"A user with this email address already exists.": "A user with this email address already exists."
+	"A user with this email address already exists.": "A user with this email address already exists.",
+	"An error occurred! Please try again or contact us if you believe this should have worked.": "An error occurred! Please try again or contact us if you believe this should have worked.",
+	"There were errors with your request": "There were errors with your request",
+	"Required": "Required",
+	"8 to 20 characters required": "8 to 20 characters required"
 }

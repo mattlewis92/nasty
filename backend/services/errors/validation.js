@@ -2,10 +2,9 @@
 
 module.exports = function(errors, statusCode) {
 
-  var message = {message: 'There were errors with your request', errors: errors};
-
   Error.call(this);
-  this.message = message;
+  this.message = 'There were errors with your request';
+  this.details = errors;
   this.statusCode = statusCode || 500;
   this.stack = (new Error()).stack;
   this.displayToUser = true;
