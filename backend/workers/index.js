@@ -38,6 +38,7 @@ var handleJobComplete = function(job, err) {
     if (err) {
       data.__previousError = err;
     }
+    data.__previousJob = job.attrs.name;
     agenda.now(jobName, data);
   }
 
