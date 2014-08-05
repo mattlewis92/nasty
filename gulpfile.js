@@ -231,13 +231,14 @@ gulp.task('build:assets:js', ['lint'], function() {
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
-gulp.task('build:assets:css', ['lint', 'less'], function() {
+gulp.task('build:assets:css', ['less'], function() {
 
   return getProductionAssets('css')
     .pipe(gp.sourcemaps.init())
     .pipe(gp.concat('app.css'))
+    .pipe(gp.replace('../fonts/fontawesome', 'fonts/fontawesome'))
     .pipe(gp.uncss({
-      html: glob(directories.frontend.dev + '/**/*.html')
+      html: glob.sync(directories.frontend.dev + '/**/*.html')
     }))
     .pipe(gp.autoprefixer())
     .pipe(gp.minifyCss())
@@ -297,11 +298,18 @@ gulp.task('build:images', ['build:manifest'], function() {
 
 });
 
-gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
+gulp.task('build:assets:fonts', ['build:images'], function() {
+  return gulp
+    .src(directories.frontend.dev + '/**/fonts/fontawesome-webfont.*')
+    .pipe(gp.flatten())
+    .pipe(gulp.dest(directories.frontend.prod + '/fonts'));
+});
 
-gulp.task('build', ['build:images'], function() {
+gulp.task('build', ['build:assets:fonts'], function() {
   gulp.start('server:start:prod');
 });
+
+gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
 gulp.task('watch', ['server:start:dev'], function() {
 
@@ -309,7 +317,7 @@ gulp.task('watch', ['server:start:dev'], function() {
 
   gulp.watch(files.server, ['server:restart']);
   gulp.watch(files.less, ['less']);
-  gulp.watch(['bower.json', files.css, files.frontEndJs], ['inject']);
+  gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);
   gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
 
   gulp.watch([
