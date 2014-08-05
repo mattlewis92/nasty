@@ -6,16 +6,16 @@ var application = require(__dirname + '/../components/application'),
     debug = require('debug'),
     services = app.loadServices(__dirname + '/../services', __dirname + '/../../'),
     agenda = services.get('job').agenda,
-    worker = services.get('job').worker;
+    worker = services.get('job').worker,
+    workers = requireAll(__dirname);
 
-var workers = requireAll(__dirname);
 delete workers.index;
 
 for (var folder in workers) {
   for (var job in workers[folder]) {
 
-    var workerInstance = new worker();
-    var jobName = folder + ':' + job;
+    var workerInstance = new worker(),
+        jobName = folder + ':' + job;
     workers[folder][job](workerInstance, services, debug(jobName));
 
     if (!workerInstance.job) {
@@ -31,10 +31,10 @@ for (var folder in workers) {
   }
 }
 
-var handleJobComplete = function(job, err) {
+function handleJobComplete(job, err) {
   if (job.attrs.data && job.attrs.data.__onComplete) {
-    var jobName = job.attrs.data.__onComplete;
-    var data = job.attrs.data.__onCompleteData || {};
+    var jobName = job.attrs.data.__onComplete,
+        data = job.attrs.data.__onCompleteData || {};
     if (err) {
       data.__previousError = err;
     }
@@ -46,16 +46,18 @@ var handleJobComplete = function(job, err) {
     job.agenda._db.remove({_id: job.attrs._id}, function() {});
   }
 
+  /* jshint ignore:start */
   startListeners();
-};
+  /* jshint ignore:end */
+}
 
-var startListeners = function() {
+function startListeners() {
   agenda.once('success', handleJobComplete);
 
   agenda.once('fail', function(err, job) {
     handleJobComplete(job, err);
   });
-};
+}
 
 startListeners();
 
@@ -63,7 +65,7 @@ function graceful() {
   agenda.stop(function() {
     process.exit(0);
   });
-};
+}
 
 process.on('SIGTERM', graceful);
 process.on('SIGINT' , graceful);

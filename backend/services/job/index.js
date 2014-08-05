@@ -1,6 +1,7 @@
+'use strict';
+
 var agenda = require('agenda'),
-    worker = require(__dirname + '/worker')
-    uuid = require('node-uuid');
+    worker = require(__dirname + '/worker');
 
 module.exports = function() {
 
@@ -21,23 +22,23 @@ module.exports = function() {
       }
     });
 
-    var queue = function(name, data, onComplete, onCompleteData) {
+    function queue(name, data, onComplete, onCompleteData) {
       if (onComplete) {
         data = data || {};
         data.__onComplete = onComplete;
         data.__onCompleteData = onCompleteData;
       }
       agendaInstance.now(name, data);
-    };
+    }
 
-    var schedule = function(when, name, data, onComplete, onCompleteData) {
+     function schedule(when, name, data, onComplete, onCompleteData) {
       if (onComplete) {
         data = data || {};
         data.__onComplete = onComplete;
         data.__onCompleteData = onCompleteData;
       }
       agendaInstance.schedule(when, name, data);
-    };
+    }
 
     return {
       worker: worker,
