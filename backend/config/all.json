@@ -16,6 +16,7 @@
   "agenda": {
     "collection": "agendaJobs",
     "maxConcurrency": 20,
-    "defaultConcurrency": 1
+    "defaultConcurrency": 1,
+    "processEvery": "1 second"
   }
 }
