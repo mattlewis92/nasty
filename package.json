@@ -28,7 +28,6 @@
     "method-override": "^1.0.0",
     "mongoose": "3.8.13",
     "mongoose-long": "0.0.2",
-    "mongoose-pagination": "^1.0.0",
     "mongoose-timestamp": "^0.2.1",
     "nconf": "^0.6.9",
     "openifyit-mongoose-types": "^2.0.9",

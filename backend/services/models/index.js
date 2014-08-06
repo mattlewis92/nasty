@@ -6,7 +6,6 @@ var mongoose = require('mongoose'),
     mongooseTypes = require('openifyit-mongoose-types');
 
 mongooseTypes.loadTypes(mongoose);
-require('mongoose-pagination');
 require('mongoose-long')(mongoose);
 
 module.exports = function() {
@@ -20,6 +19,7 @@ module.exports = function() {
 
     var models = requireAll(__dirname);
     delete models.index; //remove this file
+    delete models.pagination; //remove the pagination patch
 
     for (var model in models) {
       var elems = models[model],
