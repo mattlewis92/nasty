@@ -251,7 +251,7 @@ var application = function() {
           message = req.i18n.__.apply(req.i18n, [message].concat(err.translationParams));
         }
 
-        var response = {error: message};
+        var response = {message: message};
         if (err.details) {
           response.details = err.details;
           for (var key in response.details) {

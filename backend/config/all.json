@@ -12,5 +12,10 @@
     "defaultLocale": "en",
     "directory": "%rootPath%/backend/locales",
     "extension": ".json"
+  },
+  "agenda": {
+    "collection": "agendaJobs",
+    "maxConcurrency": 20,
+    "defaultConcurrency": 1
   }
 }

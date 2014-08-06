@@ -24,8 +24,8 @@ for (var folder in workers) {
 
     agenda.define(jobName, workerInstance.options, workerInstance.job);
 
-    if (workerInstance.frequency) {
-      agenda.every(workerInstance.frequency, jobName);
+    if (workerInstance.options.frequency) {
+      agenda.every(workerInstance.options.frequency, jobName);
     }
 
   }

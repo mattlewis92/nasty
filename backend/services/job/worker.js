@@ -6,7 +6,6 @@ module.exports = function() {
 
   this.options = {};
   this.job = null;
-  this.frequency = null;
 
   this.options = function(opts) {
     self.options = opts;
@@ -29,7 +28,7 @@ module.exports = function() {
   };
 
   this.frequency = function(value) {
-    self.frequency = value;
+    self.options.frequency = value;
     return self;
   };
 

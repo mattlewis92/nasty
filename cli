@@ -7,7 +7,7 @@ var program = require('commander')
   , application = require(__dirname + '/backend/components/application');
 
 var app = new application();
-var services = app.loadServices(__dirname + '/backend/services', __dirname);
+var services = app.loadServices(__dirname + '/backend/services', __dirname + '/');
 
 program.version(programVersion);
 
