@@ -18,8 +18,8 @@ var files = {
   server: directories.backend + '/**/*.js',
   frontEndJs: directories.frontend.dev + '/js/**/*.js',
   images: directories.frontend.dev + '/img/**/*',
-  less: directories.less + '/**/*.less',
-  css: directories.css + '/**/*.css',
+  less: directories.less + '**/*.less',
+  css: directories.css + '**/*.css',
   js: [directories.backend + '/**/*.js', directories.frontend.dev + '/js/**/*.js'],
   views: directories.frontend.dev + '/views/**/*.html',
   html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/views/**/*.html']
@@ -233,7 +233,13 @@ gulp.task('build:assets:js', ['lint'], function() {
 
 gulp.task('build:assets:css', ['less'], function() {
 
-  return getProductionAssets('css')
+  var cssFiles = require('main-bower-files')().filter(function(file) {
+    return file.indexOf('.css') > -1;
+  });
+  cssFiles.push(files.css);
+
+  return gulp
+    .src(cssFiles)
     .pipe(gp.sourcemaps.init())
     .pipe(gp.concat('app.css'))
     .pipe(gp.replace('../fonts/fontawesome', 'fonts/fontawesome'))

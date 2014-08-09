@@ -30,13 +30,16 @@
     "restangular": "~1.4.0",
     "angular-cache": "~3.1.0",
     "font-awesome": "~4.1.0",
-    "exceptions": "https://github.com/steaks/exceptions.js",
     "angular-auto-validate": "~1.0.15",
-    "angular-translate": "~2.2.0"
+    "angular-translate": "~2.2.0",
+    "exceptions.js": "https://github.com/steaks/exceptions.js.git#~0.2.0"
   },
   "overrides": {
     "bootstrap": {
       "ignore": true
+    },
+    "exceptions.js": {
+      "main": "exceptions.js"
     }
   }
 }
