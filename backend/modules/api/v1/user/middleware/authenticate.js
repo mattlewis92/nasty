@@ -23,7 +23,7 @@ module.exports = function(services) {
         next(null, decoded.user);
       })
       .catch(function() {
-        next(new errors.user('Your session token has expired. You will need to login again.'));
+        next(new errors.user('Your session token has expired. You will need to login again.', 401));
       });
 
   };

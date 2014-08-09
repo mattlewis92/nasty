@@ -84,7 +84,7 @@ gulp.task('jshint', function() {
 
   return gulp
     .src(files.js)
-    .pipe(gp.cached('jshint'))
+    //.pipe(gp.cached('jshint'))
     .pipe(gp.jshint())
     .pipe(gp.jshint.reporter('jshint-stylish'))
     .pipe(gp.notify(function (file) {
@@ -102,7 +102,7 @@ gulp.task('jscs', function() {
 
   return gulp
     .src(files.js)
-    .pipe(gp.cached('jscs'))
+    //.pipe(gp.cached('jscs'))
     .pipe(gp.plumber({errorHandler: gp.notify.onError('The JavaScript code standards check failed, please correct your code!')}))
     .pipe(gp.jscs('.jscsrc'));
 
@@ -112,7 +112,7 @@ gulp.task('htmlhint', function() {
 
   return gulp
     .src(files.html)
-    .pipe(gp.cached('htmlhint'))
+    //.pipe(gp.cached('htmlhint'))
     .pipe(gp.htmlhint('.htmlhintrc'))
     .pipe(gp.htmlhint.reporter())
     .pipe(gp.notify(function (file) {
@@ -130,7 +130,7 @@ gulp.task('csslint', ['less'], function() {
 
   return gulp
     .src(files.css)
-    .pipe(gp.cached('csslint'))
+    //.pipe(gp.cached('csslint'))
     .pipe(gp.csslint())
     .pipe(gp.csslint.reporter())
     .pipe(gp.notify(function (file) {
@@ -176,7 +176,7 @@ var getAppAssets = function(isProduction) {
 
   return mergeStreams(
     css,
-    js.pipe(gp.angularFilesort())
+    js.pipe(gp.plumber()).pipe(gp.angularFilesort())
   );
 };
 
@@ -193,6 +193,7 @@ gulp.task('inject', ['less'], function() {
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
+    .pipe(gp.plumber())
     .pipe(gp.inject(getBowerAssets(), {name: 'bower', relative: true}))
     .pipe(gp.inject(getAppAssets(), {relative: true}))
     .pipe(gp.rename('index.html'))

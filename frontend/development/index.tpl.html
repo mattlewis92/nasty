@@ -1,38 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta charset="utf-8">
-        <meta name="fragment" content="!">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        <title>MEAN Boilerplate</title>
+    <title>MEAN Boilerplate</title>
 
-        <base href="/">
+    <base href="/">
 
-        <!-- bower:css -->
-        <!-- endinject -->
+    <!-- bower:css -->
+    <!-- endinject -->
 
-        <!-- inject:css -->
-        <!-- endinject -->
+    <!-- inject:css -->
+    <!-- endinject -->
 
-        <!--[if lt IE 9]>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.min.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
-    </head>
-    <body>
-        <h1>Hello world!</h1>
-        <p>Welcome aboard! Visit <a href="https://github.com/mattlewis92/mean-boilerplate">the github page</a> for details.</p>
+  </head>
+  <body ng-app="mean">
+    <nav class="navbar navbar-default navbar-top" role="navigation" ng-controller="AppNavbarCtrl">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" ui-sref="index">MEAN boilerplate</a>
+        </div>
 
-        <!-- bower:js -->
-        <!-- endinject -->
+        <ul class="nav navbar-nav navbar-right">
+          <li ng-hide="isLoggedIn" ui-sref-active="active">
+            <a ui-sref="user.login"><i class="fa fa-sign-in"></i> Login</a>
+          </li>
+          <li ng-hide="isLoggedIn" ui-sref-active="active">
+            <a ui-sref="user.register"><i class="fa fa-pencil"></i> Register</a>
+          </li>
+          <li ng-show="isLoggedIn" ui-sref-active="active">
+            <a ui-sref="user.home"><i class="fa fa-user"></i> Home</a>
+          </li>
+          <li ng-show="isLoggedIn">
+            <a href="javascript:;" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-        <!-- inject:js -->
-        <!-- endinject -->
+    <div class="container">
+      <error-box></error-box>
+      <ui-view></ui-view>
+    </div>
 
-    </body>
+
+
+    <!-- bower:js -->
+    <!-- endinject -->
+
+    <!-- inject:js -->
+    <!-- endinject -->
+
+  </body>
 </html>

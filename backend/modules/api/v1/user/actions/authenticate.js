@@ -7,7 +7,7 @@ module.exports = function(req, res, next, errors, passport, config) {
   req.checkBody('email', 'Required').notEmpty();
   req.checkBody('email', 'Valid email required').isEmail();
   req.checkBody('password', 'Required').notEmpty();
-  req.checkBody('browser_fingerprint', 'Required').notEmpty();
+  req.checkHeader('x-finger-print', 'Required').notEmpty();
 
   if (req.validationErrors()) {
     return next(new errors.validation(req.validationErrors(true)));
@@ -30,7 +30,7 @@ module.exports = function(req, res, next, errors, passport, config) {
       config.get('jwtKey'),
       {
         expiresInMinutes: config.get('app:tokenExpiryTimeInMinutes'),
-        audience: req.body.browser_fingerprint
+        audience: req.headers['x-finger-print']
       }
     );
 

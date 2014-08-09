@@ -4,5 +4,8 @@
 	"There were errors with your request": "There were errors with your request",
 	"Required": "Required",
 	"8 to 20 characters required": "8 to 20 characters required",
-	"Your session token has expired. You will need to login again.": "Your session token has expired. You will need to login again."
+	"Your session token has expired. You will need to login again.": "Your session token has expired. You will need to login again.",
+	"Valid email required": "Valid email required",
+	"The password you provided was incorrect.": "The password you provided was incorrect.",
+	"This user does not exist.": "This user does not exist."
 }

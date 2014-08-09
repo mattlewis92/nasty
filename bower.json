@@ -32,7 +32,10 @@
     "font-awesome": "~4.1.0",
     "angular-auto-validate": "~1.0.15",
     "angular-translate": "~2.2.0",
-    "exceptions.js": "https://github.com/steaks/exceptions.js.git#~0.2.0"
+    "exceptions.js": "https://github.com/steaks/exceptions.js.git#~0.2.0",
+    "angular-promise-tracker": "~2.0.1",
+    "fingerprint": "~0.5.4",
+    "ngstorage": "~0.3.0"
   },
   "overrides": {
     "bootstrap": {
@@ -40,6 +43,15 @@
     },
     "exceptions.js": {
       "main": "exceptions.js"
+    },
+    "angular-promise-tracker": {
+      "main": [
+        "promise-tracker.js",
+        "promise-tracker-http-interceptor.js"
+      ]
     }
+  },
+  "resolutions": {
+    "angular": "1.2.21"
   }
 }
