@@ -13,6 +13,12 @@ module.exports = function(services) {
     jwt
       .verifyAsync(accessToken, jwtKey, { audience: req.headers['x-finger-print'] })
       .then(function(decoded) {
+        return [decoded, services.get('models').user.findByIdAsync(decoded.user._id, {token_salt: true})];
+      })
+      .spread(function(decoded, dbUser) {
+        if (dbUser.token_salt !== decoded.token_salt) {
+          throw new Error('Token salt has expired!');
+        }
         req.user = decoded.user;
         next(null, decoded.user);
       })

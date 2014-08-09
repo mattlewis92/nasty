@@ -10,7 +10,7 @@ module.exports = function(passport, models) {
 
       models
         .user
-        .findOneAsync({ email: email }, {password: true})
+        .findOneAsync({ email: email }, {password: true, token_salt: true})
         .then(function(user) {
           if (!user) {
             done(null, false, { message: 'This user does not exist.' });

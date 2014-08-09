@@ -30,6 +30,7 @@
     "mongoose-long": "0.0.2",
     "mongoose-timestamp": "^0.2.1",
     "nconf": "^0.6.9",
+    "node-uuid": "^1.4.1",
     "openifyit-mongoose-types": "^2.0.9",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",

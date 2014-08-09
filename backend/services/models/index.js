@@ -51,7 +51,7 @@ module.exports = function() {
       schema.options.toObject.getters = true;
       schema.options.toObject.virtuals = true;
 
-      models[model] = mongoose.model(model, schema);
+      models[model] = mongoose.model(model, schema, model);
     }
 
     return models;

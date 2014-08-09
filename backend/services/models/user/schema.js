@@ -27,8 +27,23 @@ module.exports = function(mongoose) {
         }
       }
     },
-    email: {type: mongoose.SchemaTypes.Email, required: true, unique: true, lowercase: true, trim: true},
-    password: {type: String, required: true, select: false}
+    email: {
+      type: mongoose.SchemaTypes.Email,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false
+    },
+    token_salt: {
+      type: String,
+      required: true,
+      select: false
+    }
   };
 
 };
