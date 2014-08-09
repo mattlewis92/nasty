@@ -1,17 +1,19 @@
+'use strict';
+
 var mongoose = require('mongoose'),
     bluebird = require('bluebird');
 
-mongoose.Query.prototype.paginate = function paginate (page, limit, cont) {
+mongoose.Query.prototype.paginate = function paginate(page, limit, cont) {
   page = page || 1;
   limit = limit || 10;
 
-  var query = this;
-  var model = this.model;
-  var skipFrom = (page * limit) - limit;
+  var query = this,
+      model = this.model,
+      skipFrom = (page * limit) - limit;
 
   query = query.skip(skipFrom).limit(limit);
 
-  if(!cont) {
+  if (!cont) {
 
     var promises = [
       query.execAsync(),

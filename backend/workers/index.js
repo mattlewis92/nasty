@@ -45,21 +45,13 @@ function handleJobComplete(job, err) {
   if (!job.attrs.nextRunAt) {
     job.agenda._db.remove({_id: job.attrs._id}, function() {});
   }
-
-  /* jshint ignore:start */
-  startListeners();
-  /* jshint ignore:end */
 }
 
-function startListeners() {
-  agenda.once('success', handleJobComplete);
+agenda.on('success', handleJobComplete);
 
-  agenda.once('fail', function(err, job) {
-    handleJobComplete(job, err);
-  });
-}
-
-startListeners();
+agenda.on('fail', function(err, job) {
+  handleJobComplete(job, err);
+});
 
 function graceful() {
   agenda.stop(function() {
