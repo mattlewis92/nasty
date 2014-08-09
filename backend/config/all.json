@@ -1,7 +1,8 @@
 {
   "app": {
     "name": "MEAN boilerplate",
-    "logRequests": false
+    "logRequests": false,
+    "tokenExpiryTimeInMinutes": 43200
   },
   "server": {
     "host": "127.0.0.1",

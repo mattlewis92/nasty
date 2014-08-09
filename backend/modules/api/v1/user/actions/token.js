@@ -29,8 +29,8 @@ module.exports = function(req, res, next, errors, passport, config) {
       { user: {_id: user._id } },
       config.get('jwtKey'),
       {
-        expiresInMinutes: 60 * 24 * 30,  //expires in 30 days
-        audience: req.body.browser_fingerprint //The browsers fingerprint
+        expiresInMinutes: config.get('app:tokenExpiryTimeInMinutes'),
+        audience: req.body.browser_fingerprint
       }
     );
     res.json({ token : token });
