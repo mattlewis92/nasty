@@ -19,9 +19,7 @@ angular
       var self = this;
       this.userSaved = false;
 
-      this.User
-        .one()
-        .withHttpConfig({tracker: this.loadingTracker})
+      this._getUserQuery()
         .update(this.user)
         .then(function(user) {
           self.user = user;
@@ -36,15 +34,17 @@ angular
       var self = this;
       this.passwordChanged = false;
 
-      this.User
-        .one()
-        .withHttpConfig({tracker: this.loadingTracker})
+      this._getUserQuery()
         .changePassword(this.user)
         .then(function() {
           self.passwordChanged = true;
         })
         .catch(this.ErrorHandler.http);
 
+    },
+
+    _getUserQuery: function() {
+      return this.User.one().withHttpConfig({tracker: this.loadingTracker});
     }
 
   });
