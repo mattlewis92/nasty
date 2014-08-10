@@ -9,7 +9,7 @@ angular
     $stateProvider
       .state('index', {
         url: '/',
-        controller: 'AppIndexCtrl',
+        controller: 'AppIndexCtrl as index',
         templateUrl: 'views/app/index.html'
       });
   });

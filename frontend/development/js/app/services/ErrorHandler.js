@@ -24,6 +24,12 @@ angular
 
     };
 
+    service.generic = function(error) {
+      if (!error.__isHttp) {
+        console.log('ERROR', error); //TODO log this server side
+      }
+    };
+
     return service;
 
   });

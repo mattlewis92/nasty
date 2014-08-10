@@ -159,7 +159,7 @@ var application = function() {
       });
 
       subApp.all('*', function(req, res) {
-        res.json(404, {error: 'This API method does not exist.'});
+        res.status(404).json({message: 'This API method does not exist.'});
       });
 
       addFinalMiddleware(subApp);

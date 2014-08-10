@@ -2,17 +2,17 @@
 
 angular
   .module('mean.user.ctrls')
-  .controller('UserLoginCtrl', function($scope, $state, promiseTracker, User, Authentication) {
+  .controller('UserLoginCtrl', function($state, promiseTracker, User, Authentication) {
 
-    $scope.loadingTracker = promiseTracker();
-    $scope.user = {};
-    $scope.Authentication = Authentication;
+    this.loadingTracker = promiseTracker();
+    this.user = {};
+    this.Authentication = Authentication;
 
-    $scope.login = function() {
+    this.login = function() {
       User
         .one()
-        .withHttpConfig({tracker: $scope.loadingTracker})
-        .authenticate($scope.user);
+        .withHttpConfig({tracker: this.loadingTracker})
+        .authenticate(this.user);
     };
 
     if (Authentication.getToken()) {

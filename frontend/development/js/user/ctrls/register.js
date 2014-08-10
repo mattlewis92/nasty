@@ -2,22 +2,24 @@
 
 angular
   .module('mean.user.ctrls')
-  .controller('UserRegisterCtrl', function($scope, $state, promiseTracker, User, ErrorHandler) {
+  .controller('UserRegisterCtrl', function($state, promiseTracker, User, ErrorHandler) {
 
-    $scope.loadingTracker = promiseTracker();
+    var self = this;
 
-    $scope.user = {};
+    this.loadingTracker = promiseTracker();
 
-    $scope.register = function() {
+    this.user = {};
+
+    this.register = function() {
 
       User
         .one()
-        .withHttpConfig({tracker: $scope.loadingTracker})
-        .register($scope.user)
+        .withHttpConfig({tracker: this.loadingTracker})
+        .register(this.user)
         .then(function() {
           return User.one()
-            .withHttpConfig({tracker: $scope.loadingTracker})
-            .authenticate({email: $scope.user.email, password: $scope.user.password});
+            .withHttpConfig({tracker: self.loadingTracker})
+            .authenticate({email: self.user.email, password: self.user.password});
         })
         .catch(ErrorHandler.http);
 

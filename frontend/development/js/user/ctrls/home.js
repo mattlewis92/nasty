@@ -2,6 +2,6 @@
 
 angular
   .module('mean.user.ctrls')
-  .controller('UserHomeCtrl', function($scope, AuthUser) {
-    $scope.user = AuthUser;
+  .controller('UserHomeCtrl', function(AuthUser) {
+    this.user = AuthUser;
   });

@@ -20,28 +20,28 @@
 
     <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/2.2.0/es5-shim.min.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
   </head>
   <body ng-app="mean">
-    <nav class="navbar navbar-default navbar-top" role="navigation" ng-controller="AppNavbarCtrl">
-      <div class="container-fluid">
+    <nav class="navbar navbar-default navbar-top" role="navigation" ng-controller="AppNavbarCtrl as navbar">
+      <div class="container">
         <div class="navbar-header">
           <a class="navbar-brand" ui-sref="index">MEAN boilerplate</a>
         </div>
 
         <ul class="nav navbar-nav navbar-right">
-          <li ng-hide="isLoggedIn" ui-sref-active="active">
+          <li ng-hide="navbar.isLoggedIn" ui-sref-active="active">
             <a ui-sref="user.login"><i class="fa fa-sign-in"></i> Login</a>
           </li>
-          <li ng-hide="isLoggedIn" ui-sref-active="active">
+          <li ng-hide="navbar.isLoggedIn" ui-sref-active="active">
             <a ui-sref="user.register"><i class="fa fa-pencil"></i> Register</a>
           </li>
-          <li ng-show="isLoggedIn" ui-sref-active="active">
+          <li ng-show="navbar.isLoggedIn" ui-sref-active="active">
             <a ui-sref="user.home"><i class="fa fa-user"></i> Home</a>
           </li>
-          <li ng-show="isLoggedIn">
+          <li ng-show="navbar.isLoggedIn">
             <a href="javascript:;" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>
           </li>
         </ul>
@@ -49,11 +49,13 @@
     </nav>
 
     <div class="container">
-      <error-box></error-box>
-      <ui-view></ui-view>
+
+      <loading-box>
+        <error-box></error-box>
+        <ui-view></ui-view>
+      </loading-box>
+
     </div>
-
-
 
     <!-- bower:js -->
     <!-- endinject -->

@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($state, Restangular, Authentication, ErrorHandler) {
+  .factory('User', function($state, Restangular, Authentication) {
 
     Restangular.addElementTransformer('user', false, function(user) {
 
@@ -22,17 +22,6 @@ angular
 
       return data;
 
-    });
-
-    Restangular.setErrorInterceptor(function(response) {
-
-      if (401 === response.status) {
-        $state.go('user.login').then(function() {
-          ErrorHandler.http(response);
-        });
-      }
-
-      return true; // error not handled
     });
 
     return Restangular.service('user');
