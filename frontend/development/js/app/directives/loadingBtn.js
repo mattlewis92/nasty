@@ -10,9 +10,14 @@ angular
       },
       link: function(scope, elm) {
 
-        var originalHtml = elm.html();
+        var originalHtml = elm.html(), firstRun = true;
 
         scope.$watch(scope.tracker.active, function(isActive) {
+
+          if (firstRun) {
+            firstRun = false;
+            return;
+          }
 
           if (isActive) {
             elm.attr('disabled', 'disabled');

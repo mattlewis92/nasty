@@ -1,6 +1,5 @@
-<div class="alert alert-danger" ng-show="errorHandler.errors.length > 0">
-  <button type="button" class="close" ng-click="errorHandler.errors = []"><span aria-hidden="true">&times;</span></button>
-  <p ng-repeat="error in errorHandler.errors">
+<alert type="danger" close="errorHandler.errors = []" ng-show="errorHandler.errors.length > 0">
+  <div ng-repeat="error in errorHandler.errors">
     {{ error.message }}
-  </p>
-</div>
+  </div>
+</alert>

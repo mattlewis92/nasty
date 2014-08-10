@@ -26,6 +26,25 @@ angular
     });
 
   })
+  .run(function(bootstrap3ElementModifier) {
+    //A hack to use font awesome instead of glyphicons for auto validation icons
+    var makeValid = bootstrap3ElementModifier.makeValid,
+        makeInvalid = bootstrap3ElementModifier.makeInvalid,
+        insertAfter = function(referenceNode, newNode) {
+          referenceNode[0].parentNode.insertBefore(newNode[0], referenceNode[0].nextSibling);
+        };
+
+    bootstrap3ElementModifier.makeValid = function(el) {
+      makeValid(el);
+      insertAfter(el, angular.element('<span class="fa fa-check form-control-feedback"></span>'));
+    };
+
+    bootstrap3ElementModifier.makeInvalid = function(el, msg) {
+      makeInvalid(el, msg);
+      insertAfter(el, angular.element('<span class="fa fa-times form-control-feedback"></span>'));
+    };
+
+  })
   .run(function(Restangular, $state, ErrorHandler) {
 
     Restangular.setErrorInterceptor(function(response) {
@@ -36,8 +55,8 @@ angular
         });
         return false;
       } else {
+        //If the error then gets passed to the generic handler it will know it is http and handle it as such
         response.__isHttp = true;
-        ErrorHandler.http(response);
       }
 
       return true; // error not handled

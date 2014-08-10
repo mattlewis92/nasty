@@ -9,6 +9,8 @@ angular
       user.addRestangularMethod('register', 'post', 'register');
       user.addRestangularMethod('authenticate', 'post', 'authenticate');
       user.addRestangularMethod('getAuthUser', 'get', 'current');
+      user.addRestangularMethod('update', 'put', 'update');
+      user.addRestangularMethod('changePassword', 'put', 'password');
       return user;
 
     });

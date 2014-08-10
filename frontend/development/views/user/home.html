@@ -1,1 +1,62 @@
-{{ home.user.plain() }}
+<alert type="success" close="home.userSaved = false" ng-show="home.userSaved">Your profile was updated successfully.</alert>
+
+<form class="form-horizontal" role="form" novalidate name="editForm">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Created at</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{ home.user.created_at | date:'medium' }}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Updated at</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">{{ home.user.updated_at | date:'medium' }}</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">First name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" placeholder="First name" ng-model="home.user.name.first" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Surname</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" placeholder="Surname" ng-model="home.user.name.last" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" placeholder="Email" ng-model="home.user.email" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.saveUser()" loading-btn="home.loadingTracker">Update profile</button>
+    </div>
+  </div>
+</form>
+
+<br /><hr /><br /><br />
+
+<alert type="success" close="home.passwordChanged = false" ng-show="home.passwordChanged">Your password was changed successfully.</alert>
+<form class="form-horizontal" role="form" novalidate name="passwordForm">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">New password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" placeholder="New password" ng-model="home.user.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">New password repeated</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" placeholder="New password repeated" ng-model="home.user.passwordRepeated" required password-repeat="home.user.password" ng-minlength="8" ng-maxlength="20">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.changePassword()" loading-btn="home.loadingTracker">Change password</button>
+    </div>
+  </div>
+</form>

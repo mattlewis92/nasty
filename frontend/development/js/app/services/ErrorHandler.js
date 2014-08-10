@@ -25,7 +25,9 @@ angular
     };
 
     service.generic = function(error) {
-      if (!error.__isHttp) {
+      if (error.__isHttp) {
+        service.http(error);
+      } else {
         console.log('ERROR', error); //TODO log this server side
       }
     };
