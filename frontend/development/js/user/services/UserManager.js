@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('UserManager', function($timeout, $state, promiseTracker, Restangular, ErrorHandler, Authentication) {
+  .factory('UserManager', function($timeout, $state, promiseTracker, Restangular, ErrorHandler, Authentication, Flash) {
 
     var service = {};
 
@@ -54,6 +54,7 @@ angular
       return getBaseQuery()
         .doPUT(service.user, 'update')
         .then(function(user) {
+          Flash.confirm('Your profile was updated successfully.', 'userSaved');
           service.user = user;
           return user;
         })
@@ -64,6 +65,10 @@ angular
 
       return getBaseQuery()
         .doPUT({password: password}, 'password')
+        .then(function(result) {
+          Flash.confirm('Your password was changed successfully.', 'passwordSaved');
+          return result;
+        })
         .catch(ErrorHandler.http);
     };
 

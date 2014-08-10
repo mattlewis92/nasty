@@ -25,8 +25,6 @@ angular
         $state.go(toState.ifAuth);
       }
 
-      ErrorHandler.errors = [];
-
     });
 
   })
