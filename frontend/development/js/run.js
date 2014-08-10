@@ -7,7 +7,7 @@ angular
     Authentication.setHeaders();
 
   })
-  .run(function($rootScope, $state, ErrorHandler) {
+  .run(function($rootScope, $state, ErrorHandler, Authentication) {
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
@@ -19,7 +19,11 @@ angular
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function() {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+
+      if (Authentication.getToken() && toState.ifAuth) {
+        $state.go(toState.ifAuth);
+      }
 
       ErrorHandler.errors = [];
 

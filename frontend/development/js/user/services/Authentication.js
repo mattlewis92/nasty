@@ -34,6 +34,10 @@ angular
       delete getStorageDriver(false)[STORAGE_KEY];
     };
 
+    service.hasToken = function() {
+      return !!service.getToken();
+    };
+
     service.getBrowserFingerprint = function() {
       return new Fingerprint().get({canvas: true, screen_resolution: true});
     };

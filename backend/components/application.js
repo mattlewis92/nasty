@@ -155,7 +155,7 @@ var application = function() {
       initMiddleware(subApp);
 
       subApp.get('*', function(req, res) {
-        res.sendfile(indexFile);
+        res.sendFile(indexFile);
       });
 
       subApp.all('*', function(req, res) {

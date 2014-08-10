@@ -7,7 +7,7 @@ angular
 
     name: 'AppNavbarCtrl',
 
-    inject: ['$scope', '$state', 'Authentication'],
+    inject: ['$scope', 'Authentication', 'UserManager'],
 
     init: function() {
       this.$.Authentication = this.Authentication;
@@ -17,11 +17,6 @@ angular
       'Authentication.getToken()': function(token) {
         this.isLoggedIn = !!token;
       }
-    },
-
-    logout: function() {
-      this.Authentication.removeToken();
-      this.$state.go('user.login');
     }
 
   });
