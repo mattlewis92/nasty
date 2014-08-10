@@ -3,8 +3,11 @@
 angular.module('mean.app.directives', []);
 angular.module('mean.app.services', []);
 angular.module('mean.app.ctrls', [
-  'mean.app.services'
-]);
+  'mean.app.services',
+  'classy'
+]).classy.options.controller = {
+  addFnsToScope: false
+};
 angular.module('mean.app', [
   'mean.app.ctrls',
   'mean.app.services',

@@ -2,21 +2,26 @@
 
 angular
   .module('mean.user.ctrls')
-  .controller('UserLoginCtrl', function($state, promiseTracker, User, Authentication) {
+  .classy
+  .controller({
 
-    this.loadingTracker = promiseTracker();
-    this.user = {};
-    this.Authentication = Authentication;
+    name: 'UserLoginCtrl',
 
-    this.login = function() {
-      User
+    inject: ['$state', 'promiseTracker', 'User', 'Authentication'],
+
+    init: function() {
+      this.loadingTracker = this.promiseTracker();
+      this.user = {};
+      if (this.Authentication.getToken()) {
+        this.$state.go('user.home');
+      }
+    },
+
+    login: function() {
+      this.User
         .one()
         .withHttpConfig({tracker: this.loadingTracker})
         .authenticate(this.user);
-    };
-
-    if (Authentication.getToken()) {
-      $state.go('user.home');
     }
 
   });

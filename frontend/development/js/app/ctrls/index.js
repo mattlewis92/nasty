@@ -2,6 +2,9 @@
 
 angular
   .module('mean.app.ctrls')
-  .controller('AppIndexCtrl', function() {
+  .classy
+  .controller({
+
+    name: 'AppIndexCtrl'
 
   });

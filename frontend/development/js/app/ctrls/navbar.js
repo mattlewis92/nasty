@@ -2,19 +2,26 @@
 
 angular
   .module('mean.app.ctrls')
-  .controller('AppNavbarCtrl', function($scope, $state, Authentication) {
+  .classy
+  .controller({
 
-    var self = this;
+    name: 'AppNavbarCtrl',
 
-    $scope.$watch(function() {
-      return Authentication.getToken();
-    }, function(token) {
-      self.isLoggedIn = !!token;
-    });
+    inject: ['$scope', '$state', 'Authentication'],
 
-    $scope.logout = function() {
-      Authentication.removeToken();
-      $state.go('user.login');
-    };
+    init: function() {
+      this.$.Authentication = this.Authentication;
+    },
+
+    watch: {
+      'Authentication.getToken()': function(token) {
+        this.isLoggedIn = !!token;
+      }
+    },
+
+    logout: function() {
+      this.Authentication.removeToken();
+      this.$state.go('user.login');
+    }
 
   });

@@ -2,16 +2,24 @@
 
 angular
   .module('mean.user.ctrls')
-  .controller('UserHomeCtrl', function(promiseTracker, AuthUser, ErrorHandler, User) {
-    var self = this;
-    this.loadingTracker = promiseTracker();
-    this.user = AuthUser;
+  .classy
+  .controller({
 
-    this.saveUser = function() {
+    name: 'UserHomeCtrl',
 
+    inject: ['promiseTracker', 'AuthUser', 'ErrorHandler', 'User'],
+
+    init: function() {
+      this.loadingTracker = this.promiseTracker();
+      this.user = this.AuthUser;
+    },
+
+    saveUser: function() {
+
+      var self = this;
       this.userSaved = false;
 
-      User
+      this.User
         .one()
         .withHttpConfig({tracker: this.loadingTracker})
         .update(this.user)
@@ -19,23 +27,24 @@ angular
           self.user = user;
           self.userSaved = true;
         })
-        .catch(ErrorHandler.http);
+        .catch(this.ErrorHandler.http);
 
-    };
+    },
 
-    this.changePassword = function() {
+    changePassword: function() {
 
+      var self = this;
       this.passwordChanged = false;
 
-      User
+      this.User
         .one()
         .withHttpConfig({tracker: this.loadingTracker})
         .changePassword(this.user)
         .then(function() {
           self.passwordChanged = true;
         })
-        .catch(ErrorHandler.http);
+        .catch(this.ErrorHandler.http);
 
-    };
+    }
 
   });
