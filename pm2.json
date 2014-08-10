@@ -1,0 +1,16 @@
+{
+  "apps" : [
+    {
+      "name"        : "mean-app",
+      "script"      : "backend/index.js",
+      "instances"   : "4",
+      "error_file"  : "./logs/pm2/app.err",
+      "out_file"    : "./logs/pm2/app.out",
+      "pid_file"    : "./logs/pm2/app.pid",
+      "env": {
+        "NODE_ENV": "production",
+        "TZ": "Etc/UTC"
+      }
+    }
+  ]
+}
