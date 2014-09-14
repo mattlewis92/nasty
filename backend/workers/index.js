@@ -11,5 +11,3 @@ delete workers.index;
 console.log('STARTING WORKERS');
 
 services.get('job').initWorkers(workers, services, !!process.env.CRON_RUNNER);
-
-

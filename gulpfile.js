@@ -150,7 +150,7 @@ var getTemplates = function() {
     .src(files.views)
     .pipe(gp.angularHtmlify())
     .pipe(gp.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(gp.angularTemplatecache({standalone: true, module: 'app.templates'}));
+    .pipe(gp.angularTemplatecache({standalone: false, module: 'mean.views', root: 'views/'}));
 
 };
 

@@ -100,9 +100,17 @@ module.exports = function() {
     }
 
     function gracefulShutdown() {
-      queue.shutdown(function(err) {
+      queue.shutdown(function() {
         process.exit(0);
       }, 5000);
+    }
+
+    function createCron(jobName, frequency) {
+      new CronJob(frequency, function() {
+
+        queueJob(jobName);
+
+      }, null, true, 'Etc/UTC');
     }
 
     function initWorkers(workers, services, cronOnly) {
@@ -125,13 +133,7 @@ module.exports = function() {
 
             if (workerInstance.options.frequency) {
 
-              (function (jobName) {
-                new CronJob(workerInstance.options.frequency, function() {
-
-                  queueJob(jobName);
-
-                }, null, true, 'Etc/UTC');
-              }(jobName));
+              createCron(jobName, workerInstance.options.frequency);
 
             }
 

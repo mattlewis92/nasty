@@ -1,5 +1,7 @@
 'use strict';
 
+angular.module('mean.views', []);
+
 angular.module('mean', [
   'ngAnimate',
   'ngTouch',
@@ -13,6 +15,7 @@ angular.module('mean', [
   'ui.bootstrap',
   'ajoslin.promise-tracker',
   'ngStorage',
+  'mean.views',
   'mean.constants',
   'mean.app',
   'mean.user'
