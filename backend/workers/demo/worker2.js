@@ -4,7 +4,7 @@ module.exports = function(worker, services, debug) {
 
   worker
     .action(function(job, done) {
-      debug('HELLO WORLD!', job.attrs.data);
+      debug('HELLO WORLD!', job.data);
       done('This is an error!');
     });
 

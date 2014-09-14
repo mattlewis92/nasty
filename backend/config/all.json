@@ -6,7 +6,7 @@
   },
   "server": {
     "host": "127.0.0.1",
-    "port": 3010
+    "port": 3000
   },
   "i18n": {
     "locales": ["en", "de"],
@@ -14,10 +14,7 @@
     "directory": "%rootPath%/backend/locales",
     "extension": ".json"
   },
-  "agenda": {
-    "collection": "agendaJobs",
-    "maxConcurrency": 20,
-    "defaultConcurrency": 1,
-    "processEvery": "1 second"
+  "kue": {
+    "adminPort": 3001
   }
 }

@@ -10,6 +10,7 @@ module.exports = function(program, services, suggestedName) {
     .description('This is an example command')
     .action(function(file) {
       console.log(chalk.red('Hello world!'), file, services.get('notifications'));
+      services.get('job').queue('demo:worker2', {hello: 'World'});
     });
 
 };

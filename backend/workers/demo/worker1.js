@@ -4,7 +4,7 @@ module.exports = function(worker, services, debug) {
 
   worker
     .concurrency(1)
-    .frequency('1 minute')
+    .frequency('0 * * * * *')
     .action(function() {
       debug('HELLO WORLD!');
     });

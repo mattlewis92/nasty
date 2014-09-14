@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "agenda": "^0.6.16",
     "bcrypt": "^0.7.8",
     "bluebird": "^2.2.2",
     "body-parser": "^1.0.2",
@@ -25,6 +24,7 @@
     "human-interval": "^0.1.4",
     "i18n-2": "^0.4.6",
     "jsonwebtoken": "^0.4.1",
+    "kue": "^0.8.8",
     "method-override": "^1.0.0",
     "mongoose": "3.8.13",
     "mongoose-long": "0.0.2",
@@ -37,6 +37,7 @@
     "prettyjson": "^1.0.0",
     "require-all": "0.0.8",
     "static-favicon": "^1.0.2",
+    "time": "^0.11.0",
     "winston": "^0.7.3"
   },
   "scripts": {
@@ -45,7 +46,6 @@
     "update": "bower update --config.interactive=false"
   },
   "devDependencies": {
-    "event-stream": "^3.1.7",
     "glob": "^4.0.5",
     "gulp": "^3.8.7",
     "gulp-angular-filesort": "^1.0.2",

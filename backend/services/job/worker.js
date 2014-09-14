@@ -17,16 +17,6 @@ module.exports = function() {
     return self;
   };
 
-  this.lockLifetime = function(value) {
-    self.options.lockLifetime = value;
-    return self;
-  };
-
-  this.priority = function(value) {
-    self.options.priority = value;
-    return self;
-  };
-
   this.frequency = function(value) {
     self.options.frequency = value;
     return self;

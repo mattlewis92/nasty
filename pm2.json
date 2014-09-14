@@ -11,6 +11,33 @@
         "NODE_ENV": "production",
         "TZ": "Etc/UTC"
       }
+    },
+    {
+      "name"        : "mean-workers",
+      "script"      : "backend/workers/index.js",
+      "instances"   : 1,
+      "error_file"  : "./logs/pm2/workers.err",
+      "out_file"    : "./logs/pm2/workers.out",
+      "pid_file"    : "./logs/pm2/workers.pid",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "worker:*",
+        "TZ": "Etc/UTC"
+      }
+    },
+    {
+      "name"        : "mean-cron-runner",
+      "script"      : "backend/workers/index.js",
+      "instances"   : 1,
+      "error_file"  : "./logs/pm2/cronRunner.err",
+      "out_file"    : "./logs/pm2/cronRunner.out",
+      "pid_file"    : "./logs/pm2/cronRunner.pid",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "worker:*",
+        "CRON_RUNNER": "1",
+        "TZ": "Etc/UTC"
+      }
     }
   ]
 }
