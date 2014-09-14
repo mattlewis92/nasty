@@ -34,6 +34,7 @@
     "openifyit-mongoose-types": "^2.0.9",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
+    "pretty-error": "^1.1.1",
     "prettyjson": "^1.0.0",
     "require-all": "0.0.8",
     "static-favicon": "^1.0.2",
