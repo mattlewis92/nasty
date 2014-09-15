@@ -27,8 +27,6 @@
     "angular-ui-router": "~0.2.10",
     "angular-touch": "~1.2.21",
     "angular-classy": "~0.4.2",
-    "restangular": "~1.4.0",
-    "angular-cache": "~3.1.0",
     "font-awesome": "~4.1.0",
     "angular-auto-validate": "~1.0.15",
     "angular-translate": "~2.2.0",
