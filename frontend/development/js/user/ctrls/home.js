@@ -7,7 +7,7 @@ angular
 
     name: 'UserHomeCtrl',
 
-    inject: ['AuthUser', 'UserManager'],
+    inject: ['AuthUser', 'User'],
 
     init: function() {
       this.password = '';

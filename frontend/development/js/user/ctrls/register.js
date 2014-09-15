@@ -7,7 +7,7 @@ angular
 
     name: 'UserRegisterCtrl',
 
-    inject: ['UserManager'],
+    inject: ['User'],
 
     init: function() {
       this.user = {};

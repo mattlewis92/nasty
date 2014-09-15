@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('UserManager', function($timeout, $state, ResourceFactory, DSHttpAdapter, ErrorHandler, Authentication, Flash) {
+  .factory('User', function($timeout, $state, ResourceFactory, DSHttpAdapter, ErrorHandler, Authentication, Flash) {
 
     var User = ResourceFactory.create({
       name: 'user',

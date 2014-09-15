@@ -33,7 +33,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.AuthUser.save({tracker: home.UserManager.meta.loadingTracker})" loading-btn="home.UserManager.meta.loadingTracker">Update profile</button>
+      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.AuthUser.save({tracker: home.User.meta.loadingTracker})" loading-btn="home.User.meta.loadingTracker">Update profile</button>
     </div>
   </div>
 </form>
@@ -57,7 +57,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.AuthUser.changePassword(home.password)" loading-btn="home.UserManager.meta.loadingTracker">Change password</button>
+      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.AuthUser.changePassword(home.password)" loading-btn="home.User.meta.loadingTracker">Change password</button>
     </div>
   </div>
 </form>

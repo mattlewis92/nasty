@@ -27,8 +27,8 @@ angular
         templateUrl: 'views/user/home.html',
         controller: 'UserHomeCtrl as home',
         resolve: {
-          AuthUser: function(UserManager) {
-            return UserManager.getAuthUser();
+          AuthUser: function(User) {
+            return User.getAuthUser();
           }
         }
       });

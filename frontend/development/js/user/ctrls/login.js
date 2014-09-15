@@ -7,7 +7,7 @@ angular
 
     name: 'UserLoginCtrl',
 
-    inject: ['UserManager', 'Authentication'],
+    inject: ['User', 'Authentication'],
 
     init: function() {
       this.user = {};
