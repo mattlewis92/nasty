@@ -9,7 +9,6 @@ angular
   })
   .config(function(DSProvider) {
 
-    DSProvider.defaults.baseUrl = '/api/v1';
     DSProvider.defaults.idAttribute = '_id';
 
   })

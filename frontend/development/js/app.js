@@ -6,6 +6,7 @@ angular.module('mean', [
   'ngAnimate',
   'ngTouch',
   'classy',
+  'angular-data.DSCacheFactory',
   'angular-data.DS',
   'jcs-autoValidate',
   'pascalprecht.translate',

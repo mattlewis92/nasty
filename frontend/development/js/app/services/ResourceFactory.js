@@ -2,14 +2,24 @@
 
 angular
   .module('mean.app.services')
-  .factory('ResourceFactory', function(DS, promiseTracker) {
+  .factory('ResourceFactory', function(DS, DSHttpAdapter, promiseTracker) {
 
     return {
-      create: function(config) {
+      create: function(resourceConfig) {
 
         var model;
 
-        config.methods = config.methods || {};
+        resourceConfig.meta = resourceConfig.meta || {};
+        resourceConfig.meta.loadingTracker = promiseTracker();
+
+        var resourceHTTPAdapter = DSHttpAdapter.createInstance({
+          resource: resourceConfig.name,
+          tracker: resourceConfig.meta.loadingTracker
+        });
+        DS.adapters[resourceConfig.name] = resourceHTTPAdapter;
+        resourceConfig.defaultAdapter = resourceConfig.name;
+
+        resourceConfig.methods = resourceConfig.methods || {};
 
         var extraMethods = {
           save: function(options) {
@@ -27,15 +37,32 @@ angular
         };
 
         angular.forEach(extraMethods, function(value, key) {
-          if (!config.methods[key]) {
-            config.methods[key] = value;
+          if (!resourceConfig.methods[key]) {
+            resourceConfig.methods[key] = value;
           }
         });
 
-        config.meta = config.meta || {};
-        config.meta.loadingTracker = promiseTracker();
+        model = DS.defineResource(resourceConfig);
 
-        model = DS.defineResource(config);
+        model.doGET = function(method, config) {
+          config = config || {};
+          if (!config.tracker) {
+            config.tracker = resourceConfig.meta.tracker;
+          }
+          return resourceHTTPAdapter.GET(resourceConfig.name + '/' + method, config);
+        };
+
+        model.doPOST = function(method, data, config) {
+          return resourceHTTPAdapter.POST(resourceConfig.name + '/' + method, data, config);
+        };
+
+        model.doPUT = function(method, data, config) {
+          return resourceHTTPAdapter.PUT(resourceConfig.name + '/' + method, data, config);
+        };
+
+        model.doDELETE = function(method, data, config) {
+          return resourceHTTPAdapter.DEL(resourceConfig.name + '/' + method, data, config);
+        };
 
         return model;
 
