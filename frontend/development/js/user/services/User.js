@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($timeout, $state, ResourceFactory, DSHttpAdapter, ErrorHandler, Authentication, Flash) {
+  .factory('User', function($timeout, $state, ResourceFactory, DSHttpAdapter, Authentication, Flash) {
 
     var User = ResourceFactory.create({
       name: 'user',
@@ -14,8 +14,7 @@ angular
             .then(function(result) {
               Flash.confirm('Your password was changed successfully.', 'passwordSaved');
               return result;
-            })
-            .catch(ErrorHandler.http);
+            });
         }
       },
       afterUpdate: function(resourceName, attrs, cb) {
@@ -32,8 +31,7 @@ angular
           Authentication.store(result.data);
           $state.go('user.home');
           return result;
-        })
-        .catch(ErrorHandler.http);
+        });
 
     };
 
@@ -50,8 +48,7 @@ angular
         .POST('/api/v1/user/register', user, {tracker: User.meta.loadingTracker})
         .then(function() {
           return User.login(user);
-        })
-        .catch(ErrorHandler.http);
+        });
     };
 
     User.getAuthUser = function() {
