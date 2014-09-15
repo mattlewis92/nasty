@@ -14,12 +14,12 @@ angular
 
     service.isPersistent = true;
 
-    service.setToken = function(token) {
-      getStorageDriver(service.isPersistent)[STORAGE_KEY] = angular.copy(token);
+    service.store = function(data) {
+      getStorageDriver(service.isPersistent)[STORAGE_KEY] = angular.copy(data);
       service.setHeaders();
     };
 
-    service.getToken = function() {
+    service.retrieve = function() {
       if (getStorageDriver(true)[STORAGE_KEY]) {
         return getStorageDriver(true)[STORAGE_KEY];
       } else if (getStorageDriver(false)[STORAGE_KEY]) {
@@ -29,13 +29,13 @@ angular
       }
     };
 
-    service.removeToken = function() {
+    service.clear = function() {
       delete getStorageDriver(true)[STORAGE_KEY];
       delete getStorageDriver(false)[STORAGE_KEY];
     };
 
-    service.hasToken = function() {
-      return !!service.getToken();
+    service.isAuthenticated = function() {
+      return !!service.retrieve();
     };
 
     service.getBrowserFingerprint = function() {
@@ -45,8 +45,8 @@ angular
     service.setHeaders = function() {
       var headers = {};
       headers['x-finger-print'] = service.getBrowserFingerprint();
-      if (service.getToken()) {
-        headers['x-access-token'] = service.getToken().token;
+      if (service.isAuthenticated()) {
+        headers['x-access-token'] = service.retrieve().token;
       }
       angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
     };

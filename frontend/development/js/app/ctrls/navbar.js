@@ -14,8 +14,8 @@ angular
     },
 
     watch: {
-      'Authentication.getToken()': function(token) {
-        this.isLoggedIn = !!token;
+      'Authentication.isAuthenticated()': function(isAuthenticated) {
+        this.isLoggedIn = isAuthenticated;
       }
     }
 

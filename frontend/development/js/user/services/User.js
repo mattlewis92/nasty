@@ -29,7 +29,7 @@ angular
       return DSHttpAdapter
         .POST('/api/v1/user/authenticate', user, {tracker: User.meta.loadingTracker})
         .then(function(result) {
-          Authentication.setToken(result.data);
+          Authentication.store(result.data);
           $state.go('user.home');
           return result;
         })
@@ -39,7 +39,7 @@ angular
 
     User.logout = function() {
 
-      Authentication.removeToken();
+      Authentication.clear();
       $state.go('user.login');
 
     };
@@ -55,7 +55,7 @@ angular
     };
 
     User.getAuthUser = function() {
-      return User.find(Authentication.getToken().user._id);
+      return User.find(Authentication.retrieve().user._id);
     };
 
     return User;

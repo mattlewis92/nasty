@@ -21,7 +21,7 @@ angular
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
-      if (Authentication.hasToken() && toState.ifAuth) {
+      if (Authentication.isAuthenticated() && toState.ifAuth) {
         $state.go(toState.ifAuth);
       }
 
