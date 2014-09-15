@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('Authentication', function(Restangular, Fingerprint, $localStorage, $sessionStorage) {
+  .factory('Authentication', function(DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage) {
 
     var STORAGE_KEY = 'authToken';
 
@@ -46,9 +46,9 @@ angular
       var headers = {};
       headers['x-finger-print'] = service.getBrowserFingerprint();
       if (service.getToken()) {
-        headers['x-access-token'] = service.getToken();
+        headers['x-access-token'] = service.getToken().token;
       }
-      Restangular.setDefaultHeaders(headers);
+      angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
     };
 
     return service;

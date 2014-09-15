@@ -28,7 +28,7 @@ angular
         controller: 'UserHomeCtrl as home',
         resolve: {
           AuthUser: function(UserManager) {
-            return UserManager.refreshCurrent();
+            return UserManager.getAuthUser();
           }
         }
       });

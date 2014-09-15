@@ -21,7 +21,7 @@ module.exports = function(passport, models) {
           if (!isPasswordCorrect) {
             done(null, false, { message: 'The password you provided was incorrect.' });
           } else {
-            done(null, user);
+            done(null, user, {});
           }
         })
         .catch(done);

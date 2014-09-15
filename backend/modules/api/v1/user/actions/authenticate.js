@@ -34,7 +34,7 @@ module.exports = function(req, res, next, errors, passport, config) {
       }
     );
 
-    res.json({ token : token });
+    res.json({ token : token, user: {_id: user._id} });
 
   }, { session: false })(req, res, next);
 

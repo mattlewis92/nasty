@@ -35,7 +35,8 @@
     "exceptions.js": "https://github.com/steaks/exceptions.js.git#~0.2.0",
     "angular-promise-tracker": "~2.0.1",
     "fingerprint": "~0.5.4",
-    "ngstorage": "~0.3.0"
+    "ngstorage": "~0.3.0",
+    "angular-data": "~0.10.5"
   },
   "overrides": {
     "bootstrap": {

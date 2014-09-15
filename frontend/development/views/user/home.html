@@ -4,36 +4,36 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Created at</label>
     <div class="col-sm-10">
-      <p class="form-control-static">{{ home.UserManager.user.created_at | date:'medium' }}</p>
+      <p class="form-control-static">{{ home.AuthUser.created_at | date:'medium' }}</p>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Updated at</label>
     <div class="col-sm-10">
-      <p class="form-control-static">{{ home.UserManager.user.updated_at | date:'medium' }}</p>
+      <p class="form-control-static">{{ home.AuthUser.updated_at | date:'medium' }}</p>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">First name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="First name" ng-model="home.UserManager.user.name.first" required>
+      <input type="text" class="form-control" placeholder="First name" ng-model="home.AuthUser.name.first" required>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Surname</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="Surname" ng-model="home.UserManager.user.name.last" required>
+      <input type="text" class="form-control" placeholder="Surname" ng-model="home.AuthUser.name.last" required>
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Email</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" placeholder="Email" ng-model="home.UserManager.user.email" required>
+      <input type="email" class="form-control" placeholder="Email" ng-model="home.AuthUser.email" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.UserManager.updateCurrent()" loading-btn="home.UserManager.loadingTracker">Update profile</button>
+      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.AuthUser.save({tracker: home.UserManager.meta.loadingTracker})" loading-btn="home.UserManager.meta.loadingTracker">Update profile</button>
     </div>
   </div>
 </form>
@@ -57,7 +57,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.UserManager.changePassword(home.password)" loading-btn="home.UserManager.loadingTracker">Change password</button>
+      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.AuthUser.changePassword(home.password)" loading-btn="home.UserManager.meta.loadingTracker">Change password</button>
     </div>
   </div>
 </form>

@@ -9,6 +9,7 @@ angular.module('mean', [
   'restangular',
   'angular-data.DSCacheFactory',
   'angular-data.DSBinaryHeap',
+  'angular-data.DS',
   'jcs-autoValidate',
   'pascalprecht.translate',
   'ui.router',

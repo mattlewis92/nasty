@@ -2,15 +2,6 @@
 
 angular
   .module('mean')
-  .config(function($httpProvider) {
-
-    if (!$httpProvider.defaults.headers.get) {
-      $httpProvider.defaults.headers.get = {};
-    }
-    //disable IE ajax request caching
-    $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
-
-  })
   .run(function(Authentication) {
 
     Authentication.setHeaders();
@@ -30,10 +21,19 @@ angular
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
-      if (Authentication.getToken() && toState.ifAuth) {
+      if (Authentication.hasToken() && toState.ifAuth) {
         $state.go(toState.ifAuth);
       }
 
+    });
+
+  })
+  .run(function($rootScope, $state, ErrorHandler) {
+
+    $rootScope.$on('user.unauthorized', function(event, error) {
+      $state.go('user.login').then(function() {
+        ErrorHandler.http(error);
+      });
     });
 
   })
@@ -54,24 +54,5 @@ angular
       makeInvalid(el, msg);
       insertAfter(el, angular.element('<span class="fa fa-times form-control-feedback"></span>'));
     };
-
-  })
-  .run(function(Restangular, $state, ErrorHandler) {
-
-    Restangular.setErrorInterceptor(function(response) {
-
-      if (401 === response.status) {
-        $state.go('user.login').then(function() {
-          ErrorHandler.http(response);
-        });
-        return false;
-      } else {
-        //If the error then gets passed to the generic handler it will know it is http and handle it as such
-        response.__isHttp = true;
-      }
-
-      return true; // error not handled
-
-    });
 
   });
