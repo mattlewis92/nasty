@@ -44,6 +44,7 @@ angular
       return User.doPOST('register', user).then(function() {
         return User.login(user);
       });
+
     };
 
     User.getAuthUser = function() {
