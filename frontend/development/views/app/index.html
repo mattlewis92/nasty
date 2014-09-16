@@ -12,11 +12,11 @@
     <div class="well">
       <h4>Aims</h4>
       <ul>
-        <li>Create a set of reusable components that are applicable to most projects (parts can easily be removed if you don't want them)</li>
+        <li>Create a set of reusable components that are applicable to most projects (parts can easily be removed if you don't want them).</li>
         <li>Create a logical and well thought out file structure that makes it easy to find the right piece of code.</li>
         <li>Minimise require() on the backend as much as possible. So many node projects start off every file with a dozen lines of requiring other files - this is gross!</li>
         <li>Minimise the task of writing boilerplate code to add new functionality to be as simple and enjoyable as possible.</li>
-        <li>Implement a truly stateless backend REST API - all templating is done via AngularJS and there are no sessions involved thanks to <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JWT</a></li>
+        <li>Implement a truly stateless backend REST API - all templating is done via AngularJS and there are no sessions involved thanks to <a href="http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html">JWT</a>.</li>
         <li>Promises everywhere via <a href="https://github.com/petkaantonov/bluebird">bluebird</a>. Having to use the async library for control flow feels a lot clunkier compared to just using promises.</li>
       </ul>
     </div>
@@ -27,7 +27,17 @@
       <h4>Features</h4>
       <ul>
         <li>Automatic file watching, code linting and build process via <a href="http://gulpjs.com/">Gulp</a>.</li>
-        <li></li>
+        <li>Command line utility via <a href="https://github.com/visionmedia/commander.js">commander</a>.</li>
+        <li>Crons and background workers thanks to <a href="http://learnboost.github.io/kue/">Kue</a> and <a href="https://github.com/ncb000gt/node-cron">Node Cron</a></li>
+        <li>Angular inspired dependency injection but on the backend server thanks to <a href="https://github.com/luin/express-di">Express DI</a> and <a href="https://github.com/idottv/dependable">Dependable</a></li>
+        <li>Translation on both the frontend and backend thanks to <a href="https://github.com/jeresig/i18n-node-2">i18n-2</a> and <a href="http://angular-translate.github.io/">angular-translate</a>.</li>
+        <li>Mongo ODM thanks to <a href="http://mongoosejs.com/">Mongoose</a></li>
+        <li>Server logging via <a href="https://github.com/flatiron/winston">Winston</a> and frontend errors logged via <a href="https://github.com/steaks/exceptions.js">exceptions.js</a></li>
+        <li>Frontend AngularJS routing powered by the <a href="https://github.com/angular-ui/ui-router">ui-router</a></li>
+        <li>Styling via LESS and Bootstrap</li>
+        <li>Improved AngularJS controllers via <a href="http://davej.github.io/angular-classy/">angular classy</a></li>
+        <li>Frontend data store and model system powered by <a href="http://angular-data.pseudobry.com/">angular-data</a></li>
+        <li>And much more... (still to add)</li>
       </ul>
     </div>
   </div>
