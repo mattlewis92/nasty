@@ -24,7 +24,6 @@ module.exports = function() {
     if ('production' !== nconf.get('NODE_ENV')) {
       require('longjohn');
       bluebird.longStackTraces();
-      //require('pretty-error').start();
     }
 
     var packageJson = JSON.parse(fs.readFileSync(nconf.get('rootPath') + 'package.json'));
