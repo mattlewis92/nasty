@@ -219,14 +219,13 @@ var application = function() {
     app.use(di.get('passport').initialize());
 
     if (true === config.get('app:logRequests')) {
+      var transports = [];
+      for (var key in di.get('logger').get('request').transports) {
+        transports.push(di.get('logger').get('request').transports[key]);
+      }
+
       app.use(expressWinston.logger({
-        transports: [
-          new winston.transports.Console({
-            prettyPrint: true,
-            timestamp: true,
-            colorize: true
-          })
-        ]
+        transports: transports
       }));
     }
 
@@ -268,28 +267,17 @@ var application = function() {
 
     });
 
-    var winstonTransports = [
-      new winston.transports.Console({
-        prettyPrint: true,
-        timestamp: true,
-        colorize: true
-      })
-    ];
+    bluebird.onPossiblyUnhandledRejection(function(error) {
+      di.get('logger').get('error').error(error);
+    });
 
-    if (!isDevelopment) {
-      winstonTransports.push(new (winston.transports.File)({ filename: config.get('logPath') + 'errors.' + config.get('NODE_ENV') + '.log' }));
+    var transports = [];
+    for (var key in di.get('logger').get('error').transports) {
+      transports.push(di.get('logger').get('error').transports[key]);
     }
 
-    var logger = new (winston.Logger)({
-      transports: winstonTransports
-    });
-
-    bluebird.onPossiblyUnhandledRejection(function(error) {
-      logger.error(error);
-    });
-
     app.use(expressWinston.errorLogger({
-      transports: winstonTransports
+      transports: transports
     }));
 
     /*jshint unused:false*/
