@@ -2,15 +2,20 @@
 
 angular
   .module('mean.app.directives')
-  .directive('loadingBtn', function() {
+  .directive('loadingBtn', function($translate) {
     return {
       restrict: 'A',
       scope: {
-        tracker: '=loadingBtn'
+        tracker: '=loadingBtn',
+        isDisabled: '=ngDisabled'
       },
       link: function(scope, elm) {
 
-        var originalHtml = elm.html(), firstRun = true;
+        var originalHtml = elm.html(), firstRun = true, loadingText = '';
+
+        $translate('LOADING').then(function(str) {
+          loadingText = str;
+        });
 
         scope.$watch(scope.tracker.active, function(isActive) {
 
@@ -21,9 +26,12 @@ angular
 
           if (isActive) {
             elm.attr('disabled', 'disabled');
-            elm.html('<i class="fa fa-spin fa-spinner"></i> Loading...');
+            originalHtml = elm.html();
+            elm.html('<i class="fa fa-spin fa-spinner"></i> ' + loadingText + '...');
           } else {
-            elm.removeAttr('disabled');
+            if (!scope.isDisabled) {
+              elm.removeAttr('disabled');
+            }
             elm.html(originalHtml);
           }
 

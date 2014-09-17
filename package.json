@@ -92,6 +92,7 @@
     "bcrypt",
     "jsonwebtoken",
     "mongoose",
-    "winston"
+    "winston",
+    "fs"
   ]
 }

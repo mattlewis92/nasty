@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($timeout, $state, ResourceFactory, HTTP, Authentication, Flash) {
+  .factory('User', function($timeout, $state, $translate, ResourceFactory, HTTP, Authentication, Flash) {
 
     var User = ResourceFactory.create({
       name: 'user',
@@ -10,14 +10,22 @@ angular
         changePassword: function(password) {
 
           return User.doPUT('password', {password: password}).then(function(result) {
-            Flash.confirm('Your password was changed successfully.', 'passwordSaved');
+
+            $translate('PASSWORD_CHANGED').then(function(str) {
+              Flash.confirm(str, 'passwordSaved');
+            });
+
             return result;
           });
 
         }
       },
       afterUpdate: function(resourceName, attrs, cb) {
-        Flash.confirm('Your profile was updated successfully.', 'userSaved');
+
+        $translate('PROFILE_UPDATED').then(function(str) {
+          Flash.confirm(str, 'userSaved');
+        });
+
         cb(null, attrs);
       }
     });

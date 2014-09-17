@@ -1,37 +1,37 @@
 <form class="form-horizontal" role="form" novalidate name="registerForm">
   <div class="form-group">
-    <label class="col-sm-2 control-label">First name</label>
+    <label class="col-sm-2 control-label" translate="FIRST_NAME"></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="First name" ng-model="register.user.forename" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Surname</label>
+    <label class="col-sm-2 control-label" translate="SURNAME"></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="Surname" ng-model="register.user.surname" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Email</label>
+    <label class="col-sm-2 control-label" translate="EMAIL"></label>
     <div class="col-sm-10">
       <input type="email" class="form-control" placeholder="Email" ng-model="register.user.email" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Password</label>
+    <label class="col-sm-2 control-label" translate="PASSWORD"></label>
     <div class="col-sm-10">
       <input type="password" class="form-control" placeholder="Password" ng-model="register.user.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Password repeated</label>
+    <label class="col-sm-2 control-label" translate="PASSWORD_REPEATED"></label>
     <div class="col-sm-10">
       <input type="password" class="form-control" placeholder="Password repeated" ng-model="register.user.passwordRepeated" required password-repeat="register.user.password" ng-minlength="8" ng-maxlength="20">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="registerForm.$invalid" ng-click="register.User.register(register.user)" loading-btn="register.User.meta.loadingTracker">Register</button>
+      <button type="button" class="btn btn-primary" ng-disabled="registerForm.$invalid" ng-click="register.User.register(register.user)" loading-btn="register.User.meta.loadingTracker"><span translate="REGISTER"></span></button>
     </div>
   </div>
 </form>

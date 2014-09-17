@@ -2,10 +2,18 @@
 
 angular
   .module('mean.app.directives')
-  .directive('passwordRepeat', function(defaultErrorMessageResolver) {
+  .directive('passwordRepeat', function(defaultErrorMessageResolver, $translate) {
 
-    defaultErrorMessageResolver.getErrorMessages().then(function(errorMessages) {
-      errorMessages.passwordRepeat = 'The repeated password does not match.';
+    var msg;
+    $translate('REPEATED_PASSWORD_DOES_NOT_MATCH').then(function(str) {
+
+      msg = str;
+      return defaultErrorMessageResolver.getErrorMessages();
+
+    }).then(function(errorMessages) {
+
+      errorMessages.passwordRepeat = msg;
+
     });
 
     return {

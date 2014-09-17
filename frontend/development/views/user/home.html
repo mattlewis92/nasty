@@ -2,38 +2,38 @@
 
 <form class="form-horizontal" role="form" novalidate name="editForm">
   <div class="form-group">
-    <label class="col-sm-2 control-label">Created at</label>
+    <label class="col-sm-2 control-label" translate="CREATED_AT"></label>
     <div class="col-sm-10">
       <p class="form-control-static">{{ home.AuthUser.created_at | date:'medium' }}</p>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Updated at</label>
+    <label class="col-sm-2 control-label" translate="UPDATED_AT"></label>
     <div class="col-sm-10">
       <p class="form-control-static">{{ home.AuthUser.updated_at | date:'medium' }}</p>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">First name</label>
+    <label class="col-sm-2 control-label" translate="FIRST_NAME"></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="First name" ng-model="home.AuthUser.name.first" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Surname</label>
+    <label class="col-sm-2 control-label" translate="SURNAME"></label>
     <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="Surname" ng-model="home.AuthUser.name.last" required>
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Email</label>
+    <label class="col-sm-2 control-label" translate="EMAIL"></label>
     <div class="col-sm-10">
       <input type="email" class="form-control" placeholder="Email" ng-model="home.AuthUser.email" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.AuthUser.save()" loading-btn="home.User.meta.loadingTracker">Update profile</button>
+      <button type="button" class="btn btn-primary" ng-disabled="editForm.$invalid" ng-click="home.AuthUser.save()" loading-btn="home.User.meta.loadingTracker"><span translate="SAVE"></span></button>
     </div>
   </div>
 </form>
@@ -44,20 +44,20 @@
 
 <form class="form-horizontal" role="form" novalidate name="passwordForm">
   <div class="form-group">
-    <label class="col-sm-2 control-label">New password</label>
+    <label class="col-sm-2 control-label" translate="NEW_PASSWORD"></label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="New password" ng-model="home.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
+      <input type="password" class="form-control" placeholder="{{ 'NEW_PASSWORD' | translate }}" ng-model="home.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
     </div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">New password repeated</label>
+    <label class="col-sm-2 control-label" translate="NEW_PASSWORD_REPEATED"></label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="New password repeated" ng-model="home.passwordRepeated" required password-repeat="home.password" ng-minlength="8" ng-maxlength="20">
+      <input type="password" class="form-control" placeholder="{{ 'NEW_PASSWORD_REPEATED' | translate }}" ng-model="home.passwordRepeated" required password-repeat="home.password" ng-minlength="8" ng-maxlength="20">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.AuthUser.changePassword(home.password)" loading-btn="home.User.meta.loadingTracker">Change password</button>
+      <button type="button" class="btn btn-primary" ng-disabled="passwordForm.$invalid" ng-click="home.AuthUser.changePassword(home.password)" loading-btn="home.User.meta.loadingTracker"><span translate="SAVE"></span></button>
     </div>
   </div>
 </form>

@@ -10,6 +10,17 @@ angular
   .config(function(DSProvider) {
 
     DSProvider.defaults.idAttribute = '_id';
+    DSProvider.defaults.baseURL = '/api/v1/';
+
+  })
+  .config(function($translateProvider, DSProvider) {
+
+    $translateProvider
+      .useUrlLoader(DSProvider.defaults.baseURL + 'translations/fetch')
+      .determinePreferredLanguage()
+      .useSanitizeValueStrategy('escaped')
+      .useMissingTranslationHandlerLog()
+      .fallbackLanguage('en');
 
   })
   .config(function($provide) {
