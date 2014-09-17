@@ -11,7 +11,8 @@ module.exports = function() {
       var transportOptions = {
         console: {
           colorize: true,
-          timestamp: true
+          timestamp: true,
+          prettyPrint: true
         }
       };
 

@@ -9,6 +9,4 @@ module.exports = function(app, actions) {
   app.post('/authenticate', actions.authenticate);
   app.put('/:userId', actions.update);
 
-  return app;
-
 };

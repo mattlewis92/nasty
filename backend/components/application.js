@@ -7,7 +7,6 @@ var express = require('express'),
   http = require('http'),
   requireAll = require('require-all'),
   path = require('path'),
-  winston = require('winston'),
   expressWinston = require('express-winston'),
   fs = require('fs'),
   expressValidator = require('express-validator'),
@@ -135,11 +134,11 @@ var application = function() {
 
         }
 
-        var subAppLoaded = require(file)(subApp, actions, parentModuleMiddleware);
+        require(file)(subApp, actions, parentModuleMiddleware);
 
         addFinalMiddleware(subApp);
 
-        self.use(mountPrefix, subAppLoaded);
+        self.use(mountPrefix, subApp);
 
       }
 
@@ -209,9 +208,12 @@ var application = function() {
     }
 
     app.use(require('body-parser').urlencoded({
-      extended: true
+      extended: true,
+      limit: '10mb'
     }));
-    app.use(require('body-parser').json());
+    app.use(require('body-parser').json({
+      limit: '10mb'
+    }));
     app.use(expressValidator());
     app.use(require('method-override')());
     app.use(require('connect-requestid'));
@@ -238,9 +240,6 @@ var application = function() {
   },
 
   addFinalMiddleware = function(app) {
-
-    var config = di.get('config'),
-        isDevelopment = 'development' === config.get('NODE_ENV');
 
     app.use(function(err, req, res, next) {
 

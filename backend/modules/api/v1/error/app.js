@@ -2,6 +2,6 @@
 
 module.exports = function(app, actions) {
 
-  app.get('/test', actions.test);
+  app.post('/report', actions.report);
 
 };

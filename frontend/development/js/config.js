@@ -12,6 +12,16 @@ angular
     DSProvider.defaults.idAttribute = '_id';
 
   })
+  .config(function($provide) {
+
+    $provide.decorator('$exceptionHandler', function($delegate) {
+      return function(exception, cause) {
+        $delegate(exception, cause);
+        window.exceptions.handler.handle({ error: exception, data: { cause: cause } });
+      };
+    });
+
+  })
   .config(function($httpProvider) {
 
     if (!$httpProvider.defaults.headers.get) {
