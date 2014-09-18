@@ -4,7 +4,6 @@ process.env.TZ = 'Etc/UTC';
 
 var express = require('express'),
   dependable = require('dependable'),
-  http = require('http'),
   requireAll = require('require-all'),
   path = require('path'),
   expressWinston = require('express-winston'),
@@ -53,7 +52,7 @@ var application = function() {
 
   app.loadModules = function(modulePath) {
 
-    initMiddleware(this);
+    initMiddleware(this, true);
 
     var loadedModules = requireAll(modulePath),
         finder = require('findit')(modulePath),
@@ -175,7 +174,7 @@ var application = function() {
 
     var config = this.get('services').get('config');
 
-    http.createServer(this).listen(config.get('server:port'), config.get('server:address'), function() {
+    this.listen(config.get('server:port'), config.get('server:address'), function() {
       var addr = this.address();
       console.info('HTTP server listening on %s:%d', addr.address, addr.port);
       return done();
@@ -183,7 +182,7 @@ var application = function() {
 
   };
 
-  var initMiddleware = function(app) {
+  var initMiddleware = function(app, isRoot) {
 
     var config = di.get('config');
 
@@ -193,18 +192,21 @@ var application = function() {
     app.disable('x-powered-by');
 
     app.use(require('express-domain-middleware'));
-    app.use(require('static-favicon')());
 
-    if ('production' === config.get('NODE_ENV')) {
-      app.use(require('compression')({
-        filter: function(req, res) {
-          return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
-        },
-        level: 9
-      }));
-      app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
-    } else {
-      app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
+    if (isRoot) {
+      app.use(require('static-favicon')());
+
+      if ('production' === config.get('NODE_ENV')) {
+        app.use(require('compression')({
+          filter: function(req, res) {
+            return /json|text|javascript|css/.test(res.getHeader('Content-Type'));
+          },
+          level: 9
+        }));
+        app.use(express.static(config.get('rootPath') + config.get('frontendPath'), { maxAge: 86400000 * 365 }));
+      } else {
+        app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
+      }
     }
 
     app.use(require('body-parser').urlencoded({
