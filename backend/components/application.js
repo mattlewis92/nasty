@@ -135,6 +135,10 @@ var application = function() {
 
         require(file)(subApp, actions, parentModuleMiddleware);
 
+        subApp.all('*', function(req, res) {
+          res.status(404).json({message: 'This API method does not exist.'});
+        });
+
         addFinalMiddleware(subApp);
 
         self.use(mountPrefix, subApp);
