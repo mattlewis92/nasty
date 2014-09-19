@@ -2,7 +2,12 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($timeout, $state, $translate, ResourceFactory, HTTP, Authentication, Flash) {
+  .factory('User', function($timeout, $state, $translate, ResourceFactory, HTTP, DSHttpAdapter, Authentication, Flash) {
+
+    function changeLanguage(lang) {
+      $translate.use(lang);
+      DSHttpAdapter.defaults.$httpConfig.headers['Accept-Language'] = lang;
+    }
 
     var User = ResourceFactory.create({
       name: 'user',
@@ -25,6 +30,8 @@ angular
         $translate('PROFILE_UPDATED').then(function(str) {
           Flash.confirm(str, 'userSaved');
         });
+
+        changeLanguage(attrs.language);
 
         cb(null, attrs);
       }
@@ -56,7 +63,10 @@ angular
     };
 
     User.getAuthUser = function() {
-      return User.find(Authentication.retrieve().user._id);
+      return User.find(Authentication.retrieve().user._id).then(function(user) {
+        changeLanguage(user.language);
+        return user;
+      });
     };
 
     return User;

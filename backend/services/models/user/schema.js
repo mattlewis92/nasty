@@ -43,6 +43,11 @@ module.exports = function(mongoose) {
       type: String,
       required: true,
       select: false
+    },
+    language: {
+      type: String,
+      default: 'en',
+      enum: ['en', 'de']
     }
   };
 

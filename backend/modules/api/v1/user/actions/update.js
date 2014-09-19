@@ -20,6 +20,10 @@ module.exports = function(req, res, next, userAuthenticate, models, errors) {
       user.name.last = req.body.name.last;
       user.email = req.body.email;
 
+      if (req.body.language) {
+        user.language = req.body.language;
+      }
+
       return user.saveAsync();
 
     })
