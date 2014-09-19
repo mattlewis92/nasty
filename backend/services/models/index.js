@@ -3,10 +3,39 @@
 
 var mongoose = require('mongoose'),
     requireAll = require('require-all'),
+    _ = require('underscore'),
     mongooseTypes = require('openifyit-mongoose-types');
 
 mongooseTypes.loadTypes(mongoose);
 require('mongoose-long')(mongoose);
+
+_.mixin({
+  pickDeep: function(obj) {
+    var copy = {},
+      keys = Array.prototype.concat.apply(Array.prototype, Array.prototype.slice.call(arguments, 1));
+
+    this.each(keys, function(key) {
+      var subKeys = key.split('.');
+      key = subKeys.shift();
+
+      if (key in obj) {
+        // pick nested properties
+        if (subKeys.length>0) {
+          // extend property (if defined before)
+          if (copy[key]) {
+            _.extend(copy[key], _.pickDeep(obj[key], subKeys.join('.')));
+          } else {
+            copy[key] = _.pickDeep(obj[key], subKeys.join('.'));
+          }
+        } else {
+          copy[key] = obj[key];
+        }
+      }
+    });
+
+    return copy;
+  }
+});
 
 module.exports = function() {
 
@@ -50,6 +79,11 @@ module.exports = function() {
 
       schema.options.toObject.getters = true;
       schema.options.toObject.virtuals = true;
+
+      schema.methods.extend = function(obj, schema) {
+        var filtered = _.pickDeep(obj, schema);
+        return _.extend(this, filtered);
+      };
 
       models[model] = mongoose.model(model, schema, model);
     }

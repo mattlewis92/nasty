@@ -16,13 +16,7 @@ module.exports = function(req, res, next, userAuthenticate, models, errors) {
     .findByIdAsync(userAuthenticate._id)
     .then(function(user) {
 
-      user.name.first = req.body.name.first;
-      user.name.last = req.body.name.last;
-      user.email = req.body.email;
-
-      if (req.body.language) {
-        user.language = req.body.language;
-      }
+      user = user.extend(req.body, ['name.first', 'name.last', 'email', 'language']);
 
       return user.saveAsync();
 
