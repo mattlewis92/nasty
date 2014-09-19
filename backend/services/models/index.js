@@ -37,7 +37,7 @@ _.mixin({
   }
 });
 
-module.exports = function() {
+module.exports = function(app) {
 
   return function(config) {
 
@@ -59,7 +59,7 @@ module.exports = function() {
 
       ['plugins', 'pre', 'post', 'methods', 'options', 'statics', 'virtuals'].forEach(function(key) {
         if (elems[key]) {
-          elems[key](mongoose, schema);
+          elems[key](schema, app.get('services'));
         }
       });
 

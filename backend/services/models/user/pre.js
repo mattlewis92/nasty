@@ -3,7 +3,7 @@
 var bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
 
-module.exports = function(mongoose, schema) {
+module.exports = function(schema) {
 
   schema.pre('save', function(next) {
     var user = this;

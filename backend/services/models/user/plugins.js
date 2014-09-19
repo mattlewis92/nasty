@@ -2,7 +2,7 @@
 
 var mongooseTimestamp = require('mongoose-timestamp');
 
-module.exports = function(mongoose, schema) {
+module.exports = function(schema) {
 
   schema.plugin(mongooseTimestamp, {
     createdAt: 'created_at',

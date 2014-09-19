@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(mongoose, schema) {
+module.exports = function(schema) {
 
   schema
     .virtual('name.full')
