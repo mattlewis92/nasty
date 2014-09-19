@@ -37,7 +37,9 @@
     "angular-data": "~0.10.5",
     "angular-cache": "~3.1.1",
     "angular-translate-loader-url": "~2.3.0",
-    "angular-translate-handler-log": "~2.1.0"
+    "angular-translate-handler-log": "~2.1.0",
+    "socket.io-client": "~1.1.0",
+    "angular-socket-io": "~0.6.0"
   },
   "overrides": {
     "bootstrap": {
@@ -51,6 +53,9 @@
         "promise-tracker.js",
         "promise-tracker-http-interceptor.js"
       ]
+    },
+    "socket.io-client": {
+      "main": "socket.io.js"
     }
   }
 }

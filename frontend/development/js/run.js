@@ -5,6 +5,7 @@ angular
   .run(function(Config, Authentication) {
 
     Authentication.setHeaders();
+    Authentication.socketAuthInit();
 
   })
   .run(function($rootScope, $state, ErrorHandler, Authentication) {

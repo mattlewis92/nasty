@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('Authentication', function(DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage) {
+  .factory('Authentication', function(DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, Socket) {
 
     var STORAGE_KEY = 'authToken';
 
@@ -17,6 +17,7 @@ angular
     service.store = function(data) {
       getStorageDriver(service.isPersistent)[STORAGE_KEY] = angular.copy(data);
       service.setHeaders();
+      service.socketEmitAuthToken();
     };
 
     service.retrieve = function() {
@@ -49,6 +50,18 @@ angular
         headers['x-access-token'] = service.retrieve().token;
       }
       angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
+    };
+
+    service.socketAuthInit = function() {
+
+      Socket.on('connect', service.socketEmitAuthToken);
+
+    };
+
+    service.socketEmitAuthToken = function() {
+      if (service.isAuthenticated()) {
+        Socket.emit('authenticate', {token: service.retrieve().token});
+      }
     };
 
     return service;

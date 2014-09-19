@@ -14,6 +14,7 @@ angular.module('mean', [
   'ui.bootstrap',
   'ajoslin.promise-tracker',
   'ngStorage',
+  'btford.socket-io',
   'mean.views',
   'mean.constants',
   'mean.app',

@@ -181,6 +181,7 @@ var application = function() {
     this.listen(config.get('server:port'), config.get('server:address'), function() {
       var addr = this.address();
       console.info('HTTP server listening on %s:%d', addr.address, addr.port);
+      di.get('notifications').init(this);
       return done();
     });
 
