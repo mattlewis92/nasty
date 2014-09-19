@@ -6,12 +6,15 @@
   },
   "server": {
     "host": "127.0.0.1",
-    "port": 3006
+    "port": 3007
   },
   "i18n": {
-    "locales": ["en", "de"],
+    "locales": {
+      "en": "English",
+      "de": "German"
+    },
     "defaultLocale": "en",
-    "directory": "%rootPath%/backend/locales",
+    "directory": "%rootPath%/backend/translations",
     "extension": ".json"
   },
   "kue": {

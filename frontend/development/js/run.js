@@ -2,7 +2,7 @@
 
 angular
   .module('mean')
-  .run(function(Authentication) {
+  .run(function(Config, Authentication) {
 
     Authentication.setHeaders();
 

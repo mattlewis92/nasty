@@ -5,7 +5,7 @@ var fs = require('fs');
 module.exports = function(req, res, next, i18n) {
 
   var lang = req.query.lang.split('_')[0],
-      langPath = i18n(lang).locateFile(lang)
+      langPath = i18n(lang).locateFile(lang);
 
   fs.readFileAsync(langPath).then(function(data) {
 
