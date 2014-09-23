@@ -4,7 +4,7 @@ var program = require('commander')
   , fs = require('fs')
   , programVersion = JSON.parse(fs.readFileSync('package.json')).version
   , requireAll = require('require-all')
-  , application = require(__dirname + '/backend/components/application');
+  , application = require(__dirname + '/backend/application');
 
 var app = new application();
 var services = app.loadServices(__dirname + '/backend/services', __dirname + '/');

@@ -1,6 +1,6 @@
 'use strict';
 
-var application = require(__dirname + '/../components/application'),
+var application = require(__dirname + '/../application'),
     app = new application(),
     requireAll = require('require-all'),
     services = app.loadServices(__dirname + '/../services', __dirname + '/../../'),

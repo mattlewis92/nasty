@@ -4,7 +4,7 @@ var nconf = require('nconf'),
     bluebird = require('bluebird'),
     fs = require('fs');
 
-module.exports = function() {
+module.exports = function(app) {
 
   return function(rootPath) {
 
@@ -33,6 +33,10 @@ module.exports = function() {
         bluebird.promisifyAll(library);
       });
     }
+
+    bluebird.onPossiblyUnhandledRejection(function(error) {
+      app.get('services').get('logger').get('error').error(error);
+    });
 
     return nconf;
 
