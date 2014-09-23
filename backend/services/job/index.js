@@ -53,6 +53,14 @@ module.exports = function() {
 
     }
 
+    function scheduleJob(name, data, runAt, onComplete, onCompleteData, options) {
+
+      options = options || {};
+      options.delay = runAt - Date.now();
+      return queueJob(name, data, onComplete, onCompleteData, options);
+
+    }
+
     function handleJobComplete(id) {
 
       kue.Job.get(id, function(err, job) {
@@ -160,7 +168,8 @@ module.exports = function() {
 
     return {
       queue: queueJob,
-      cancelJob: cancelJob,
+      cancel: cancelJob,
+      schedule: scheduleJob,
       initWorkers: initWorkers
     };
 

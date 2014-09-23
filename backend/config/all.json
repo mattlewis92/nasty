@@ -19,5 +19,13 @@
   },
   "kue": {
     "adminPort": 3001
+  },
+  "mailer": {
+    "service": "Gmail",
+    "auth": {
+      "user": "matt@iwaz.at",
+      "pass": "<PASSWORD>"
+    },
+    "sandbox": "matt@iwaz.at"
   }
 }
