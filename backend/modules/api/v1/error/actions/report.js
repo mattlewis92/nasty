@@ -1,28 +1,21 @@
 'use strict';
 
-var request = require('request');
+var imgur = require('imgur');
 
 module.exports = function(req, res, logger) {
 
   var exception = JSON.parse(req.body.exception);
   delete exception.data.DOMDump;
 
-  request.post({
-    url: 'https://api.imgur.com/3/image',
-    headers: {
-      Authorization: 'Client-ID ' + 'de44c1f57f60e41',
-      Accept: 'application/json'
-    },
-    form: {
-      image: exception.data.screenshot.replace('data:image/png;base64,', ''),
-      type: 'base64'
-    },
-    json: true
-  }, function(err, result, body) {
+  imgur.setClientId('de44c1f57f60e41');
 
-    if (!err) {
-      exception.data.screenshot = body.data.link;
-    }
+  var base64Img = exception.data.screenshot.replace('data:image/png;base64,', '');
+  imgur.uploadBase64(base64Img).then(function(result) {
+
+    exception.data.screenshot = result.data.link;
+
+  }).finally(function() {
+
     logger.get('frontend').error(exception);
     res.json({logged: true});
 
