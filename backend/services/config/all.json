@@ -24,8 +24,9 @@
     "service": "Gmail",
     "auth": {
       "user": "matt@iwaz.at",
-      "pass": "<PASSWORD>"
+      "pass": "<<DELETED>>"
     },
+    "defaultSender": "MEAN app <no-reply@iwaz.at>",
     "sandbox": "matt@iwaz.at"
   }
 }

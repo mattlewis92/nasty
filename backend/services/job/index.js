@@ -79,7 +79,9 @@ module.exports = function() {
 
         }
 
-        job.remove(); //just delete it once we're done
+        if (!job._error) { //Delete it once we're done unless there was an error
+          job.remove();
+        }
 
       });
 

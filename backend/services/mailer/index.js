@@ -1,13 +1,55 @@
 var nodemailer = require('nodemailer'),
-    bluebird = require('bluebird');
+    htmlToText = require('nodemailer-html-to-text').htmlToText,
+    bluebird = require('bluebird'),
+    handlebars = require('handlebars'),
+    fs = require('fs'),
+    emailTemplates = bluebird.promisify(require('email-templates')),
+    templateDirectory = __dirname + '/emailTemplates',
+    partialDirectory = templateDirectory + '/partials';
+
+bluebird.promisifyAll(fs);
+var templateBuilder = fs.readdirAsync(partialDirectory).then(function(files) {
+
+  var promises = files.map(function(filename) {
+    return fs.readFileAsync(partialDirectory + '/' + filename).then(function(content) {
+      var partialName = filename.replace('.hbs', '');
+      var partialContent = content.toString();
+      handlebars.registerPartial(partialName, partialContent);
+    });
+  });
+
+  return bluebird.all(promises);
+
+}).then(function() {
+
+  return emailTemplates(templateDirectory);
+
+}).then(bluebird.promisify);
 
 module.exports = function() {
 
   return function(config, job) {
 
     var transporter = nodemailer.createTransport(config.get('mailer'));
+    transporter.use('compile', htmlToText());
     bluebird.promisifyAll(transporter);
-    var sandbox = config.get('mailer').sandbox;
+    var sandbox = config.get('mailer:sandbox'),
+        defaultSender = config.get('mailer:defaultSender');
+
+    function renderTemplate(name, locals) {
+
+      locals = locals || {};
+      for (var key in locals) {
+        if ('string' === typeof locals[key]) {
+          locals[key] = locals[key].replace(/\n/g, '<br>');
+        }
+      }
+
+      return templateBuilder.then(function(builder) {
+        return builder(name, locals);
+      });
+
+    }
 
     function sendMail(options) {
       if (sandbox) {
@@ -15,20 +57,47 @@ module.exports = function() {
         delete options.cc;
         delete options.bcc;
       }
-      return transporter.sendMailAsync(options);
+
+      if (!options.from) {
+        options.from = defaultSender;
+      }
+
+      if (options.template) {
+
+        return renderTemplate(options.template.name, options.template.locals).spread(function(html, text) {
+
+          options.html = html;
+          if (text) {
+            options.text = text;
+          }
+          return transporter.sendMailAsync(options);
+
+        });
+
+      } else {
+
+        return transporter.sendMailAsync(options);
+
+      }
+
     }
 
     function queueMail(options, sendAt) {
+      if (sandbox) { //Send the mail now if in sandbox / dev mode
+        return sendMail(options);
+      }
+
       if (sendAt) {
-        job.schedule('app:email', options, sendAt);
+        return job.schedule('app:email', options, sendAt);
       } else {
-        job.queue('app:email', options);
+        return job.queue('app:email', options);
       }
     }
 
     return {
       sendMail: sendMail,
-      queueMail: queueMail
+      queueMail: queueMail,
+      renderTemplate: renderTemplate
     }
 
   }

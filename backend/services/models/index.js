@@ -85,6 +85,11 @@ module.exports = function(app) {
         return _.extend(this, filtered);
       };
 
+      schema.pre('save', function(next) {
+        this.wasNew = this.isNew;
+        next();
+      });
+
       models[model] = mongoose.model(model, schema, model);
     }
 
