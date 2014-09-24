@@ -5,8 +5,8 @@ var gulp = require('gulp'),
 
 var directories = {
   frontend: {
-    dev: require('./backend/config/development.json').frontendPath,
-    prod: require('./backend/config/production.json').frontendPath
+    dev: require('./backend/services/config/development.json').frontendPath,
+    prod: require('./backend/services/config/production.json').frontendPath
   },
   server: 'backend/index.js',
   backend: 'backend'
@@ -25,7 +25,7 @@ var files = {
   html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/views/**/*.html']
 };
 
-var server = require('./backend/config/all.json').server;
+var server = require('./backend/services/config/all.json').server;
 
 gulp.task('open', function() {
 
