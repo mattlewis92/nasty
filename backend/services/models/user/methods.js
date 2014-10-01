@@ -20,14 +20,19 @@ module.exports = function(schema, services) {
 
   };
 
-  schema.methods.sendEmail = function(options) {
+  schema.methods.sendEmail = function(options, sendQueued, sendAt) {
 
     if (!this.email) {
       throw new Error('You must select the email field in your query!');
     }
 
     options.to = this.email;
-    return services.get('mailer').sendMail(options);
+
+    if (sendQueued) {
+      return services.get('mailer').queueMail(options, sendAt);
+    } else {
+      return services.get('mailer').sendMail(options);
+    }
 
   };
 

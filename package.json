@@ -103,6 +103,7 @@
     "jsonwebtoken",
     "mongoose",
     "winston",
-    "fs"
+    "fs",
+    "crypto"
   ]
 }

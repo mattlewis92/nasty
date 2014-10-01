@@ -37,6 +37,19 @@ angular
       }
     });
 
+    User.resetPasswordRequest = function(email) {
+
+      return User.doPOST('password/reset/request', {email: email}).then(function(result) {
+
+        $translate('PASSWORD_RESET_REQUESTED').then(function(str) {
+          Flash.confirm(str, 'passwordResetRequested');
+        });
+
+        return result;
+      });
+
+    };
+
     User.login = function(user) {
 
       return User.doPOST('authenticate', user).then(function(result) {

@@ -30,5 +30,9 @@
 	"REPEATED_PASSWORD_DOES_NOT_MATCH": "The repeated password does not match.",
 	"PASSWORD_CHANGED": "Your password was changed successfully.",
 	"PROFILE_UPDATED": "Your profile was updated successfully.",
-	"PREFERRED_LANGUAGE": "Preferred language"
+	"PREFERRED_LANGUAGE": "Preferred language",
+	"FORGOT_PASSWORD": "I forgot my password",
+	"SEND_RESET_EMAIL": "Send reset email",
+	"PASSWORD_RESET_REQUESTED": "An email has been sent to you with instructions on how to reset your password.",
+	"This user does not exist!": "This user does not exist!"
 }

@@ -48,6 +48,16 @@ module.exports = function(mongoose) {
       type: String,
       default: 'en',
       enum: ['en', 'de']
+    },
+    password_reset: {
+      token: {
+        type: String,
+        select: false
+      },
+      expires_at: {
+        type: Date,
+        select: false
+      }
     }
   };
 

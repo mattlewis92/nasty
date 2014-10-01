@@ -22,6 +22,12 @@ angular
         controller: 'UserLoginCtrl as login',
         ifAuth: 'user.home'
       })
+      .state('user.forgotPassword', {
+        url: '/forgot',
+        templateUrl: 'views/user/forgotPassword.html',
+        controller: 'UserResetPasswordCtrl as forgotPassword',
+        ifAuth: 'user.home'
+      })
       .state('user.home', {
         url: '/home',
         templateUrl: 'views/user/home.html',

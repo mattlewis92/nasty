@@ -41,7 +41,7 @@ module.exports = function(app, di) {
   /*jshint unused:false*/
   app.use(function(err, req, res, next) {
 
-    res.status(500).json({error: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
+    res.status(500).json({message: 'An error occurred! Please try again or contact us if you believe this should have worked.'});
 
   });
   /*jshint unused:true*/
