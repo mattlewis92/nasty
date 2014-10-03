@@ -7,13 +7,6 @@ angular
 
     name: 'UserResetPasswordCtrl',
 
-    inject: ['User'],
-
-    init: function() {
-      var self = this;
-      this.resetRequested = function() {
-        self.requested = true;
-      }
-    }
+    inject: ['$stateParams', 'User']
 
   });

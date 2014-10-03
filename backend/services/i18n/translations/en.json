@@ -34,5 +34,7 @@
 	"FORGOT_PASSWORD": "I forgot my password",
 	"SEND_RESET_EMAIL": "Send reset email",
 	"PASSWORD_RESET_REQUESTED": "An email has been sent to you with instructions on how to reset your password.",
-	"This user does not exist!": "This user does not exist!"
+	"This user does not exist!": "This user does not exist!",
+	"PASSWORD_RESET_COMPLETED": "Your password has been reset successfully and you can now login.",
+	"The reset link you clicked is invalid. Please request a new reset token.": "The reset link you clicked is invalid. Please request a new reset token."
 }

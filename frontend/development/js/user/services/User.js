@@ -50,6 +50,21 @@ angular
 
     };
 
+    User.resetPassword = function(userId, token, password) {
+
+      return User.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
+
+        $state.go('user.login').then(function() {
+          return $translate('PASSWORD_RESET_COMPLETED');
+        }).then(function(str) {
+          Flash.confirm(str, 'passwordResetCompleted');
+        });
+
+        return result;
+      });
+
+    };
+
     User.login = function(user) {
 
       return User.doPOST('authenticate', user).then(function(result) {

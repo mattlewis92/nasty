@@ -46,7 +46,7 @@ module.exports = function(req, res, next, models, errors, config) {
           content: 'To reset your password please click the link below.',
           button: {
             text: 'Reset',
-            link:  req.protocol + '://' + req.get('host') + '/user/forgot/' + token
+            link:  req.protocol + '://' + req.get('host') + '/user/forgot/' + user._id + '/' + token
           }
         }
       }

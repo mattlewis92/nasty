@@ -22,10 +22,16 @@ angular
         controller: 'UserLoginCtrl as login',
         ifAuth: 'user.home'
       })
-      .state('user.forgotPassword', {
+      .state('user.resetPasswordRequest', {
         url: '/forgot',
-        templateUrl: 'views/user/forgotPassword.html',
-        controller: 'UserResetPasswordCtrl as forgotPassword',
+        templateUrl: 'views/user/resetPasswordRequest.html',
+        controller: 'UserResetPasswordRequestCtrl as resetPasswordRequest',
+        ifAuth: 'user.home'
+      })
+      .state('user.resetPassword', {
+        url: '/forgot/:userId/:resetToken',
+        templateUrl: 'views/user/resetPassword.html',
+        controller: 'UserResetPasswordCtrl as resetPassword',
         ifAuth: 'user.home'
       })
       .state('user.home', {
