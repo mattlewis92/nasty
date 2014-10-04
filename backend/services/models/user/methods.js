@@ -20,6 +20,12 @@ module.exports = function(schema, services) {
 
   };
 
+  schema.methods.isOnlineNow = function() {
+
+    return services.get('notifications').isUserOnline(this.id);
+
+  };
+
   schema.methods.sendEmail = function(options, sendQueued, sendAt) {
 
     if (!this.email) {

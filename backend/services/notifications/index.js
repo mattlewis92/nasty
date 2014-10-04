@@ -28,10 +28,14 @@ module.exports = function() {
       getIO: function() {
         return io;
       },
+      isUserOnline: function(userId) {
+        var room = io.sockets.adapter.rooms['user.' + userId];
+        return (!!room && Object.keys(room).length > 0);
+      },
       emitToUser: function(userId, event, data) {
         io.to('user.' + userId).emit(event, data);
       },
-      emitToAllUsers: function(event, data) {
+      emitToAll: function(event, data) {
         io.emit(event, data);
       }
     };
