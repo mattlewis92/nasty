@@ -8,7 +8,7 @@ angular
     Authentication.socketAuthInit();
 
   })
-  .run(function($rootScope, $state, ErrorHandler, Authentication) {
+  .run(function($rootScope, $state, ErrorHandler, Authentication, HistoryManager) {
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
@@ -20,7 +20,9 @@ angular
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+
+      HistoryManager.previousUrl = $state.href(fromState, fromParams);
 
       if (Authentication.isAuthenticated() && toState.ifAuth) {
         $state.go(toState.ifAuth);

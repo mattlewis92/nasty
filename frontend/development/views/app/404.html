@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-center">
+      <h2>This page does not exist!</h2>
+      <br>
+      <div>
+        Sorry, but the page you were looking for could not be found.
+      </div>
+      <br>
+      <br>
+      <div>
+        <a ng-href="{{ errorCtrl.HistoryManager.previousUrl }}" class="btn btn-primary btn-lg" ng-show="errorCtrl.HistoryManager.previousUrl">
+          <span class="fa fa-arrow-left"></span>
+          Go back
+        </a>
+        <a ui-sref="index" class="btn btn-default btn-lg" ng-hide="errorCtrl.Authentication.isAuthenticated()">
+          <span class="fa fa-home"></span>
+          Take Me Home
+        </a>
+        <a ui-sref="user.home" class="btn btn-default btn-lg" ng-show="errorCtrl.Authentication.isAuthenticated()">
+          <span class="fa fa-home"></span>
+          Take Me Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
