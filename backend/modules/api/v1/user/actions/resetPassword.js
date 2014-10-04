@@ -23,6 +23,8 @@ module.exports = function(req, res, next, models, errors) {
       next(new errors.user('The reset link you clicked is invalid. Please request a new reset token.'));
     } else {
       user.password = req.body.password;
+      user.password_reset.token = null;
+      user.password_reset.expires_at = null;
       return user.saveAsync().then(function() {
         res.json({success: true});
       });
