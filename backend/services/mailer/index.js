@@ -1,30 +1,8 @@
 var nodemailer = require('nodemailer'),
     htmlToText = require('nodemailer-html-to-text').htmlToText,
     bluebird = require('bluebird'),
-    handlebars = require('handlebars'),
-    fs = require('fs'),
     emailTemplates = bluebird.promisify(require('email-templates')),
-    templateDirectory = __dirname + '/emailTemplates',
-    partialDirectory = templateDirectory + '/partials';
-
-bluebird.promisifyAll(fs);
-var templateBuilder = fs.readdirAsync(partialDirectory).then(function(files) {
-
-  var promises = files.map(function(filename) {
-    return fs.readFileAsync(partialDirectory + '/' + filename).then(function(content) {
-      var partialName = filename.replace('.hbs', '');
-      var partialContent = content.toString();
-      handlebars.registerPartial(partialName, partialContent);
-    });
-  });
-
-  return bluebird.all(promises);
-
-}).then(function() {
-
-  return emailTemplates(templateDirectory);
-
-}).then(bluebird.promisify);
+    templateBuilder = emailTemplates(__dirname + '/emailTemplates').then(bluebird.promisify);
 
 module.exports = function() {
 
