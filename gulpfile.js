@@ -11,15 +11,13 @@ var directories = {
   server: 'backend/index.js',
   backend: 'backend'
 };
-directories.less = directories.frontend.dev + '/stylesheets/less/';
-directories.css = directories.frontend.dev + '/stylesheets/css/';
 
 var files = {
   server: directories.backend + '/**/*.js',
   frontEndJs: directories.frontend.dev + '/modules/**/*.js',
   images: directories.frontend.dev + '/img/**/*',
-  less: directories.less + '**/*.less',
-  css: directories.css + '**/*.css',
+  less: directories.frontend.dev + '/modules/**/*.less',
+  css: directories.frontend.dev + '/modules/**/*.css',
   js: [directories.backend + '/**/*.js', directories.frontend.dev + '/modules/**/*.js'],
   views: directories.frontend.dev + '/modules/**/*.html',
   html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/modules/**/*.html']
@@ -80,7 +78,7 @@ gulp.task('less', function() {
     .pipe(gp.plumber())
     .pipe(gp.cached('less'))
     .pipe(gp.less())
-    .pipe(gulp.dest(directories.css));
+    .pipe(gulp.dest(directories.frontend.dev + '/modules'));
 
 });
 

@@ -3,7 +3,7 @@
 .idea
 frontend/development/vendor
 frontend/production
-frontend/development/stylesheets/css
+*.css
 frontend/development/index.html
 logs
 
