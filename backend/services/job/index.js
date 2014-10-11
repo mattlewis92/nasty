@@ -4,12 +4,13 @@ var kue = require('kue'),
     bluebird = require('bluebird'),
     debug = require('debug'),
     CronJob = require('cron').CronJob,
-    worker = require('./worker'),
-    queue = kue.createQueue();
+    worker = require('./worker');
 
 module.exports = function() {
 
   return function(config) {
+
+    var queue = kue.createQueue(config.get('kue:options') || {});
 
     function queueJob(name, data, onComplete, onCompleteData, options) {
 

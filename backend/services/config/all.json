@@ -18,7 +18,10 @@
     "extension": ".json"
   },
   "kue": {
-    "adminPort": 3001
+    "adminPort": 3001,
+    "options": {
+      "prefix": "q"
+    }
   },
   "mailer": {
     "service": "Gmail",
