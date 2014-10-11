@@ -16,13 +16,13 @@ directories.css = directories.frontend.dev + '/stylesheets/css/';
 
 var files = {
   server: directories.backend + '/**/*.js',
-  frontEndJs: directories.frontend.dev + '/js/**/*.js',
+  frontEndJs: directories.frontend.dev + '/modules/**/*.js',
   images: directories.frontend.dev + '/img/**/*',
   less: directories.less + '**/*.less',
   css: directories.css + '**/*.css',
-  js: [directories.backend + '/**/*.js', directories.frontend.dev + '/js/**/*.js'],
-  views: directories.frontend.dev + '/views/**/*.html',
-  html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/views/**/*.html']
+  js: [directories.backend + '/**/*.js', directories.frontend.dev + '/modules/**/*.js'],
+  views: directories.frontend.dev + '/modules/**/*.html',
+  html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/modules/**/*.html']
 };
 
 var server = require('./backend/services/config/all.json').server;
@@ -36,11 +36,13 @@ gulp.task('open', function() {
 
 });
 
-gulp.task('server:start:dev', function() {
+gulp.task('server:start:dev', ['inject'], function() {
 
   gp.developServer.listen({ path: directories.server }, function(err) {
     if (!err) {
-      gulp.start('open');
+      setTimeout(function() {
+        gulp.start('open');
+      }, 500);
     }
   });
 
@@ -50,7 +52,9 @@ gulp.task('server:start:prod', function() {
 
   gp.developServer.listen({ path: directories.server, env: {NODE_ENV: 'production'} }, function(err) {
     if (!err) {
-      gulp.start('open');
+      setTimeout(function() {
+        gulp.start('open');
+      }, 500);
     }
   });
 
@@ -150,7 +154,7 @@ var getTemplates = function() {
     .src(files.views)
     .pipe(gp.angularHtmlify())
     .pipe(gp.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(gp.angularTemplatecache({standalone: false, module: 'mean.views', root: 'views/'}));
+    .pipe(gp.angularTemplatecache({standalone: false, module: 'mean.views', root: 'modules/'}));
 
 };
 

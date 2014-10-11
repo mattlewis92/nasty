@@ -7,7 +7,7 @@ angular
     return {
       restrict: 'EA',
       transclude: true,
-      templateUrl: 'views/app/directives/loadingBox.html',
+      templateUrl: 'modules/app/views/directives/loadingBox.html',
       link: function(scope) {
         scope.Loading = Loading;
       }
