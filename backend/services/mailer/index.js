@@ -1,3 +1,5 @@
+'use strict';
+
 var nodemailer = require('nodemailer'),
     htmlToText = require('nodemailer-html-to-text').htmlToText,
     bluebird = require('bluebird'),
@@ -76,8 +78,8 @@ module.exports = function() {
       sendMail: sendMail,
       queueMail: queueMail,
       renderTemplate: renderTemplate
-    }
+    };
 
-  }
+  };
 
 };

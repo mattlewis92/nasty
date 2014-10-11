@@ -19,6 +19,7 @@
   "strict": true,
   "trailing": true,
   "smarttabs": true,
+  "validthis": true,
   "globals": {
     "angular": false,
     "Fingerprint": false

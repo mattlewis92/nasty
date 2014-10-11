@@ -1,3 +1,5 @@
+'use strict';
+
 var inbox = require('inbox'),
     MailParser = require('mailparser').MailParser,
     read = require('node-read'),
@@ -92,7 +94,7 @@ module.exports = function() {
 
   return function(config) {
 
-    return function (accountName) {
+    return function(accountName) {
 
       return new bluebird(function(resolve, reject) {
 
@@ -117,8 +119,8 @@ module.exports = function() {
 
       });
 
-    }
+    };
 
-  }
+  };
 
-}
+};

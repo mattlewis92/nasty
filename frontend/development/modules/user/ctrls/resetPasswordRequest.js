@@ -13,7 +13,7 @@ angular
       var self = this;
       this.resetRequested = function() {
         self.requested = true;
-      }
+      };
     }
 
   });
