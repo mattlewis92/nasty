@@ -28,5 +28,18 @@
     },
     "defaultSender": "MEAN app <no-reply@iwaz.at>",
     "sandbox": "matt@iwaz.at"
+  },
+  "inbox": {
+    "gmail": {
+      "port": false,
+      "host": "imap.gmail.com",
+      "options": {
+        "secureConnection": true,
+        "auth": {
+          "user": "matt@iwaz.at",
+          "pass": "<<DELETED>>"
+        }
+      }
+    }
   }
 }
