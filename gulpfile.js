@@ -34,28 +34,24 @@ gulp.task('open', function() {
 
 });
 
-gulp.task('server:start:dev', ['inject'], function() {
+function startServer(env) {
 
-  gp.developServer.listen({ path: directories.server }, function(err) {
+  return gp.developServer.listen({ path: directories.server, env: env }, function(err) {
     if (!err) {
       setTimeout(function() {
         gulp.start('open');
-      }, 500);
+      }, 1000);
     }
   });
 
+}
+
+gulp.task('server:start:dev', ['inject'], function() {
+  startServer({});
 });
 
 gulp.task('server:start:prod', function() {
-
-  gp.developServer.listen({ path: directories.server, env: {NODE_ENV: 'production'} }, function(err) {
-    if (!err) {
-      setTimeout(function() {
-        gulp.start('open');
-      }, 500);
-    }
-  });
-
+  startServer({NODE_ENV: 'production'});
 });
 
 gulp.task('server:restart', function(cb) {
@@ -220,7 +216,7 @@ var banner = ['/**',
   ' */',
   ''].join('\n');
 
-gulp.task('build:assets:js', ['lint'], function() {
+gulp.task('build:assets:js', function() {
 
   return getProductionAssets('js')
     .pipe(gp.ngAnnotate())
@@ -258,7 +254,7 @@ gulp.task('build:assets:css', ['less'], function() {
     .pipe(gulp.dest(directories.frontend.prod));
 });
 
-gulp.task('build:assets', ['lint', 'build:clean', 'build:assets:js', 'build:assets:css'], function() {
+gulp.task('build:assets', ['build:assets:js', 'build:assets:css'], function() {
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
@@ -283,7 +279,7 @@ gulp.task('build:assets', ['lint', 'build:clean', 'build:assets:js', 'build:asse
 
 });
 
-gulp.task('build:manifest', ['build:assets'], function() {
+gulp.task('build:manifest', function() {
 
   return gulp
     .src(directories.frontend.prod + '/*')
@@ -298,7 +294,7 @@ gulp.task('build:manifest', ['build:assets'], function() {
 
 });
 
-gulp.task('build:images', ['build:manifest'], function() {
+gulp.task('build:images', function() {
 
   return gulp
     .src(files.images)
@@ -307,16 +303,14 @@ gulp.task('build:images', ['build:manifest'], function() {
 
 });
 
-gulp.task('build:assets:fonts', ['build:images'], function() {
+gulp.task('build:assets:fonts', function() {
   return gulp
     .src(directories.frontend.dev + '/**/fonts/fontawesome-webfont.*')
     .pipe(gp.flatten())
     .pipe(gulp.dest(directories.frontend.prod + '/fonts'));
 });
 
-gulp.task('build', ['build:assets:fonts'], function() {
-  gulp.start('server:start:prod');
-});
+gulp.task('build', gp.sequence(['lint', 'build:clean'], ['build:assets', 'build:images', 'build:assets:fonts'], 'build:manifest', 'server:start:prod'));
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 

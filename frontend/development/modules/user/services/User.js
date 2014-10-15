@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($timeout, $state, $translate, ResourceFactory, HTTP, DSHttpAdapter, Authentication, Flash) {
+  .factory('User', function($state, $translate, ResourceFactory, HTTP, DSHttpAdapter, Authentication, Flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
@@ -91,7 +91,8 @@ angular
     };
 
     User.getAuthUser = function() {
-      return User.find(Authentication.retrieve().user._id).then(function(user) {
+      var userId = Authentication.isAuthenticated() ? Authentication.retrieve().user._id : 'current';
+      return User.find(userId).then(function(user) {
         changeLanguage(user.language);
         return user;
       });

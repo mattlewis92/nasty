@@ -20,7 +20,9 @@ angular
         scope.$watch(scope.tracker.active, function(isActive) {
 
           if (firstRun) {
-            firstRun = false;
+            if (!isActive) {
+              firstRun = false;
+            }
             return;
           }
 
