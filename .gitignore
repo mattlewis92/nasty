@@ -4,7 +4,6 @@
 frontend/development/vendor
 frontend/production
 *.css
-frontend/development/index.html
 logs
 
 # Logs
