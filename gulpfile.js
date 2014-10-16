@@ -29,7 +29,7 @@ gulp.task('open', function() {
 
   var url = 'http://' + server.host + ':' + server.port;
   return gulp
-    .src(directories.frontend.dev + '/index.html')
+    .src(directories.frontend.dev + '/index.tpl.html')
     .pipe(gp.open('', {url: url}));
 
 });
@@ -190,10 +190,11 @@ var getProductionAssets = function(fileExtension) {
 gulp.task('inject', ['less'], function() {
 
   return gulp
-    .src(directories.frontend.dev + '/index.html')
+    .src(directories.frontend.dev + '/index.tpl.html')
     .pipe(gp.plumber())
     .pipe(gp.inject(getBowerAssets(), {name: 'bower', relative: true}))
     .pipe(gp.inject(getAppAssets(), {relative: true}))
+    .pipe(gp.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.dev));
 
 });
@@ -256,7 +257,7 @@ gulp.task('build:assets:css', ['less'], function() {
 gulp.task('build:assets', ['build:assets:js', 'build:assets:css'], function() {
 
   return gulp
-    .src(directories.frontend.dev + '/index.html')
+    .src(directories.frontend.dev + '/index.tpl.html')
     .pipe(gp.inject(
       gulp.src(
         [directories.frontend.prod + '/*.js', directories.frontend.prod + '/*.css'],
@@ -273,6 +274,7 @@ gulp.task('build:assets', ['build:assets:js', 'build:assets:css'], function() {
         }
       )
     )
+    .pipe(gp.rename('index.html'))
     .pipe(gulp.dest(directories.frontend.prod));
 
 });
@@ -318,7 +320,7 @@ gulp.task('watch', ['server:start:dev'], function() {
 
   gulp.watch(files.server, ['server:restart']);
   gulp.watch(files.less, ['less']);
-  gulp.watch(['bower.json', files.css, files.frontEndJs], ['inject']);
+  gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);
   gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
 
   gulp.watch([
