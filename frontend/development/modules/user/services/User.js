@@ -2,7 +2,7 @@
 
 angular
   .module('mean.user.services')
-  .factory('User', function($state, $translate, ResourceFactory, HTTP, DSHttpAdapter, Authentication, Flash) {
+  .factory('User', function($state, $translate, ResourceFactory, DSHttpAdapter, Authentication, Flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
