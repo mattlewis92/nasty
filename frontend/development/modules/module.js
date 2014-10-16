@@ -11,6 +11,7 @@ angular.module('mean', [
   'jcs-autoValidate',
   'pascalprecht.translate',
   'ui.router',
+  'ct.ui.router.extras',
   'ui.bootstrap',
   'ajoslin.promise-tracker',
   'ngStorage',

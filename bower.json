@@ -28,7 +28,7 @@
     "angular-touch": "~1.2.21",
     "angular-classy": "~0.4.2",
     "font-awesome": "~4.2.0",
-    "angular-auto-validate": "~1.6.0",
+    "angular-auto-validate": "~1.7.21",
     "angular-translate": "~2.4.0",
     "exceptions.js": "https://github.com/steaks/exceptions.js.git#~0.3.1",
     "angular-promise-tracker": "~2.0.1",
@@ -39,7 +39,8 @@
     "angular-translate-loader-url": "~2.4.0",
     "angular-translate-handler-log": "~2.4.0",
     "socket.io-client": "~1.1.0",
-    "angular-socket-io": "~0.6.0"
+    "angular-socket-io": "~0.6.0",
+    "ui-router-extras": "~0.0.10"
   },
   "overrides": {
     "bootstrap": {
