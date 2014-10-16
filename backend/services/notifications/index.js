@@ -2,18 +2,19 @@
 
 var socketIO = require('socket.io'),
     redis = require('socket.io-redis'),
+    socketIOEmitter = require('socket.io-emitter'),
     socketioJwt = require('socketio-jwt');
 
 module.exports = function() {
 
   return function(config) {
 
-    var io = null;
+    var io = socketIOEmitter(config.get('redis'));
 
     function init(http) {
       io = socketIO(http);
 
-      io.adapter(redis());
+      io.adapter(redis(config.get('redis')));
 
       io.on('connection', socketioJwt.authorize({
         secret: config.get('jwtKey'),
