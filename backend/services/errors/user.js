@@ -21,7 +21,7 @@ module.exports = function() {
 
   Error.call(this);
   this.message = message;
-  this.statusCode = statusCode || 500;
+  this.statusCode = statusCode || 400;
   this.dontTranslate = !!dontTranslate;
   this.translationParams = params;
   this.stack = (new Error()).stack;

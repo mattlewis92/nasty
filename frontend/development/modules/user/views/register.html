@@ -14,7 +14,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label" translate="EMAIL"></label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" placeholder="Email" ng-model="register.user.email" required>
+      <input type="email" class="form-control" placeholder="Email" ng-model="register.user.email" ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }" required email-available>
     </div>
   </div>
   <div class="form-group">
