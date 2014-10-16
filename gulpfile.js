@@ -314,7 +314,25 @@ gulp.task('build', gp.sequence(['lint', 'build:clean'], ['build:assets', 'build:
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
-gulp.task('watch', ['server:start:dev'], function() {
+gulp.task('workers:start', function() {
+
+  var options = {
+    script: 'backend/workers/index.js',
+    ext: 'js',
+    watch: ['backend'],
+    env: {
+      NODE_ENV: 'development',
+      DEBUG: 'worker:*',
+      TZ: 'Etc/UTC',
+      CRON_RUNNER: 1
+    }
+  };
+
+  gp.nodemon(options);
+
+});
+
+gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 
   gp.livereload.listen();
 

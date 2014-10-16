@@ -141,15 +141,10 @@ module.exports = function() {
           var concurrency = workerInstance.options.concurrency || 1;
 
           if (cronOnly && workerInstance.options.frequency) {
-
-            //Put the worker on the same process that creates it so if the worker goes down,
-            //this process doesn't keep queuing the same scheduled event
             createCron(jobName, workerInstance.options.frequency);
-            queue.process(jobName, concurrency, workerInstance.job);
-
-          } else if (!cronOnly) {
-            queue.process(jobName, concurrency, workerInstance.job);
           }
+
+          queue.process(jobName, concurrency, workerInstance.job);
 
         }
       }
