@@ -9,9 +9,11 @@ angular
 
     inject: ['AuthUser', 'User', 'Config'],
 
-    init: function() {
-      this.password = '';
-      this.passwordRepeated = '';
+    data: function() {
+      return {
+        password: '',
+        passwordRepeated: ''
+      }
     }
 
   });

@@ -9,11 +9,10 @@ angular
 
     inject: ['User'],
 
-    init: function() {
-      var self = this;
-      this.resetRequested = function() {
-        self.requested = true;
-      };
+    methods: {
+      resetRequested: function() {
+        this.requested = true;
+      }
     }
 
   });

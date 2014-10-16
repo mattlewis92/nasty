@@ -9,8 +9,8 @@ angular
 
     inject: ['User'],
 
-    init: function() {
-      this.user = {};
+    data: {
+      user: {}
     }
 
   });

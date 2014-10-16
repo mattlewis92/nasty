@@ -9,8 +9,8 @@ angular
 
     inject: ['$scope', 'Authentication', 'User'],
 
-    init: function() {
-      this.$.Authentication = this.Authentication;
+    data: {
+      Authentication: 'Authentication'
     },
 
     watch: {

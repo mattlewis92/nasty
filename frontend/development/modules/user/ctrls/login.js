@@ -9,8 +9,8 @@ angular
 
     inject: ['User', 'Authentication'],
 
-    init: function() {
-      this.user = {};
+    data: {
+      user: {}
     }
 
   });
