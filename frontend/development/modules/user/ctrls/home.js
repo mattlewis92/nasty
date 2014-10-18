@@ -13,7 +13,7 @@ angular
       return {
         password: '',
         passwordRepeated: ''
-      }
+      };
     }
 
   });
