@@ -42,6 +42,8 @@ module.exports = function() {
         options.from = defaultSender;
       }
 
+      options.template.locals.subject = options.template.locals.subject || options.subject;
+
       if (options.template) {
 
         return renderTemplate(options.template.name, options.template.locals).spread(function(html, text) {

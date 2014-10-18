@@ -1,180 +1,287 @@
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type="text/css">
+<meta name="viewport" content="width=device-width" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ subject }}</title>
+<style type="text/css">
 
-        /* Take care of image borders and formatting */
+/* -------------------------------------
+    GLOBAL
+------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  font-size: 14px;
+}
 
-        img {
-            max-width: 600px;
-            outline: none;
-            text-decoration: none;
-            -ms-interpolation-mode: bicubic;
-        }
+img {
+  max-width: 100%;
+}
 
-        a {
-            border: 0;
-            outline: none;
-        }
+body {
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: none;
+  width: 100% !important;
+  height: 100%;
+  line-height: 1.6;
+}
 
-        a img {
-            border: none;
-        }
+/* Let's make sure all tables have defaults */
+table td {
+  vertical-align: top;
+}
 
-        /* General styling */
+/* -------------------------------------
+    BODY & CONTAINER
+------------------------------------- */
+body {
+  background-color: #f6f6f6;
+}
 
-        td, h1, h2, h3  {
-            font-family: Helvetica, Arial, sans-serif;
-            font-weight: 400;
-        }
+.body-wrap {
+  background-color: #f6f6f6;
+  width: 100%;
+}
 
-        td {
-            font-size: 13px;
-            line-height: 19px;
-            text-align: left;
-        }
+.container {
+  display: block !important;
+  max-width: 600px !important;
+  margin: 0 auto !important;
+  /* makes it centered */
+  clear: both !important;
+}
 
-        body {
-            -webkit-font-smoothing:antialiased;
-            -webkit-text-size-adjust:none;
-            width: 100%;
-            height: 100%;
-            color: #37302d;
-            background: #ffffff;
-        }
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+  display: block;
+  padding: 20px;
+}
 
-        table {
-            border-collapse: collapse !important;
-        }
+/* -------------------------------------
+    HEADER, FOOTER, MAIN
+------------------------------------- */
+.main {
+  background: #fff;
+  border: 1px solid #e9e9e9;
+  border-radius: 3px;
+}
 
+.content-wrap {
+  padding: 20px;
+}
 
-        h1, h2, h3, h4 {
-            padding: 0;
-            margin: 0;
-            color: #444444;
-            font-weight: 400;
-            line-height: 110%;
-        }
+.content-block {
+  padding: 0 0 20px;
+}
 
-        h1 {
-            font-size: 35px;
-        }
+.header {
+  width: 100%;
+  margin-bottom: 20px;
+}
 
-        h2 {
-            font-size: 30px;
-        }
+.footer {
+  width: 100%;
+  clear: both;
+  color: #999;
+  padding: 20px;
+}
+.footer a {
+  color: #999;
+}
+.footer p, .footer a, .footer unsubscribe, .footer td {
+  font-size: 12px;
+}
 
-        h3 {
-            font-size: 24px;
-        }
+/* -------------------------------------
+    GRID AND COLUMNS
+------------------------------------- */
+.column-left {
+  float: left;
+  width: 50%;
+}
 
-        h4 {
-            font-size: 18px;
-            font-weight: normal;
-        }
+.column-right {
+  float: left;
+  width: 50%;
+}
 
-        .important-font {
-            color: #21BEB4;
-            font-weight: bold;
-        }
+/* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+h1, h2, h3 {
+  font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: #000;
+  margin: 40px 0 0;
+  line-height: 1.2;
+  font-weight: 400;
+}
 
-        .hide {
-            display: none !important;
-        }
+h1 {
+  font-size: 32px;
+  font-weight: 500;
+}
 
-        .force-full-width {
-            width: 100% !important;
-        }
+h2 {
+  font-size: 24px;
+}
 
-    </style>
+h3 {
+  font-size: 18px;
+}
 
-    <style type="text/css" media="screen">
-        @media screen {
-        @import url(http://fonts.googleapis.com/css?family=Open+Sans:400);
+h4 {
+  font-size: 14px;
+  font-weight: 600;
+}
 
-            /* Thanks Outlook 2013! http://goo.gl/XLxpyl */
-            td, h1, h2, h3 {
-                font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif !important;
-            }
-        }
-    </style>
+p, ul, ol {
+  margin-bottom: 10px;
+  font-weight: normal;
+}
+p li, ul li, ol li {
+  margin-left: 5px;
+  list-style-position: inside;
+}
 
-    <style type="text/css" media="only screen and (max-width: 600px)">
-        /* Mobile styles */
-        @media only screen and (max-width: 600px) {
+/* -------------------------------------
+    LINKS & BUTTONS
+------------------------------------- */
+a {
+  color: #348eda;
+  text-decoration: underline;
+}
 
-            table[class="w320"] {
-                width: 320px !important;
-            }
+.btn-primary {
+  text-decoration: none;
+  color: #FFF;
+  background-color: #348eda;
+  border: solid #348eda;
+  border-width: 10px 20px;
+  line-height: 2;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 5px;
+  text-transform: capitalize;
+}
 
-            table[class="w300"] {
-                width: 300px !important;
-            }
+/* -------------------------------------
+    OTHER STYLES THAT MIGHT BE USEFUL
+------------------------------------- */
+.last {
+  margin-bottom: 0;
+}
 
-            table[class="w290"] {
-                width: 290px !important;
-            }
+.first {
+  margin-top: 0;
+}
 
-            td[class="w320"] {
-                width: 320px !important;
-            }
+.padding {
+  padding: 10px 0;
+}
 
-            td[class~="mobile-padding"] {
-                padding-left: 14px !important;
-                padding-right: 14px !important;
-            }
+.aligncenter {
+  text-align: center;
+}
 
-            td[class*="mobile-padding-left"] {
-                padding-left: 14px !important;
-            }
+.alignright {
+  text-align: right;
+}
 
-            td[class*="mobile-padding-right"] {
-                padding-right: 14px !important;
-            }
+.alignleft {
+  text-align: left;
+}
 
-            td[class*="mobile-padding-left-only"] {
-                padding-left: 14px !important;
-                padding-right: 0 !important;
-            }
+.clear {
+  clear: both;
+}
 
-            td[class*="mobile-padding-right-only"] {
-                padding-right: 14px !important;
-                padding-left: 0 !important;
-            }
+/* -------------------------------------
+    Alerts
+------------------------------------- */
+.alert {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 500;
+  padding: 20px;
+  text-align: center;
+  border-radius: 3px 3px 0 0;
+}
+.alert a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 16px;
+}
+.alert.alert-warning {
+  background: #ff9f00;
+}
+.alert.alert-bad {
+  background: #d0021b;
+}
+.alert.alert-good {
+  background: #68b90f;
+}
 
-            td[class*="mobile-block"] {
-                display: block !important;
-                width: 100% !important;
-                text-align: left !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                padding-bottom: 15px !important;
-            }
+/* -------------------------------------
+    INVOICE
+------------------------------------- */
+.invoice {
+  margin: 40px auto;
+  text-align: left;
+  width: 80%;
+}
+.invoice td {
+  padding: 5px 0;
+}
+.invoice .invoice-items {
+  width: 100%;
+}
+.invoice .invoice-items td {
+  border-top: #eee 1px solid;
+}
+.invoice .invoice-items .total td {
+  border-top: 2px solid #333;
+  border-bottom: 2px solid #333;
+  font-weight: 700;
+}
 
-            td[class*="mobile-no-padding-bottom"] {
-                padding-bottom: 0 !important;
-            }
+/* -------------------------------------
+    RESPONSIVE AND MOBILE FRIENDLY STYLES
+------------------------------------- */
+@media only screen and (max-width: 640px) {
+  h1, h2, h3, h4 {
+    font-weight: 600 !important;
+    margin: 20px 0 5px !important;
+  }
 
-            td[class~="mobile-center"] {
-                text-align: center !important;
-            }
+  h1 {
+    font-size: 22px !important;
+  }
 
-            table[class*="mobile-center-block"] {
-                float: none !important;
-                margin: 0 auto !important;
-            }
+  h2 {
+    font-size: 18px !important;
+  }
 
-            *[class*="mobile-hide"] {
-                display: none !important;
-                width: 0 !important;
-                height: 0 !important;
-                line-height: 0 !important;
-                font-size: 0 !important;
-            }
+  h3 {
+    font-size: 16px !important;
+  }
 
-            td[class*="mobile-border"] {
-                border: 0 !important;
-            }
-        }
-    </style>
+  .container {
+    width: 100% !important;
+  }
+
+  .content, .content-wrapper {
+    padding: 10px !important;
+  }
+
+  .invoice {
+    width: 100% !important;
+  }
+}
+
+</style>
 </head>
