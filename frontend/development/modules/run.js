@@ -4,8 +4,7 @@ angular
   .module('mean')
   .run(function(Config, Authentication) {
 
-    Authentication.setHeaders();
-    Authentication.socketAuthInit();
+    Authentication.setHeaders().socketAuthInit();
 
   })
   .run(function($rootScope, $state, ErrorHandler, Authentication, HistoryManager) {

@@ -18,6 +18,7 @@ angular
       getStorageDriver(service.isPersistent)[STORAGE_KEY] = angular.copy(data);
       service.setHeaders();
       service.socketEmitAuthToken();
+      return this;
     };
 
     service.retrieve = function() {
@@ -28,11 +29,13 @@ angular
       } else {
         return null;
       }
+      return this;
     };
 
     service.clear = function() {
       delete getStorageDriver(true)[STORAGE_KEY];
       delete getStorageDriver(false)[STORAGE_KEY];
+      return this;
     };
 
     service.isAuthenticated = function() {
@@ -50,11 +53,13 @@ angular
         headers['x-access-token'] = service.retrieve().token;
       }
       angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
+      return this;
     };
 
     service.socketAuthInit = function() {
 
       Socket.on('connect', service.socketEmitAuthToken);
+      return this;
 
     };
 
@@ -62,6 +67,7 @@ angular
       if (service.isAuthenticated()) {
         Socket.emit('authenticate', {token: service.retrieve().token});
       }
+      return this;
     };
 
     return service;
