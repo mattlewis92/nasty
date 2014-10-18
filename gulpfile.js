@@ -243,7 +243,19 @@ gulp.task('build:assets:css', ['less'], function() {
     .pipe(gp.concat('app.css'))
     .pipe(gp.replace('../fonts/fontawesome', 'fonts/fontawesome'))
     .pipe(gp.uncss({
-      html: glob.sync(directories.frontend.dev + '/**/*.html')
+      html: glob.sync(directories.frontend.dev + '/**/*.html'),
+      ignore: [
+        /alert/,
+        /error/,
+        /help/,
+        /fa/,
+        /control/,
+        /disabled/,
+        /btn/,
+        /button/,
+        /close/,
+        /sr/
+      ]
     }))
     .pipe(gp.autoprefixer())
     .pipe(gp.minifyCss())
