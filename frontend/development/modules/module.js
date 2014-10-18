@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('mean.views', []);
+angular.module('mean.constants', []);
 
 angular.module('mean', [
   'ngAnimate',

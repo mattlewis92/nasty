@@ -1,6 +1,5 @@
 'use strict';
 
-
 module.exports = function(program, services, suggestedName) {
 
   program
