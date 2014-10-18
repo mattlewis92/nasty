@@ -1,6 +1,6 @@
 {
-  "name": "mean-boilerplate",
-  "description": "An opiniated set of MEAN boilerplate code",
+  "name": "nasty",
+  "description": "An opinionated set of MEAN boilerplate code ideal for starting any new project.",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -115,7 +115,7 @@
     "crypto"
   ],
   "apidoc": {
-    "title": "MEAN boilerplate API docs",
+    "title": "Nasty boilerplate API docs",
     "url": "/api/v1",
     "template": {
       "withCompare": false,

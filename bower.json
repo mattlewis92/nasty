@@ -1,11 +1,11 @@
 {
-  "name": "mean-boilerplate",
+  "name": "nasty",
   "version": "0.0.1",
-  "homepage": "https://github.com/mattlewis92/mean-boilerplate",
+  "homepage": "https://github.com/mattlewis92/nasty",
   "authors": [
     "Matt Lewis <matt@iwaz.at>"
   ],
-  "description": "Yet another MEAN boilerplate",
+  "description": "An opinionated set of MEAN boilerplate code ideal for starting any new project.",
   "moduleType": [
     "globals",
     "node"

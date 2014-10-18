@@ -15,7 +15,7 @@ module.exports = function(schema) {
             content: 'We\'re excited you\'re here! Learn more about the app by clicking the link below!',
             button: {
               text: 'Click me!',
-              link: 'https://github.com/mattlewis92/mean-boilerplate'
+              link: 'https://github.com/mattlewis92/nasty'
             }
           }
         }
