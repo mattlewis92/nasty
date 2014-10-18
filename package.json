@@ -1,5 +1,6 @@
 {
   "name": "mean-boilerplate",
+  "description": "An opiniated set of MEAN boilerplate code",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -63,6 +64,7 @@
     "gulp-angular-filesort": "^1.0.4",
     "gulp-angular-htmlify": "^0.5.2",
     "gulp-angular-templatecache": "^1.2.1",
+    "gulp-apidoc": "0.0.3",
     "gulp-autoprefixer": "^1.0.0",
     "gulp-cached": "^1.0.1",
     "gulp-concat": "^2.3.4",
@@ -110,5 +112,13 @@
     "winston",
     "fs",
     "crypto"
-  ]
+  ],
+  "apidoc": {
+    "title": "MEAN boilerplate API docs",
+    "url": "/api/v1",
+    "template": {
+      "withCompare": false,
+      "withGenerator": false
+    }
+  }
 }

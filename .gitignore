@@ -3,6 +3,7 @@
 .idea
 frontend/development/vendor
 frontend/production
+frontend/development/api
 *.css
 frontend/development/index.html
 logs

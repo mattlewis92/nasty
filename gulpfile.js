@@ -314,6 +314,11 @@ gulp.task('build', gp.sequence(['lint', 'build:clean'], ['build:assets', 'build:
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
+gulp.task('apidoc', gp.apidoc.exec({
+  src: 'backend/',
+  dest: 'frontend/development/api/'
+}));
+
 gulp.task('workers:start', function() {
 
   var options = {

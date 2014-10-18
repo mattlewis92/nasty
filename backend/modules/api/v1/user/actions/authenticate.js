@@ -2,6 +2,27 @@
 
 var jwt = require('jsonwebtoken');
 
+/**
+ * @api {post} /user/authenticate Authenticate a user and return a JSON web token
+ * @apiName AuthenticateUser
+ * @apiGroup User
+ *
+ * @apiHeader {String} x-finger-print The users browser fingerprint. Can be any value.
+ *
+ * @apiParam {Email} email The users email
+ * @apiParam {String} password The users password
+ *
+ * @apiSuccess {String} token The JSON web token to use
+ * @apiSuccess {Object} user  An object containing the authenticated users id
+ * @apiSuccessExample Example response:
+ *     {
+ *       "token": "12345678",
+ *       "user": {
+ *        "_id": "frjkgektgjrtj"
+ *       }
+ *     }
+ *
+ */
 module.exports = function(req, res, next, errors, passport, config) {
 
   req.checkBody('email', 'Required').notEmpty();
