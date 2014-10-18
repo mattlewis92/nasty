@@ -1,2 +1,2 @@
-mean-boilerplate
+Nasty boilerplate
 ================
