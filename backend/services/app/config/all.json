@@ -14,7 +14,7 @@
       "de": "German"
     },
     "defaultLocale": "en",
-    "directory": "%rootPath%/backend/services/i18n/translations",
+    "directory": "%rootPath%/backend/services/app/i18n/translations",
     "extension": ".json"
   },
   "kue": {
