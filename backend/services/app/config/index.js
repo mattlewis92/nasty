@@ -1,11 +1,21 @@
 'use strict';
 
 var nconf = require('nconf'),
+    eson = require('eson'),
     bluebird = require('bluebird');
 
 module.exports = function(app) {
 
   return function(rootPath) {
+
+    nconf.formats.json.parse = function(str) {
+      return eson()
+        .use(eson.replace('{rootPath}', rootPath))
+        .use(eson.ms)
+        .use(eson.glob)
+        .use(eson.dimensions)
+        .parse(str);
+    };
 
     nconf
       .overrides({

@@ -15,6 +15,7 @@
     "debug": "^2.0.0",
     "dependable": "^0.2.5",
     "email-templates": "^1.1.2",
+    "eson": "^0.5.0",
     "express": "4.x.x",
     "express-di": "4.x.x",
     "express-domain-middleware": "^0.1.0",

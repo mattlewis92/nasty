@@ -50,7 +50,7 @@ module.exports = function(req, res, next, errors, passport, config) {
       { user: {_id: user._id }, token_salt: user.token_salt },
       config.get('jwtKey'),
       {
-        expiresInMinutes: config.get('app:tokenExpiryTimeInMinutes'),
+        expiresInMinutes: config.get('app:tokenExpiryTimeInMinutes') / (1000 * 60),
         audience: req.headers['x-finger-print']
       }
     );

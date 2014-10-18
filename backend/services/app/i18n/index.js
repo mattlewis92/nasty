@@ -9,9 +9,6 @@ module.exports = function() {
     return function(locale) {
 
       var i18nConfig = config.get('i18n');
-      if (i18nConfig.directory) {
-        i18nConfig.directory = i18nConfig.directory.replace('%rootPath%', config.get('rootPath'));
-      }
       i18nConfig.locales = Object.keys(i18nConfig.locales);
 
       var i18n = new i18n2(i18nConfig);

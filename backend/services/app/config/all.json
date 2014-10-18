@@ -2,7 +2,7 @@
   "app": {
     "name": "MEAN boilerplate",
     "logRequests": false,
-    "tokenExpiryTimeInMinutes": 43200
+    "tokenExpiryTime": "30 days"
   },
   "server": {
     "host": "127.0.0.1",
@@ -14,7 +14,7 @@
       "de": "German"
     },
     "defaultLocale": "en",
-    "directory": "%rootPath%/backend/services/app/i18n/translations",
+    "directory": "{rootPath}/backend/services/app/i18n/translations",
     "extension": ".json"
   },
   "kue": {
