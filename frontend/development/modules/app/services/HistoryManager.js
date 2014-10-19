@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.app.services')
+  .module('nasty.app.services')
   .factory('HistoryManager', function() {
 
     var manager = {};

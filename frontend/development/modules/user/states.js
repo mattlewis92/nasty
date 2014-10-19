@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user')
+  .module('nasty.user')
   .config(function($stateProvider) {
 
     $stateProvider

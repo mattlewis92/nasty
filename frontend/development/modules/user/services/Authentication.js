@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user.services')
+  .module('nasty.user.services')
   .factory('Authentication', function(DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, Socket) {
 
     var STORAGE_KEY = 'authToken';

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.app.services')
+  .module('nasty.app.services')
   .factory('ErrorHandler', function($log, Flash) {
 
     var service = {};

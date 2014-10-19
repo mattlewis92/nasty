@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user.ctrls')
+  .module('nasty.user.ctrls')
   .classy
   .controller({
 

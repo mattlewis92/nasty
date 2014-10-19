@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.app')
+  .module('nasty.app')
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider

@@ -1,5 +1,5 @@
 'use strict';
 
 angular
-  .module('mean.constants')
+  .module('nasty.constants')
   .constant('Fingerprint', Fingerprint);

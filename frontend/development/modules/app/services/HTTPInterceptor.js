@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.app.services')
+  .module('nasty.app.services')
   .factory('HTTPInterceptor', function($q, $rootScope) {
     return {
       responseError: function(response) {

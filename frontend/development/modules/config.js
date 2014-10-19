@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean')
+  .module('nasty')
   .config(function($locationProvider) {
 
     $locationProvider.html5Mode(true);

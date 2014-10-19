@@ -1,15 +1,15 @@
 'use strict';
 
-angular.module('mean.user.directives', []);
-angular.module('mean.user.services', []);
-angular.module('mean.user.ctrls', [
-  'mean.user.services',
+angular.module('nasty.user.directives', []);
+angular.module('nasty.user.services', []);
+angular.module('nasty.user.ctrls', [
+  'nasty.user.services',
   'classy'
 ]).classy.options.controller = {
   addFnsToScope: false
 };
-angular.module('mean.user', [
-  'mean.user.ctrls',
-  'mean.user.services',
-  'mean.user.directives'
+angular.module('nasty.user', [
+  'nasty.user.ctrls',
+  'nasty.user.services',
+  'nasty.user.directives'
 ]);

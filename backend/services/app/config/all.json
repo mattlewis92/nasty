@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "MEAN boilerplate",
+    "name": "Nasty boilerplate",
     "logRequests": false,
     "tokenExpiryTime": "30 days"
   },
@@ -29,7 +29,7 @@
       "user": "matt@iwaz.at",
       "pass": "<<DELETED>>"
     },
-    "defaultSender": "MEAN app <no-reply@iwaz.at>",
+    "defaultSender": "Your app <no-reply@your-app.tld>",
     "sandbox": "matt@iwaz.at"
   },
   "inbox": {

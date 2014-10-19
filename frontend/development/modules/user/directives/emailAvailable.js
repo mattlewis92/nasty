@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user.directives')
+  .module('nasty.user.directives')
   .directive('emailAvailable', function(defaultErrorMessageResolver, $translate, HTTP) {
 
     var msg;

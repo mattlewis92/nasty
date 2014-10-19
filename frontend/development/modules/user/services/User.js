@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user.services')
+  .module('nasty.user.services')
   .factory('User', function($state, $translate, ResourceFactory, DSHttpAdapter, Authentication, Flash) {
 
     function changeLanguage(lang) {

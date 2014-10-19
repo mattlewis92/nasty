@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.user.directives')
+  .module('nasty.user.directives')
   .directive('passwordRepeat', function(defaultErrorMessageResolver, $translate) {
 
     var msg;

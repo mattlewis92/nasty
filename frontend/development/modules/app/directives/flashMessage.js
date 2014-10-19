@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean.app.directives')
+  .module('nasty.app.directives')
   .directive('flashMessage', function(Flash) {
     return {
       restrict: 'A',

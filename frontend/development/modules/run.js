@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('mean')
+  .module('nasty')
   .run(function(Config, Authentication) {
 
     Authentication.setHeaders().socketAuthInit();

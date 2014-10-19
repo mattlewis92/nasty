@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('mean.views', []);
-angular.module('mean.constants', []);
+angular.module('nasty.views', []);
+angular.module('nasty.constants', []);
 
-angular.module('mean', [
+angular.module('nasty', [
   'ngAnimate',
   'ngTouch',
   'classy',
@@ -18,8 +18,8 @@ angular.module('mean', [
   'ngStorage',
   'btford.socket-io',
   'ui.checkbox',
-  'mean.views',
-  'mean.constants',
-  'mean.app',
-  'mean.user'
+  'nasty.views',
+  'nasty.constants',
+  'nasty.app',
+  'nasty.user'
 ]);
