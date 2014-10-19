@@ -2,19 +2,19 @@
 
 angular
   .module('mean.app.services')
-  .factory('ErrorHandler', function(Flash) {
+  .factory('ErrorHandler', function($log, Flash) {
 
     var service = {};
 
     service.http = function(error) {
-      Flash.error(error.data.message, 'http');
+      Flash.error(error.data.message, 'http', true);
     };
 
     service.generic = function(error) {
       if (error.__isHttp) {
         service.http(error);
       } else {
-        console.log('ERROR', error); //TODO log this server side
+        $log.error(error); //TODO log this server side
       }
     };
 

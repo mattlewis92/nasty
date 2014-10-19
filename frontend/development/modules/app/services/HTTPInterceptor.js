@@ -2,7 +2,7 @@
 
 angular
   .module('mean.app.services')
-  .factory('HTTPInterceptor', function($q, $rootScope, ErrorHandler) {
+  .factory('HTTPInterceptor', function($q, $rootScope) {
     return {
       responseError: function(response) {
 
@@ -12,7 +12,7 @@ angular
           //If the error then gets passed to the generic handler it will know it is http and handle it as such
           response.__isHttp = true;
           if (response.config.autoError !== false) {
-            ErrorHandler.http(response);
+            $rootScope.$broadcast('error.http', response); //Another nasty hack
           }
         }
 

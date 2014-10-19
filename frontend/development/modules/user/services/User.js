@@ -16,9 +16,7 @@ angular
 
           return User.doPUT('password', {password: password}).then(function(result) {
 
-            $translate('PASSWORD_CHANGED').then(function(str) {
-              Flash.confirm(str, 'passwordSaved');
-            });
+            Flash.confirm('PASSWORD_CHANGED', 'passwordSaved');
 
             return result;
           });
@@ -27,9 +25,7 @@ angular
       },
       afterUpdate: function(resourceName, attrs, cb) {
 
-        $translate('PROFILE_UPDATED').then(function(str) {
-          Flash.confirm(str, 'userSaved');
-        });
+        Flash.confirm('PROFILE_UPDATED', 'userSaved');
 
         changeLanguage(attrs.language);
 
@@ -41,9 +37,7 @@ angular
 
       return User.doPOST('password/reset/request', {email: email}).then(function(result) {
 
-        $translate('PASSWORD_RESET_REQUESTED').then(function(str) {
-          Flash.confirm(str, 'passwordResetRequested');
-        });
+        Flash.confirm('PASSWORD_RESET_REQUESTED', 'passwordResetRequested');
 
         return result;
       });
@@ -55,9 +49,7 @@ angular
       return User.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
 
         $state.go('user.login').then(function() {
-          return $translate('PASSWORD_RESET_COMPLETED');
-        }).then(function(str) {
-          Flash.confirm(str, 'passwordResetCompleted');
+          Flash.confirm('PASSWORD_RESET_COMPLETED', 'passwordResetCompleted');
         });
 
         return result;

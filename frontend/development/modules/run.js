@@ -32,11 +32,16 @@ angular
   })
   .run(function($rootScope, $state, ErrorHandler, Authentication) {
 
+    //These are 2 hacks for the HTTPInterceptor service as you can't inject $state or ErrorHandler there
     $rootScope.$on('user.unauthorized', function(event, error) {
       $state.go('user.login').then(function() {
         Authentication.clear();
         ErrorHandler.http(error);
       });
+    });
+
+    $rootScope.$on('error.http', function(event, error) {
+      ErrorHandler.http(error);
     });
 
   })
