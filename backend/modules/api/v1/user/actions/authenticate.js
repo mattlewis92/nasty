@@ -3,7 +3,7 @@
 var jwt = require('jsonwebtoken');
 
 /**
- * @api {post} /user/authenticate Authenticate a user and return a JSON web token
+ * @api {post} /user/authenticate Authenticate a user and return a JSON web token used later for authentication.
  * @apiName AuthenticateUser
  * @apiGroup User
  *
@@ -15,12 +15,15 @@ var jwt = require('jsonwebtoken');
  * @apiSuccess {String} token The JSON web token to use
  * @apiSuccess {Object} user  An object containing the authenticated users id
  * @apiSuccessExample Example response:
- *     {
- *       "token": "12345678",
- *       "user": {
+ * {
+ *    "token": "12345678",
+ *    "user": {
  *        "_id": "frjkgektgjrtj"
- *       }
- *     }
+ *    }
+ * }
+ *
+ * @apiErrorStructure UserError
+ * @apiErrorStructure ValidationError
  *
  */
 module.exports = function(req, res, next, errors, passport, config) {

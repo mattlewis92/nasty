@@ -1,5 +1,32 @@
 'use strict';
 
+/**
+ * @api {put} /user/:userId Update a user
+ * @apiName UpdateUser
+ * @apiGroup User
+ *
+ * @apiHeaderStructure AuthenticationHeader
+ *
+ * @apiParam {Email} email The users email
+ * @apiParam {Object} name An object containing the fields first and last containing the users first and last names
+ * @apiParam {String} language The users preferred language
+ *
+ * @apiSuccess {Object} user An object containing the updated user fields.
+ * @apiSuccessExample Example response:
+ * {
+ *    "_id": "wfereffrer",
+ *    "email": "hello@google.com",
+ *    "name": {
+ *      "first": "John",
+ *      "last": "Smith"
+ *    },
+ *    "language": "en"
+ * }
+ *
+ * @apiErrorStructure UserError
+ * @apiErrorStructure ValidationError
+ *
+ */
 module.exports = function(req, res, next, userAuthenticate, models, errors) {
 
   req.checkBody('email', 'Required').notEmpty();

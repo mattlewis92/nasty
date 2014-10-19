@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * @apiDefineErrorStructure UserError
+ * @apiError (4xx - User Error) {String} message The error message to display to the user.
+ * @apiErrorExample User error example:
+ * {
+ *    "message": "This is an example error message!"
+ * }
+ */
+
 //Arguments format is: message, ...translation params..., statusCode, dontTranslate
 module.exports = function() {
 

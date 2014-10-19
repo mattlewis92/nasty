@@ -22,7 +22,7 @@ module.exports = function(app, di) {
         }
       }
 
-      res.status(err.statusCode || 500).json(response);
+      res.status(err.statusCode || 400).json(response);
     } else {
       next(err);
     }
