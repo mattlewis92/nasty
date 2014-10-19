@@ -3,14 +3,14 @@
 var requireAll = require('require-all'),
     passport = require('passport');
 
-module.exports = function() {
+module.exports = function(app) {
 
   var strategies = requireAll(__dirname + '/strategies');
 
-  return function(models) {
+  return function() {
 
     for (var key in strategies) {
-      strategies[key](passport, models);
+      strategies[key](passport, app.get('services'));
     }
 
     return passport;

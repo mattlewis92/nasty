@@ -2,13 +2,14 @@
 
 var LocalStrategy = require('passport-local').Strategy;
 
-module.exports = function(passport, models) {
+module.exports = function(passport, services) {
 
   passport.use(new LocalStrategy(
     {usernameField: 'email', passwordField: 'password'},
     function(email, password, done) {
 
-      models
+      services
+        .get('models')
         .user
         .findOneAsync({ email: email }, {password: true, token_salt: true})
         .then(function(user) {
