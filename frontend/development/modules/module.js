@@ -17,6 +17,7 @@ angular.module('mean', [
   'ajoslin.promise-tracker',
   'ngStorage',
   'btford.socket-io',
+  'ui.checkbox',
   'mean.views',
   'mean.constants',
   'mean.app',

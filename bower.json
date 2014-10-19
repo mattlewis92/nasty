@@ -40,7 +40,8 @@
     "angular-translate-handler-log": "~2.4.0",
     "socket.io-client": "~1.1.0",
     "angular-socket-io": "~0.6.0",
-    "ui-router-extras": "~0.0.10"
+    "ui-router-extras": "~0.0.10",
+    "angular-bootstrap-checkbox": "~0.3.1"
   },
   "overrides": {
     "bootstrap": {
