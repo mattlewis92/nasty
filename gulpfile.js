@@ -326,10 +326,12 @@ gulp.task('build', gp.sequence(['lint', 'build:clean'], ['build:assets', 'build:
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
-gulp.task('apidoc', gp.apidoc.exec({
-  src: 'backend/',
-  dest: 'frontend/development/api/'
-}));
+gulp.task('apidoc', function() {
+  return gp.apidoc.exec({
+    src: 'backend/',
+    dest: 'frontend/development/api/'
+  });
+});
 
 gulp.task('workers:start', function() {
 
@@ -369,3 +371,13 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 });
 
 gulp.task('default', ['watch']);
+
+function gracefulShutdown() {
+  gp.developServer.kill('SIGTERM', function(err) {
+    process.exit(0);
+  });
+}
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT' , gracefulShutdown);
+process.on('uncaughtException' , gracefulShutdown);
