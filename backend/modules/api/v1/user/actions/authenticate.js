@@ -37,7 +37,7 @@ module.exports = function(req, res, next, errors, passport, config) {
     return next(new errors.validation(req.validationErrors(true)));
   }
 
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', { session: false }, function(err, user, info) {
 
     if (err) {
       return next(err);
@@ -60,6 +60,6 @@ module.exports = function(req, res, next, errors, passport, config) {
 
     res.json({ token : token, user: {_id: user._id} });
 
-  }, { session: false })(req, res, next);
+  })(req, res, next);
 
 };

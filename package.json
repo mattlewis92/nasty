@@ -19,6 +19,7 @@
     "express": "4.x.x",
     "express-di": "4.x.x",
     "express-domain-middleware": "^0.1.0",
+    "express-session": "^1.9.0",
     "express-validator": "^2.3.0",
     "express-winston": "^0.2.5",
     "findit": "^2.0.0",
