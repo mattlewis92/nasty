@@ -21,4 +21,9 @@ for (var folder in commands) {
 
 }
 
-program.parse(process.argv);
+var args = process.argv;
+if (args.length == 2) {
+  args.push('--help');
+}
+
+program.parse(args);
