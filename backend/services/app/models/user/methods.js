@@ -1,6 +1,7 @@
 'use strict';
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt'),
+    jwt = require('jsonwebtoken');
 
 module.exports = function(schema, services) {
 
@@ -39,6 +40,25 @@ module.exports = function(schema, services) {
     } else {
       return services.get('mailer').sendMail(options);
     }
+
+  };
+
+  schema.methods.createAccessToken = function(browserFingerPrint) {
+
+    if (!this.token_salt) {
+      throw new Error('Token salt must be selected!');
+    }
+
+    var token = jwt.sign(
+      { user: {_id: this._id }, token_salt: this.token_salt },
+      services.get('config').get('jwtKey'),
+      {
+        expiresInMinutes: services.get('config').get('app:tokenExpiryTime') / (1000 * 60),
+        audience: browserFingerPrint
+      }
+    );
+
+    return token;
 
   };
 
