@@ -63,17 +63,19 @@ module.exports = function(app) {
         }
       });
 
-      // remove the __v of every document before returning the result
       var originalTransform;
       if (schema.options.toObject.transform) {
         originalTransform = schema.options.toObject.transform;
       }
 
       schema.options.toObject.transform = function(doc, ret, options) {
-        delete ret.__v;
-        delete ret.id;
-        if (originalTransform) {
-          originalTransform(doc, ret, options);
+        delete ret.id; //Remove the virtual id
+        //This is called when saving the object to the database, so dont apply the transformation then
+        if (options._useSchemaOptions) {
+          delete ret.__v; // remove the __v of every document before returning the result
+          if (originalTransform) {
+            originalTransform(doc, ret, options);
+          }
         }
       };
 
