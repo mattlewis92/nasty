@@ -20,7 +20,6 @@ module.exports = function(mongoose) {
       },
       last: {
         type: String,
-        required: true,
         trim: true,
         set: function(val) {
           return toTitleCase(val);
@@ -29,19 +28,16 @@ module.exports = function(mongoose) {
     },
     email: {
       type: mongoose.SchemaTypes.Email,
-      required: true,
       unique: true,
       lowercase: true,
       trim: true
     },
     password: {
       type: String,
-      required: true,
       select: false
     },
     token_salt: {
       type: String,
-      required: true,
       select: false
     },
     language: {
@@ -58,7 +54,22 @@ module.exports = function(mongoose) {
         type: Date,
         select: false
       }
-    }
+    },
+    social_network_accounts: [{
+      provider: {
+        type: String
+      },
+      account_id: String,
+      account_name: String,
+      profile_url: mongoose.SchemaTypes.Url,
+      status: {
+        type: String,
+        enum: ['authenticated', 'unauthenticated'],
+        required: true
+      },
+      authentication: mongoose.SchemaTypes.Mixed,
+      profile: mongoose.SchemaTypes.Mixed
+    }]
   };
 
 };

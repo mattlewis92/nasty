@@ -1,7 +1,5 @@
 'use strict';
 
-var uuid = require('node-uuid');
-
 module.exports = function(req, res, models, errors, next) {
 
   req.checkBody('email', 'Required').notEmpty();
@@ -21,8 +19,7 @@ module.exports = function(req, res, models, errors, next) {
       last: req.body.surname
     },
     email: req.body.email,
-    password: req.body.password,
-    token_salt: uuid.v4()
+    password: req.body.password
   });
 
   user.saveAsync().spread(function(savedUser) {

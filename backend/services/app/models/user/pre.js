@@ -1,6 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcrypt'),
+    uuid = require('node-uuid'),
     SALT_WORK_FACTOR = 10;
 
 module.exports = function(schema) {
@@ -23,6 +24,15 @@ module.exports = function(schema) {
         next();
       })
       .catch(next);
+  });
+
+  schema.pre('save', function(next) {
+
+    if (this.isNew && !this.token_salt) {
+      this.token_salt = uuid.v4();
+    }
+    next();
+
   });
 
 };

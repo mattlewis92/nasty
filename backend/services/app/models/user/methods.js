@@ -62,4 +62,46 @@ module.exports = function(schema, services) {
 
   };
 
+  schema.methods.addSocialNetworkAccount = function(profile, authentication) {
+
+    delete profile._raw; //We don't need this clogging up the database
+
+    var existingAccounts = this.social_network_accounts.filter(function(sna) {
+      return sna.provider === profile.provider && sna.account_id === profile.id;
+    });
+
+    var profileUrl;
+    switch(profile.provider) {
+      case 'twitter':
+        profileUrl = 'https://twitter.com/' + profile.username;
+        break;
+    }
+
+    if (existingAccounts.length > 0) {
+      var existingAccount = existingAccounts[0];
+      existingAccount.account_name = profile.username;
+      existingAccount.profile_url = profileUrl;
+      existingAccount.status = !!authentication ? 'authenticated' : 'unauthenticated';
+      existingAccount.authentication = authentication;
+      existingAccount.profile = profile;
+    } else {
+      this.social_network_accounts.push({
+        provider: profile.provider,
+        account_id: profile.id,
+        account_name: profile.username,
+        profile_url: profileUrl,
+        status: !!authentication ? 'authenticated' : 'unauthenticated',
+        authentication: authentication,
+        profile: profile
+      });
+    }
+
+    this.hydrateProfileFromSocialNetworkProfile(profile);
+
+  };
+
+  schema.methods.hydrateProfileFromSocialNetworkProfile = function(profile) {
+
+  };
+
 };

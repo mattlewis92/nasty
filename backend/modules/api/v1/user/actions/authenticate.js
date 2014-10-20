@@ -24,7 +24,7 @@
  * @apiErrorStructure ValidationError
  *
  */
-module.exports = function(req, res, next, errors, passport, config) {
+module.exports = function(req, res, next, errors, passport) {
 
   req.checkBody('email', 'Required').notEmpty();
   req.checkBody('email', 'Valid email required').isEmail();

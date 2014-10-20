@@ -1,8 +1,13 @@
 'use strict';
 
-module.exports = function(req, res) {
+module.exports = function(req, res, next, errors) {
 
-  res.json({user: req.session.user});
+  if (req.session.token) {
+    res.json({token: req.session.token});
+  } else {
+    next(new errors.user('Something went wrong and we couldn\'t log you in. Please try again.'));
+  }
+
   req.session.destroy();
 
 };
