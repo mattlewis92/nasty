@@ -13,6 +13,8 @@ module.exports = function(passport, services) {
 
       done(null, profile, {token: {value: token, secret: tokenSecret}});
 
+      var userModel = services.get('models').user;
+
       //Lookup the user to see if they are authenticated
       //If they are then simply add the profile details to their account
       //If not then find or create the user using the logic below. Then also create an JWT and set it in the session

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(req, res) {
 
   res.json({user: req.session.user});

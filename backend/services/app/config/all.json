@@ -48,5 +48,14 @@
   "redis": {
     "host": "127.0.0.1",
     "port": 6379
+  },
+  "session": {
+    "name": "auth.cookie",
+    "secret": "$`qsPCSKNPdtFj:]z3#Tg]}KV#-FjqG9N3=H{UD",
+    "cookie": {
+      "maxAge": "120 seconds"
+    },
+    "resave": false,
+    "saveUninitialized": false
   }
 }

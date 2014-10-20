@@ -1,11 +1,12 @@
 'use strict';
 
-var expressSession = require('express-session');
-
 module.exports = function(app, actions) {
 
-  var session = expressSession({secret: 'keyboard cat'});
+  var session = app.get('services').get('session');
+
+  app.post('/user/authorize', session, actions.authorizeUser);
   app.get('/user/token', session, actions.getUserToken);
-  app.get('/:provider', session, actions.linkSocialNetwork);
+  app.get('/:provider/authenticate', session, actions.linkSocialNetwork); //This route is when we are logging in
+  app.get('/:provider/authorize', session, actions.linkSocialNetwork); //This route is when we are linking to an existing site
 
 };
