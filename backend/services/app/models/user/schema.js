@@ -55,11 +55,16 @@ module.exports = function(mongoose) {
         select: false
       }
     },
+    avatar: mongoose.SchemaTypes.Url,
     social_network_accounts: [{
       provider: {
-        type: String
+        type: String,
+        required: true
       },
-      account_id: String,
+      account_id: {
+        type: String,
+        required: true
+      },
       account_name: String,
       profile_url: mongoose.SchemaTypes.Url,
       status: {

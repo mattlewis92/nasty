@@ -70,7 +70,7 @@ module.exports = function(schema, services) {
       return sna.provider === profile.provider && sna.account_id === profile.id;
     });
 
-    var profileUrl;
+    var profileUrl = null;
     switch(profile.provider) {
       case 'twitter':
         profileUrl = 'https://twitter.com/' + profile.username;
@@ -101,6 +101,31 @@ module.exports = function(schema, services) {
   };
 
   schema.methods.hydrateProfileFromSocialNetworkProfile = function(profile) {
+
+    //Set the first name
+    if (profile.name && profile.name.givenName && !this.name.first) {
+      this.name.first = profile.name.givenName;
+    }
+
+    //Set the surname
+    if (profile.name && profile.name.familyName && !this.name.last) {
+      this.name.last = profile.name.familyName;
+    }
+
+    //Set the name from the display name
+    if (profile.displayName && !this.name.first) {
+      this.name.full = profile.displayName;
+    }
+
+    //set the email
+    if (profile.emails && profile.emails.length > 0 && !this.email) {
+      this.email = profile.emails[0].value;
+    }
+
+    //Set the avatar
+    if (profile.photos && profile.photos.length > 0 && !this.avatar) {
+      this.avatar = profile.photos[0].value;
+    }
 
   };
 

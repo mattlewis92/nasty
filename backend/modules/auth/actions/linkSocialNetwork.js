@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(req, res, next, passport) {
+module.exports = function(req, res, next, passport, logger) {
 
   if (req.query.redirect) {
     req.session.redirect = req.query.redirect;
@@ -13,6 +13,10 @@ module.exports = function(req, res, next, passport) {
   var type = req.params.provider + '-' + (req.path.indexOf('/authenticate') > -1 ? 'authenticate' : 'authorize');
 
   passport.authorize(type, { callbackURL: req.baseUrl + req.path }, function(err, user) {
+
+    if (err) {
+      logger.get('error').error(err);
+    }
 
     var redirect = req.session.redirect ? req.session.redirect : '/';
     if (err || !user) {
