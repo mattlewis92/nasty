@@ -57,5 +57,19 @@
     },
     "resave": false,
     "saveUninitialized": false
+  },
+  "authenticationStrategies": {
+    "twitter": {
+      "auth": {
+        "consumerKey": "nCzbAEgVjoqA90zWcTK9w",
+        "consumerSecret": "9Uyoh8rzh12yxgwINsL4UhFtshyX6WxAezEamygJ7A"
+      }
+    },
+    "facebook": {
+      "auth": {
+        "clientID": "308440399268093",
+        "clientSecret": "dd6fc276ebe9d5b8c2971d57e6a3c00c"
+      }
+    }
   }
 }
