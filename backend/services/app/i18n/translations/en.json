@@ -37,5 +37,7 @@
 	"This user does not exist!": "This user does not exist!",
 	"PASSWORD_RESET_COMPLETED": "Your password has been reset successfully and you can now login.",
 	"The reset link you clicked is invalid. Please request a new reset token.": "The reset link you clicked is invalid. Please request a new reset token.",
-  "EMAIL_ADDRESS_TAKEN": "This email address has already been registered by another user."
+  "EMAIL_ADDRESS_TAKEN": "This email address has already been registered by another user.",
+  "AVATAR": "Avatar",
+  "BROWSE": "Browse"
 }
