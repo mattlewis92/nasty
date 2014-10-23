@@ -66,16 +66,17 @@ module.exports = function(schema, services) {
 
     delete profile._raw; //We don't need this clogging up the database
 
+    var profileUrl = null;
+    switch (profile.provider) {
+      case 'twitter': {
+        profileUrl = 'https://twitter.com/' + profile.username;
+        break;
+      }
+    }
+
     var existingAccounts = this.social_network_accounts.filter(function(sna) {
       return sna.provider === profile.provider && sna.account_id === profile.id;
     });
-
-    var profileUrl = null;
-    switch(profile.provider) {
-      case 'twitter':
-        profileUrl = 'https://twitter.com/' + profile.username;
-        break;
-    }
 
     if (existingAccounts.length > 0) {
       var existingAccount = existingAccounts[0];

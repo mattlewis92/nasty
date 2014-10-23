@@ -7,7 +7,7 @@ module.exports = function(schema, services) {
   schema.statics.findFromToken = function(accessToken, fingerPrint) {
 
     var jwtKey = services.get('config').get('jwtKey'),
-        userError = services.get('errors').user,
+        UserError = services.get('errors').user,
         self = this;
 
     return jwt
@@ -22,7 +22,7 @@ module.exports = function(schema, services) {
         return decoded.user;
       })
       .catch(function() {
-        throw new userError('Your session token has expired. You will need to login again.', 401);
+        throw new UserError('Your session token has expired. You will need to login again.', 401);
       });
 
   };

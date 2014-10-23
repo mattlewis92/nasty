@@ -11,15 +11,15 @@ module.exports = function(passport, services) {
     },
     function(req, token, tokenSecret, profile, done) {
 
-      var userModel = services.get('models').user;
+      var UserModel = services.get('models').user;
 
-      userModel.find({
+      UserModel.find({
         'social_network_accounts.provider': 'twitter',
         'social_network_accounts.account_id': profile.id
       }).select('+token_salt').findOneAsync().then(function(user) {
 
         if (!user) { //The user hasn't created an account yet
-          user = new userModel({});
+          user = new UserModel({});
         }
 
         user.addSocialNetworkAccount(profile, {token: token, token_secret: tokenSecret});
@@ -40,11 +40,11 @@ module.exports = function(passport, services) {
     },
     function(req, token, tokenSecret, profile, done) {
 
-      var userModel = services.get('models').user;
+      var UserModel = services.get('models').user;
 
       if (req.session.user) {
 
-        userModel.findByIdAsync(req.session.user._id).then(function(user) {
+        UserModel.findByIdAsync(req.session.user._id).then(function(user) {
 
           user.addSocialNetworkAccount(profile, {token: token, token_secret: tokenSecret});
           user.save(done);
