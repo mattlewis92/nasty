@@ -61,14 +61,49 @@
   "authenticationStrategies": {
     "twitter": {
       "auth": {
-        "consumerKey": "nCzbAEgVjoqA90zWcTK9w",
-        "consumerSecret": "9Uyoh8rzh12yxgwINsL4UhFtshyX6WxAezEamygJ7A"
+        "consumerKey": "<<DELETED>>",
+        "consumerSecret": "<<DELETED>>"
       }
     },
-    "facebook": {
+    "linkedin": {
       "auth": {
-        "clientID": "308440399268093",
-        "clientSecret": "dd6fc276ebe9d5b8c2971d57e6a3c00c"
+        "consumerKey": "<<DELETED>>",
+        "consumerSecret": "<<DELETED>>",
+        "profileFields": [
+          "id",
+          "first-name",
+          "last-name",
+          "formatted-name",
+          "location",
+          "summary",
+          "specialties",
+          "positions",
+          "picture-url",
+          "api-standard-profile-request",
+          "last-modified-timestamp",
+          "interests",
+          "languages",
+          "skills",
+          "date-of-birth",
+          "main-address",
+          "twitter-accounts",
+          "im-accounts",
+          "primary-twitter-account",
+          "email-address",
+          "phone-numbers",
+          "bound-account-types",
+          "public-profile-url",
+          "headline",
+          "industry",
+          "three-current-positions",
+          "three-past-positions"
+        ],
+        "scope": [
+          "r_fullprofile",
+          "r_emailaddress",
+          "r_contactinfo",
+          "r_network"
+        ]
       }
     }
   }
