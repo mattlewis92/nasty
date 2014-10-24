@@ -1,5 +1,17 @@
 'use strict';
 
+/**
+ * @api {put} /password/reset/:userId/:token Resets a given users password given the reset token
+ * @apiName ResetPassword
+ * @apiGroup User
+ *
+ * @apiParam {String} password The users new password
+ *
+ * @apiSuccess {Boolean} success Set to true if the request succeeded.
+ * @apiErrorStructure UserError
+ * @apiErrorStructure ValidationError
+ *
+ */
 module.exports = function(req, res, next, models, errors) {
 
   req.checkBody('password', 'Required').notEmpty();
