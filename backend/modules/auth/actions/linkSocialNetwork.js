@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(req, res, next, passport, logger) {
+module.exports = function(req, res, next, passport, logger, models) {
 
   if (req.query.redirect) {
     req.session.redirect = req.query.redirect;
@@ -10,26 +10,80 @@ module.exports = function(req, res, next, passport, logger) {
     req.session.fingerprint = req.query.fingerprint;
   }
 
-  var type = req.params.provider + '-' + (req.path.indexOf('/authenticate') > -1 ? 'authenticate' : 'authorize');
+  function authenticateUser(profile, authToken) {
 
-  passport.authorize(type, { callbackURL: req.baseUrl + req.path }, function(err, user) {
+    var UserModel = models.user;
 
-    if (err) {
-      logger.get('error').error(err);
-    }
+    return UserModel.find({
+      'social_network_accounts.provider': req.params.provider,
+      'social_network_accounts.account_id': profile.id
+    }).select('+token_salt').findOneAsync().then(function(user) {
+
+      if (!user) { //The user hasn't created an account yet
+        user = new UserModel({});
+      }
+
+      user.addSocialNetworkAccount(profile, authToken);
+
+      return user.saveAsync();
+
+    }).spread(function(user) {
+
+      req.session.token = user.createAccessToken(req.session.fingerprint);
+      return user;
+
+    });
+
+  }
+
+  function authorizeUser(profile, authToken) {
+
+    return models.user.findByIdAsync(req.session.user._id).then(function(user) {
+
+      user.addSocialNetworkAccount(profile, authToken);
+      return user.saveAsync();
+
+    });
+
+  }
+
+  passport.authorize(req.params.provider, { callbackURL: req.baseUrl + req.path }, function(err, profile, authToken) {
 
     var redirect = req.session.redirect ? req.session.redirect : '/';
-    if (err || !user) {
+
+    function handleError(err) {
+      logger.get('error').error(err.message);
       redirect += (redirect.indexOf('?') === -1 ? '?' : '&') + 'errorAddingSocialNetwork=' + req.params.provider;
+      res.redirect(redirect);
+      req.session.destroy();
     }
 
-    res.redirect(redirect);
+    if (err) {
 
-    delete req.session.redirect;
-    delete req.session.fingerprint;
+      handleError(err);
 
-    if (err || !user) {
-      req.session.destroy();
+    } else {
+
+      var isAuthenticating = req.path.indexOf('/authenticate') > -1;
+
+      if (isAuthenticating) {
+        var promise = authenticateUser(profile, authToken);
+      } else {
+        if (!req.session.user) {
+          return handleError(new Error('Could not find the authorized user in the session!'));
+        }
+        var promise = authorizeUser(profile, authToken);
+      }
+
+      promise.then(function() {
+
+        res.redirect(redirect);
+
+        delete req.session.redirect;
+        delete req.session.fingerprint;
+
+      }).catch(handleError);
+
     }
 
   })(req, res, next);

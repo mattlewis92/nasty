@@ -66,35 +66,31 @@ module.exports = function(schema, services) {
 
     delete profile._raw; //We don't need this clogging up the database
 
-    var profileUrl = null;
-    switch (profile.provider) {
-      case 'twitter': {
-        profileUrl = 'https://twitter.com/' + profile.username;
-        break;
-      }
-    }
-
     var existingAccounts = this.social_network_accounts.filter(function(sna) {
       return sna.provider === profile.provider && sna.account_id === profile.id;
     });
 
     if (existingAccounts.length > 0) {
-      var existingAccount = existingAccounts[0];
-      existingAccount.account_name = profile.username;
-      existingAccount.profile_url = profileUrl;
-      existingAccount.status = !!authentication ? 'authenticated' : 'unauthenticated';
-      existingAccount.authentication = authentication;
-      existingAccount.profile = profile;
+
+      var account = existingAccounts[0];
+
     } else {
-      this.social_network_accounts.push({
+
+      var account = {
         provider: profile.provider,
-        account_id: profile.id,
-        account_name: profile.username,
-        profile_url: profileUrl,
-        status: !!authentication ? 'authenticated' : 'unauthenticated',
-        authentication: authentication,
-        profile: profile
-      });
+        account_id: profile.id
+      };
+
+    }
+
+    account.account_name = profile.username;
+    account.profile_url = profile.url;
+    account.status = !!authentication ? 'authenticated' : 'unauthenticated';
+    account.authentication = authentication;
+    account.profile = profile;
+
+    if (existingAccounts.length === 0) {
+      this.social_network_accounts.push(account);
     }
 
     this.hydrateProfileFromSocialNetworkProfile(profile);
