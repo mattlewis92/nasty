@@ -71,6 +71,7 @@
     "gulp-concat": "^2.3.4",
     "gulp-csslint": "^0.1.5",
     "gulp-debug": "^1.0.0",
+    "gulp-dereserve": "~0.1.0",
     "gulp-develop-server": "^0.2.0",
     "gulp-filter": "^1.0.0",
     "gulp-flatten": "0.0.4",
