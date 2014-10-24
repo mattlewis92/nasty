@@ -20,6 +20,7 @@ angular
   .config(function($provide, Bluebird) {
 
     //Make bluebird API compatible with angular's subset of $q
+    //Adapted from: https://gist.githubusercontent.com/petkaantonov/8363789/raw/c5781515ce83e84baf48ad1c2899501d6a372302/q-bluebird.js
     function bind(fn, ctx) {
       return function() {
         return fn.apply(ctx, arguments);
