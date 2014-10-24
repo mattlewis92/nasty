@@ -28,6 +28,7 @@
     "inbox": "^1.1.59",
     "jsonwebtoken": "^1.1.2",
     "kue": "^0.8.8",
+    "lodash": "~2.4.1",
     "mailparser": "^0.4.6",
     "method-override": "^2.2.0",
     "mongoose": "3.8.17",
@@ -51,7 +52,6 @@
     "static-favicon": "^1.0.2",
     "swig": "^1.4.2",
     "time": "^0.11.0",
-    "underscore": "^1.7.0",
     "winston": "^0.8.0"
   },
   "scripts": {
