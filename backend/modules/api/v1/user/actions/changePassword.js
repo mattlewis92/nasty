@@ -1,5 +1,23 @@
 'use strict';
 
+/**
+ * @api {put} /user/password Changes the authenticated users password
+ * @apiName ChangePassword
+ * @apiGroup User
+ *
+ * @apiHeaderStructure AuthenticationHeader
+ *
+ * @apiParam {String} password The new password
+ *
+ * @apiSuccess {Boolean} success Set to true if the password was successfully saved
+ * @apiSuccessExample Example response:
+ * {
+ *    "success": true
+ * }
+ *
+ * @apiErrorStructure ValidationError
+ *
+ */
 module.exports = function(req, res, next, userAuthenticate, models, errors) {
 
   req.checkBody('password', 'Required').notEmpty();

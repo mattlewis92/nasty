@@ -3,7 +3,7 @@
 
 var mongoose = require('mongoose'),
     requireAll = require('require-all'),
-    _ = require('underscore'),
+    _ = require('lodash'),
     mongooseTypes = require('openifyit-mongoose-types');
 
 mongooseTypes.loadTypes(mongoose);

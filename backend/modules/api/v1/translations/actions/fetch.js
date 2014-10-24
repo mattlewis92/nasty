@@ -2,6 +2,14 @@
 
 var fs = require('fs');
 
+/**
+ * @api {get} /translations/fetch Fetches all translations to be used in the frontend
+ * @apiName FetchTranslations
+ * @apiGroup Translations
+ *
+ * @apiParam {string} lang The language code to fetch the translation for
+ *
+ */
 module.exports = function(req, res, next, i18n) {
 
   var lang = req.query.lang.split('_')[0],

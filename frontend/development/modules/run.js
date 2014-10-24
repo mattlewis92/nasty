@@ -45,6 +45,13 @@ angular
     });
 
   })
+  .run(function($rootScope, Bluebird) {
+
+    Bluebird.setScheduler(function(cb) {
+      $rootScope.$evalAsync(cb);
+    });
+
+  })
   .run(function(bootstrap3ElementModifier) {
     //A hack to use font awesome instead of glyphicons for auto validation icons
     var makeValid = bootstrap3ElementModifier.makeValid,

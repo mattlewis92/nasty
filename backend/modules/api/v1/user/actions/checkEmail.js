@@ -1,5 +1,21 @@
 'use strict';
 
+/**
+ * @api {get} /user/email_check Changes to see if an email address has already been registered
+ * @apiName CheckEmail
+ * @apiGroup User
+ *
+ * @apiParam {Email} email The email to check
+ *
+ * @apiSuccess {Boolean} exists Whether an account with this email address already exists
+ * @apiSuccessExample Example response:
+ * {
+ *    "exists": false
+ * }
+ *
+ * @apiErrorStructure ValidationError
+ *
+ */
 module.exports = function(req, res, models, errors, next) {
 
   req.checkQuery('email', 'Required').notEmpty();

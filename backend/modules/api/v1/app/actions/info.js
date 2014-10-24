@@ -1,5 +1,11 @@
 'use strict';
 
+/**
+ * @api {get} /app/info Returns info about the app used for configuring the frontend
+ * @apiName AppInfo
+ * @apiGroup App
+ *
+ */
 module.exports = function(req, res, next, config) {
 
   res.json({
