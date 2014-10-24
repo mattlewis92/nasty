@@ -13,11 +13,12 @@ module.exports = function(program, services, suggestedName) {
           i18n = services.get('i18n')(defaultLocale),
           path = i18n.locateFile(defaultLocale),
           translationKey = text.toUpperCase().replace(/ /, '_').replace(/[^a-zA-Z0-9_]/g, ''),
-          file = JSON.parse(fs.readFileSync(path).toString());
+          file = JSON.parse(fs.readFileSync(path).toString()),
+          logger = services.get('logger').get('console');
 
       file[translationKey] = text;
       fs.writeFileSync(path, JSON.stringify(file, null, '\t'), 'utf8');
-      console.log(translationKey);
+      logger.log(translationKey);
       process.exit();
     });
 

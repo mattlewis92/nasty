@@ -4,13 +4,16 @@ var chalk = require('chalk');
 
 module.exports = function(program, services, suggestedName) {
 
+  var logger = services.get('logger').get('console');
+
   program
     .command(suggestedName + ' <file>')
     .option('--example', 'Example option')
     .description('This is an example command')
     .action(function(file) {
-      console.log(chalk.red('Hello world!'), file);
-      services.get('job').queue('demo:worker2', {hello: 'World'});
+
+      logger.log(chalk.red('Hello world!'), file);
+
     });
 
 };
