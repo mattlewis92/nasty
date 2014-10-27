@@ -6,13 +6,11 @@ angular
 
     var config = {};
 
-    $timeout(function() {
-      HTTP.GET('app/info').then(function(result) {
-        for (var key in result.data) {
-          config[key] = result.data[key];
-        }
-        $translate.fallbackLanguage(config.i18n.default);
-      });
+    HTTP.GET('app/info').then(function(result) {
+      for (var key in result.data) {
+        config[key] = result.data[key];
+      }
+      $translate.fallbackLanguage(config.i18n.default);
     });
 
     return config;
