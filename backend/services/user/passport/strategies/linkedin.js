@@ -9,6 +9,7 @@ module.exports = function(passport, services) {
   passport.use(new LinkedInStrategy(strategyConfig, function(token, tokenSecret, profile, done) {
 
     profile.url = profile._json.publicProfileUrl;
+    profile.username = profile.displayName;
 
     done(null, profile, {token: token, token_secret: tokenSecret});
 

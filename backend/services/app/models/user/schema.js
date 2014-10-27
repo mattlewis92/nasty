@@ -72,7 +72,10 @@ module.exports = function(mongoose) {
         enum: ['authenticated', 'unauthenticated'],
         required: true
       },
-      authentication: mongoose.SchemaTypes.Mixed,
+      authentication: {
+        type: mongoose.SchemaTypes.Mixed,
+        select: false
+      },
       profile: mongoose.SchemaTypes.Mixed
     }]
   };
