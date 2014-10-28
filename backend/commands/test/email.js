@@ -24,7 +24,7 @@ module.exports = function(program, services, suggestedName) {
             }
           }
         }
-      }).then(logger.log).catch(logger.error).finally(process.exit);
+      }).then(logger.info).catch(logger.error).finally(process.exit);
 
     });
 

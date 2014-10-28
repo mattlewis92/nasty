@@ -12,7 +12,7 @@ module.exports = function(program, services, suggestedName) {
     .description('This is an example command')
     .action(function(file) {
 
-      logger.log(chalk.red('Hello world!'), file);
+      logger.info(chalk.red('Hello world!'), file);
 
     });
 

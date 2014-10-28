@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.services')
-  .factory('Authentication', function(DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, Socket) {
+  .factory('Authentication', function($http, DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, Socket) {
 
     var STORAGE_KEY = 'authToken';
 
@@ -53,6 +53,7 @@ angular
         headers['x-access-token'] = service.retrieve().token;
       }
       angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
+      angular.extend($http.defaults.headers.common, headers);
       return this;
     };
 

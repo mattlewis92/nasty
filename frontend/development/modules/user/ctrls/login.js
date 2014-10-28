@@ -7,7 +7,7 @@ angular
 
     name: 'UserLoginCtrl',
 
-    inject: ['User', 'Authentication'],
+    inject: ['User', 'Authentication', 'SocialNetwork'],
 
     data: {
       user: {}

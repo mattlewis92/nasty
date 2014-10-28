@@ -29,7 +29,7 @@ module.exports = function(req, res, next, passport, logger, models) {
 
     }).spread(function(user) {
 
-      req.session.token = user.createAccessToken(req.session.fingerprint);
+      req.session.auth = { token : user.createAccessToken(req.session.fingerprint), user: {_id: user._id} }
       return user;
 
     });
@@ -64,15 +64,15 @@ module.exports = function(req, res, next, passport, logger, models) {
 
     } else {
 
-      var isAuthenticating = req.path.indexOf('/authenticate') > -1;
+      var isAuthenticating = req.path.indexOf('/authenticate') > -1, promise;
 
       if (isAuthenticating) {
-        var promise = authenticateUser(profile, authToken);
+        promise = authenticateUser(profile, authToken);
       } else {
         if (!req.session.user) {
           return handleError(new Error('Could not find the authorized user in the session!'));
         }
-        var promise = authorizeUser(profile, authToken);
+        promise = authorizeUser(profile, authToken);
       }
 
       promise.then(function() {

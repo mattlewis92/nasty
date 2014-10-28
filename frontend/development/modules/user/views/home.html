@@ -81,7 +81,7 @@
           </span>
           <input type="text" class="form-control" readonly value="{{ ::home.AuthUser.getSocialNetwork('twitter').account_name }}">
           <span class="input-group-btn">
-            <button class="btn btn-twitter">Twitter</button>
+            <button class="btn btn-twitter" ng-click="home.SocialNetwork.authorize('twitter')" translate="LINK"></button>
           </span>
         </div>
 
@@ -93,7 +93,7 @@
           </span>
           <input type="text" class="form-control" readonly value="{{ ::home.AuthUser.getSocialNetwork('linkedin').account_name }}">
           <span class="input-group-btn">
-            <button class="btn btn-linkedin">LinkedIn</button>
+            <button class="btn btn-linkedin" ng-click="home.SocialNetwork.authorize('linkedin')" translate="LINK"></button>
           </span>
         </div>
 

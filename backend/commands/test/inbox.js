@@ -11,16 +11,16 @@ module.exports = function(program, services, suggestedName) {
 
       services.get('inbox')('gmail').then(function(_client) {
 
-        logger.log('CONNECTED');
+        logger.info('CONNECTED');
         client = _client;
 
         return client.processNewMessages('Inbox', function(message) {
-          logger.log(message.text);
+          logger.info(message.text);
         }, 'Test');
 
       }).then(function(result) {
 
-        logger.log(result);
+        logger.info(result);
 
         client.close();
         process.exit();

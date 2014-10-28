@@ -30,6 +30,13 @@ angular
     });
 
   })
+  .run(function($location, SocialNetwork) {
+
+    if ($location.search().authCallback) {
+      SocialNetwork.authenticateCallback();
+    }
+
+  })
   .run(function($rootScope, Bluebird) {
 
     Bluebird.setScheduler(function(cb) {
