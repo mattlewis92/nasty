@@ -5,7 +5,7 @@ angular
   .classy
   .controller({
 
-    name: 'App404Ctrl',
+    name: 'Core404Ctrl',
 
     inject: ['historyManager', 'authentication']
 

@@ -5,7 +5,7 @@ angular
   .classy
   .controller({
 
-    name: 'AppNavbarCtrl',
+    name: 'CoreNavbarCtrl',
 
     inject: ['$scope', 'authentication', 'user'],
 

@@ -5,6 +5,6 @@ angular
   .classy
   .controller({
 
-    name: 'AppIndexCtrl'
+    name: 'CoreIndexCtrl'
 
   });
