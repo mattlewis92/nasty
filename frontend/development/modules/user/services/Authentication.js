@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.services')
-  .factory('Authentication', function($http, DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, Socket) {
+  .factory('authentication', function($http, DSHttpAdapter, Fingerprint, $localStorage, $sessionStorage, socket) {
 
     var STORAGE_KEY = 'authToken';
 
@@ -59,14 +59,14 @@ angular
 
     service.socketAuthInit = function() {
 
-      Socket.on('connect', service.socketEmitAuthToken);
+      socket.on('connect', service.socketEmitAuthToken);
       return this;
 
     };
 
     service.socketEmitAuthToken = function() {
       if (service.isAuthenticated()) {
-        Socket.emit('authenticate', {token: service.retrieve().token});
+        socket.emit('authenticate', {token: service.retrieve().token});
       }
       return this;
     };

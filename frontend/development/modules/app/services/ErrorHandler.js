@@ -2,12 +2,12 @@
 
 angular
   .module('nasty.app.services')
-  .factory('ErrorHandler', function($log, Flash) {
+  .factory('errorHandler', function($log, flash) {
 
     var service = {};
 
     service.http = function(error) {
-      Flash.error(error.data.message, 'http', true);
+      flash.error(error.data.message, 'http', true);
     };
 
     service.generic = function(error) {

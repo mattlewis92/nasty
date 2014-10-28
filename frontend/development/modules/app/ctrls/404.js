@@ -7,6 +7,6 @@ angular
 
     name: 'App404Ctrl',
 
-    inject: ['HistoryManager', 'Authentication']
+    inject: ['historyManager', 'authentication']
 
   });

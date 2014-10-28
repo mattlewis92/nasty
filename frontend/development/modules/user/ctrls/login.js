@@ -7,10 +7,10 @@ angular
 
     name: 'UserLoginCtrl',
 
-    inject: ['User', 'Authentication', 'SocialNetwork'],
+    inject: ['user', 'authentication', 'socialNetwork'],
 
     data: {
-      user: {}
+      userDetails: {}
     }
 
   });

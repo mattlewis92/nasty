@@ -1,6 +1,6 @@
 <div flash-message="passwordResetCompleted"></div>
 
-<form class="form-horizontal" role="form" novalidate name="loginForm" ng-submit="login.User.login(login.user)">
+<form class="form-horizontal" role="form" novalidate name="loginForm" ng-submit="login.user.login(login.userDetails)">
   <div class="form-group">
     <label class="col-sm-2 control-label" translate="EMAIL"></label>
     <div class="col-sm-10">
@@ -9,7 +9,7 @@
         class="form-control"
         placeholder="{{ 'EMAIL' | translate }}"
         required
-        ng-model="login.user.email">
+        ng-model="login.userDetails.email">
     </div>
   </div>
   <div class="form-group">
@@ -22,14 +22,14 @@
         required
         ng-minlength="8"
         ng-maxlength="20"
-        ng-model="login.user.password"
+        ng-model="login.userDetails.password"
         ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }">
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <label class="font-weight-normal">
-        <checkbox ng-model="login.Authentication.isPersistent"></checkbox>
+        <checkbox ng-model="login.authentication.isPersistent"></checkbox>
         <span translate="REMEMBER_ME"></span>
       </label>
     </div>
@@ -37,7 +37,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <a href="javascript:;" ui-sref="user.resetPasswordRequest" class="btn btn-default pull-right"><i class="fa fa-unlock"></i> <span translate="FORGOT_PASSWORD"></span></a>
-      <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" loading-btn="login.User.meta.loadingTracker"><i class="fa fa fa-sign-in"></i> <span translate="SIGN_IN"></span></button>
+      <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" loading-btn="login.user.meta.loadingTracker"><i class="fa fa fa-sign-in"></i> <span translate="SIGN_IN"></span></button>
     </div>
   </div>
 </form>
@@ -45,6 +45,6 @@
 <br><hr><br>
 
 <div class="text-center">
-  <button class="btn btn-social btn-twitter" ng-click="login.SocialNetwork.authenticate('twitter')"><i class="fa fa-twitter"></i> <span translate="LOGIN_WITH_TWITTER"></span></button>
-  <button class="btn btn-social btn-linkedin" ng-click="login.SocialNetwork.authenticate('linkedin')"><i class="fa fa-linkedin"></i> <span translate="LOGIN_WITH_LINKEDIN"></span></button>
+  <button class="btn btn-social btn-twitter" ng-click="login.socialNetwork.authenticate('twitter')"><i class="fa fa-twitter"></i> <span translate="LOGIN_WITH_TWITTER"></span></button>
+  <button class="btn btn-social btn-linkedin" ng-click="login.socialNetwork.authenticate('linkedin')"><i class="fa fa-linkedin"></i> <span translate="LOGIN_WITH_LINKEDIN"></span></button>
 </div>

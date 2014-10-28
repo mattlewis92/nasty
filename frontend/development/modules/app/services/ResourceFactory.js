@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('ResourceFactory', function(DS, DSHttpAdapter, promiseTracker) {
+  .factory('resourceFactory', function(DS, DSHttpAdapter, promiseTracker) {
 
     return {
       create: function(resourceConfig) {

@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('HTTP', function(DS, DSHttpAdapter) {
+  .factory('API', function(DS, DSHttpAdapter) {
 
     var HTTP = DSHttpAdapter.HTTP;
 

@@ -2,11 +2,11 @@
 
 angular
   .module('nasty.app.services')
-  .factory('Config', function($timeout, $translate, HTTP) {
+  .factory('config', function($timeout, $translate, API) {
 
     var config = {};
 
-    HTTP.GET('app/info').then(function(result) {
+    API.GET('app/info').then(function(result) {
       for (var key in result.data) {
         config[key] = result.data[key];
       }

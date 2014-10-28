@@ -7,14 +7,14 @@ angular
 
     name: 'AppNavbarCtrl',
 
-    inject: ['$scope', 'Authentication', 'User'],
+    inject: ['$scope', 'authentication', 'user'],
 
     data: {
-      Authentication: 'Authentication'
+      authentication: 'authentication'
     },
 
     watch: {
-      'Authentication.isAuthenticated()': function(isAuthenticated) {
+      'authentication.isAuthenticated()': function(isAuthenticated) {
         this.isLoggedIn = isAuthenticated;
       }
     }

@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('Flash', function($rootScope, $translate) {
+  .factory('flash', function($rootScope, $translate) {
 
     var service = {};
 

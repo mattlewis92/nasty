@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.services')
-  .factory('SocialNetwork', function($http, $window, $location, $timeout, $state, Authentication) {
+  .factory('socialNetwork', function($http, $window, $location, $timeout, $state, authentication) {
 
     var socialNetwork = {};
 
@@ -23,7 +23,7 @@ angular
       redirect += '?authCallback=1';
 
       $window.location.href = '/auth/' + provider + '/authenticate?fingerprint=' +
-        Authentication.getBrowserFingerprint() + '&redirect=' + encodeURIComponent(redirect);
+        authentication.getBrowserFingerprint() + '&redirect=' + encodeURIComponent(redirect);
 
     };
 
@@ -31,7 +31,7 @@ angular
 
       return $http.get('/auth/user/token').success(function(result) {
 
-        Authentication.store(result.auth);
+        authentication.store(result.auth);
         $timeout(function() {
           $state.go('user.home');
         });

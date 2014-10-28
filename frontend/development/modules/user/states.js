@@ -39,8 +39,8 @@ angular
         templateUrl: 'modules/user/views/home.html',
         controller: 'UserHomeCtrl as home',
         resolve: {
-          AuthUser: function(User) {
-            return User.getAuthUser();
+          authUser: function(user) {
+            return user.getAuthUser();
           }
         }
       });

@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('Loading', function($rootScope, $timeout) {
+  .factory('loading', function($rootScope, $timeout) {
 
     var service = {
       isLoading: false

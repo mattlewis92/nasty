@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.directives')
-  .directive('emailAvailable', function(defaultErrorMessageResolver, $translate, HTTP) {
+  .directive('emailAvailable', function(defaultErrorMessageResolver, $translate, API) {
 
     var msg;
     $translate('EMAIL_ADDRESS_TAKEN').then(function(str) {
@@ -22,7 +22,7 @@ angular
       link: function(scope, elm, attrs, ctrl) {
 
         ctrl.$asyncValidators.emailAvailable = function(email) {
-          return HTTP.GET('user/email_check?email=' + email, {autoError: false});
+          return API.GET('user/email_check?email=' + email, {autoError: false});
         };
       }
     };

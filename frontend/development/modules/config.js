@@ -52,6 +52,6 @@ angular
     $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
     //Add custom error interceptor
-    $httpProvider.interceptors.push('HTTPInterceptor');
+    $httpProvider.interceptors.push('httpInterceptor');
 
   });

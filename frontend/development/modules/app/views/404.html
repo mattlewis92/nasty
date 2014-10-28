@@ -9,15 +9,15 @@
       <br>
       <br>
       <div>
-        <a ng-href="{{ errorCtrl.HistoryManager.previousUrl }}" class="btn btn-primary btn-lg" ng-show="errorCtrl.HistoryManager.previousUrl">
+        <a ng-href="{{ errorCtrl.historyManager.previousUrl }}" class="btn btn-primary btn-lg" ng-show="errorCtrl.historyManager.previousUrl">
           <span class="fa fa-arrow-left"></span>
           Go back
         </a>
-        <a ui-sref="index" class="btn btn-default btn-lg" ng-hide="errorCtrl.Authentication.isAuthenticated()">
+        <a ui-sref="index" class="btn btn-default btn-lg" ng-hide="errorCtrl.authentication.isAuthenticated()">
           <span class="fa fa-home"></span>
           Take Me Home
         </a>
-        <a ui-sref="user.home" class="btn btn-default btn-lg" ng-show="errorCtrl.Authentication.isAuthenticated()">
+        <a ui-sref="user.home" class="btn btn-default btn-lg" ng-show="errorCtrl.authentication.isAuthenticated()">
           <span class="fa fa-home"></span>
           Take Me Home
         </a>

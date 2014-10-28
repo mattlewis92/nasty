@@ -2,16 +2,16 @@
 
 angular
   .module('nasty')
-  .run(function(Config, Authentication) {
+  .run(function(config, authentication) {
 
-    Authentication.setHeaders().socketAuthInit();
+    authentication.setHeaders().socketAuthInit();
 
   })
-  .run(function($rootScope, $state, ErrorHandler, Authentication, HistoryManager) {
+  .run(function($rootScope, $state, errorHandler, authentication, historyManager) {
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
-      ErrorHandler.generic(error); //This will handle all non HTTP errors from resolved promises
+      errorHandler.generic(error); //This will handle all non HTTP errors from resolved promises
 
       if (fromState.name && fromState.name !== '') {
         $state.go(fromState.name);
@@ -21,19 +21,19 @@ angular
 
     $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
-      HistoryManager.previousUrl = $state.href(fromState, fromParams);
+      historyManager.previousUrl = $state.href(fromState, fromParams);
 
-      if (Authentication.isAuthenticated() && toState.ifAuth) {
+      if (authentication.isAuthenticated() && toState.ifAuth) {
         $state.go(toState.ifAuth);
       }
 
     });
 
   })
-  .run(function($location, SocialNetwork) {
+  .run(function($location, socialNetwork) {
 
     if ($location.search().authCallback) {
-      SocialNetwork.authenticateCallback();
+      socialNetwork.authenticateCallback();
     }
 
   })

@@ -7,6 +7,6 @@ angular
 
     name: 'UserResetPasswordCtrl',
 
-    inject: ['$stateParams', 'User']
+    inject: ['$stateParams', 'user']
 
   });

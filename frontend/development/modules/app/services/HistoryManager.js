@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('HistoryManager', function() {
+  .factory('historyManager', function() {
 
     var manager = {};
     return manager;

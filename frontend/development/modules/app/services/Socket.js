@@ -2,6 +2,6 @@
 
 angular
   .module('nasty.app.services')
-  .factory('Socket', function(socketFactory) {
+  .factory('socket', function(socketFactory) {
     return socketFactory();
   });

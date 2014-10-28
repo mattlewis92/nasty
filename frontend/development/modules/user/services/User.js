@@ -2,21 +2,21 @@
 
 angular
   .module('nasty.user.services')
-  .factory('User', function($state, $translate, ResourceFactory, DSHttpAdapter, Authentication, Flash) {
+  .factory('user', function($state, $translate, DSHttpAdapter, resourceFactory, authentication, flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
       DSHttpAdapter.defaults.$httpConfig.headers['Accept-Language'] = lang;
     }
 
-    var User = ResourceFactory.create({
+    var User = resourceFactory.create({
       name: 'user',
       methods: {
         changePassword: function(password) {
 
           return User.doPUT('password', {password: password}).then(function(result) {
 
-            Flash.confirm('PASSWORD_CHANGED', 'passwordSaved');
+            flash.confirm('PASSWORD_CHANGED', 'passwordSaved');
 
             return result;
           });
@@ -38,7 +38,7 @@ angular
       },
       afterUpdate: function(resourceName, attrs, cb) {
 
-        Flash.confirm('PROFILE_UPDATED', 'userSaved');
+        flash.confirm('PROFILE_UPDATED', 'userSaved');
 
         changeLanguage(attrs.language);
 
@@ -62,7 +62,7 @@ angular
       return User.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
 
         $state.go('user.login').then(function() {
-          Flash.confirm('PASSWORD_RESET_COMPLETED', 'passwordResetCompleted');
+          flash.confirm('PASSWORD_RESET_COMPLETED', 'passwordResetCompleted');
         });
 
         return result;
@@ -73,7 +73,7 @@ angular
     User.login = function(user) {
 
       return User.doPOST('authenticate', user).then(function(result) {
-        Authentication.store(result.data);
+        authentication.store(result.data);
         $state.go('user.home');
         return result;
       });
@@ -82,7 +82,7 @@ angular
 
     User.logout = function() {
 
-      Authentication.clear();
+      authentication.clear();
       $state.go('user.login');
 
     };
@@ -96,7 +96,7 @@ angular
     };
 
     User.getAuthUser = function() {
-      var userId = Authentication.isAuthenticated() ? Authentication.retrieve().user._id : 'current';
+      var userId = authentication.isAuthenticated() ? authentication.retrieve().user._id : 'current';
       return User.find(userId).then(function(user) {
         changeLanguage(user.language);
         return user;
