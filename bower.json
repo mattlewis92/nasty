@@ -41,7 +41,8 @@
     "socket.io-client": "~1.1.0",
     "angular-socket-io": "~0.6.0",
     "ui-router-extras": "~0.0.10",
-    "angular-bootstrap-checkbox": "~0.3.1"
+    "angular-bootstrap-checkbox": "~0.3.1",
+    "angular-file-upload": "~1.1.5"
   },
   "overrides": {
     "bootstrap": {
@@ -58,6 +59,9 @@
     },
     "socket.io-client": {
       "main": "socket.io.js"
+    },
+    "angular-file-upload": {
+      "dependencies": null
     }
   },
   "resolutions": {

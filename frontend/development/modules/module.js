@@ -18,6 +18,7 @@ angular.module('nasty', [
   'ngStorage',
   'btford.socket-io',
   'ui.checkbox',
+  'angularFileUpload',
   'nasty.views',
   'nasty.constants',
   'nasty.app',
