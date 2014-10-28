@@ -17,7 +17,7 @@ var files = {
   frontEndJs: directories.frontend.dev + '/modules/**/*.js',
   images: directories.frontend.dev + '/img/**/*',
   less: directories.frontend.dev + '/modules/**/*.less',
-  css: directories.frontend.dev + '/modules/**/*.css',
+  css: directories.frontend.dev + '/modules/.build/**/*.css',
   js: [directories.backend + '/**/*.js', directories.frontend.dev + '/modules/**/*.js'],
   views: directories.frontend.dev + '/modules/**/*.html',
   html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/modules/**/*.html']
@@ -74,7 +74,7 @@ gulp.task('less', function() {
     .pipe(gp.plumber())
     .pipe(gp.cached('less'))
     .pipe(gp.less())
-    .pipe(gulp.dest(directories.frontend.dev + '/modules'));
+    .pipe(gulp.dest(directories.frontend.dev + '/modules/.build'));
 
 });
 
