@@ -36,7 +36,12 @@
       <div class="form-group">
         <label class="col-sm-4 control-label" translate="PREFERRED_LANGUAGE"></label>
         <div class="col-sm-8">
-          <select ng-model="home.AuthUser.language" class="form-control" ng-options="key as value for (key, value) in home.Config.i18n.languages"></select>
+          <ui-select ng-model="home.AuthUser.language" search-enabled="false">
+            <ui-select-match placeholder="Select a language">{{ $select.selected.label }}</ui-select-match>
+            <ui-select-choices repeat="language.key as language in home.Config.i18n.languages">
+              <div ng-bind-html="language.label | highlight: $select.search"></div>
+            </ui-select-choices>
+          </ui-select>
         </div>
       </div>
       <div class="form-group">
