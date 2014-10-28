@@ -11,7 +11,7 @@ angular
         templateUrl: 'modules/core/views/index.html'
       })
       .state('404', {
-        url: '/404,
+        url: '/404',
         controller: 'App404Ctrl as errorCtrl',
         templateUrl: 'modules/core/views/404.html'
       });
