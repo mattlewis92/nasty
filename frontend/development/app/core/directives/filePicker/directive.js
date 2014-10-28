@@ -5,7 +5,7 @@ angular
   .directive('filePicker', function() {
     return {
       restrict: 'EA',
-      templateUrl: 'modules/core/views/directives/filePicker.html',
+      templateUrl: 'app/core/directives/filePicker/template.html',
       scope: true,
       controller: function($scope) {
 

@@ -5,7 +5,7 @@ angular
   .directive('flashMessage', function(flash) {
     return {
       restrict: 'A',
-      templateUrl: 'modules/core/views/directives/flashMessage.html',
+      templateUrl: 'app/core/directives/flashMessage/template.html',
       scope: true,
       link: function(scope, elm, attrs) {
         scope.messageId = attrs.flashMessage;

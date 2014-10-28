@@ -14,13 +14,13 @@ var directories = {
 
 var files = {
   server: directories.backend + '/**/*.js',
-  frontEndJs: directories.frontend.dev + '/modules/**/*.js',
+  frontEndJs: directories.frontend.dev + '/app/**/*.js',
   images: directories.frontend.dev + '/img/**/*',
-  less: directories.frontend.dev + '/modules/**/*.less',
-  css: directories.frontend.dev + '/modules/.build/**/*.css',
-  js: [directories.backend + '/**/*.js', directories.frontend.dev + '/modules/**/*.js'],
-  views: directories.frontend.dev + '/modules/**/*.html',
-  html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/modules/**/*.html']
+  less: directories.frontend.dev + '/app/**/*.less',
+  css: directories.frontend.dev + '/app/.build/**/*.css',
+  js: [directories.backend + '/**/*.js', directories.frontend.dev + '/app/**/*.js'],
+  views: directories.frontend.dev + '/app/**/*.html',
+  html: [directories.frontend.dev + '/*.html', directories.frontend.dev + '/app/**/*.html']
 };
 
 var server = require('./backend/services/app/config/all.json').server;
@@ -74,7 +74,7 @@ gulp.task('less', function() {
     .pipe(gp.plumber())
     .pipe(gp.cached('less'))
     .pipe(gp.less())
-    .pipe(gulp.dest(directories.frontend.dev + '/modules/.build'));
+    .pipe(gulp.dest(directories.frontend.dev + '/app/.build'));
 
 });
 
@@ -148,7 +148,7 @@ var getTemplates = function() {
     .src(files.views)
     .pipe(gp.angularHtmlify())
     .pipe(gp.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(gp.angularTemplatecache({standalone: false, module: 'nasty.views', root: 'modules/'}));
+    .pipe(gp.angularTemplatecache({standalone: false, module: 'nasty.views', root: 'app/'}));
 
 };
 
