@@ -23,6 +23,6 @@ angular.module('nasty', [
   'ui.select',
   'nasty.views',
   'nasty.constants',
-  'nasty.app',
+  'nasty.core',
   'nasty.user'
 ]);

@@ -1,11 +1,11 @@
 'use strict';
 
 angular
-  .module('nasty.app.directives')
+  .module('nasty.core.directives')
   .directive('filePicker', function() {
     return {
       restrict: 'EA',
-      templateUrl: 'modules/app/views/directives/filePicker.html',
+      templateUrl: 'modules/core/views/directives/filePicker.html',
       scope: true,
       controller: function($scope) {
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.app.services')
+  .module('nasty.core.services')
   .factory('API', function(DS, DSHttpAdapter) {
 
     var HTTP = DSHttpAdapter.HTTP;

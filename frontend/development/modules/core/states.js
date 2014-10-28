@@ -1,19 +1,19 @@
 'use strict';
 
 angular
-  .module('nasty.app')
+  .module('nasty.core')
   .config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('index', {
         url: '/',
         controller: 'AppIndexCtrl as index',
-        templateUrl: 'modules/app/views/index.html'
+        templateUrl: 'modules/core/views/index.html'
       })
       .state('404', {
-        url: '/404',
+        url: '/404,
         controller: 'App404Ctrl as errorCtrl',
-        templateUrl: 'modules/app/views/404.html'
+        templateUrl: 'modules/core/views/404.html'
       });
 
     $urlRouterProvider.otherwise('/404');

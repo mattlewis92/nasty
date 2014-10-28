@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.app.services')
+  .module('nasty.core.services')
   .factory('resourceFactory', function(DS, DSHttpAdapter, promiseTracker) {
 
     return {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.app.directives')
+  .module('nasty.core.directives')
   .directive('loadingBtn', function($translate) {
     return {
       restrict: 'A',
