@@ -1,7 +1,7 @@
 {
   "apps" : [
     {
-      "name"        : "mean-app",
+      "name"        : "nasty-app",
       "script"      : "backend/index.js",
       "instances"   : 4,
       "error_file"  : "./logs/pm2/app.err",
@@ -13,7 +13,7 @@
       }
     },
     {
-      "name"        : "mean-workers",
+      "name"        : "nasty-workers",
       "script"      : "backend/workers/index.js",
       "instances"   : 1,
       "error_file"  : "./logs/pm2/workers.err",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "name"        : "mean-cron-runner",
+      "name"        : "nasty-cron-runner",
       "script"      : "backend/workers/index.js",
       "instances"   : 1,
       "error_file"  : "./logs/pm2/cronRunner.err",
