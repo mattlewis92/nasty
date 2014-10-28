@@ -40,6 +40,8 @@ module.exports = function() {
 
     winston.loggers.add('frontend', getDefaultTransportOptions('frontend.errors'));
 
+    winston.loggers.add('console', getDefaultTransportOptions());
+
     return winston.loggers;
 
   };

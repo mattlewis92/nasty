@@ -6,6 +6,7 @@ angular.module('nasty.constants', []);
 angular.module('nasty', [
   'ngAnimate',
   'ngTouch',
+  'ngSanitize',
   'classy',
   'angular-data.DSCacheFactory',
   'angular-data.DS',
@@ -19,6 +20,7 @@ angular.module('nasty', [
   'btford.socket-io',
   'ui.checkbox',
   'angularFileUpload',
+  'ui.select',
   'nasty.views',
   'nasty.constants',
   'nasty.app',

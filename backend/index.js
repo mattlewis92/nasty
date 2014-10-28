@@ -7,9 +7,12 @@ app.loadServices(__dirname + '/services', __dirname + '/../');
 app.loadModules(__dirname + '/modules');
 
 app.startServer(function(err) {
+
   if (err) {
-    console.error(err.message);
-    console.error(err.stack);
+    var logger = app.get('services').get('logger').get('console');
+    logger.error(err.message);
+    logger.error(err.stack);
     return process.exit(-1);
   }
+
 });

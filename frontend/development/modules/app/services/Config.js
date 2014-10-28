@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.app.services')
-  .factory('Config', function($translate, HTTP) {
+  .factory('Config', function($timeout, $translate, HTTP) {
 
     var config = {};
 

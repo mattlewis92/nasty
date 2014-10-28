@@ -4,7 +4,7 @@ module.exports = function(schema) {
 
   schema.post('save', function() {
 
-    if (this.wasNew) {
+    if (this.wasNew && this.email) {
 
       this.sendEmail({
         subject: 'Welcome to the app!',

@@ -2,6 +2,18 @@
 
 var crypto = require('crypto');
 
+/**
+ * @api {post} /password/reset/request Requests a password reset email
+ * @apiName ResetPasswordRequest
+ * @apiGroup User
+ *
+ * @apiParam {Email} email The users email
+ *
+ * @apiSuccess {Boolean} success Set to true if the request succeeded.
+ * @apiErrorStructure UserError
+ * @apiErrorStructure ValidationError
+ *
+ */
 module.exports = function(req, res, next, models, errors, config) {
 
   req.checkBody('email', 'Required').notEmpty();

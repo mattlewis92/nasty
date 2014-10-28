@@ -39,5 +39,14 @@
 	"The reset link you clicked is invalid. Please request a new reset token.": "The reset link you clicked is invalid. Please request a new reset token.",
   "EMAIL_ADDRESS_TAKEN": "This email address has already been registered by another user.",
   "AVATAR": "Avatar",
-  "BROWSE": "Browse"
+  "BROWSE": "Browse",
+	"EMAIL_ADDRESS_TAKEN": "This email address has already been registered by another user.",
+	"This user does not exist. edit": "This user does not exist. edit",
+	"A user could not be found with the email address you provided.": "A user could not be found with the email address you provided.",
+	"Something went wrong and we couldn't log you in. Please try again.": "Something went wrong and we couldn't log you in. Please try again.",
+	"LINK": "Link",
+	"LOGIN_WITH_TWITTER": "Login with Twitter",
+	"LOGIN_WITH_LINKEDIN": "Login with LinkedIn",
+	"SIGN_UP_WITH_LINKEDIN": "Sign up with LinkedIn",
+	"SIGN_UP_WITH_TWITTER": "Sign up with Twitter"
 }

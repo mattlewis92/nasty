@@ -25,12 +25,22 @@ angular
   })
   .config(function($provide) {
 
-    $provide.decorator('$exceptionHandler', function($delegate) {
+    $provide.decorator('$exceptionHandler', function($delegate, $window) {
       return function(exception, cause) {
         $delegate(exception, cause);
-        window.exceptions.handler.handle({ error: exception, data: { cause: cause } });
+        $window.exceptions.handler.handle({
+          error: exception,
+          data: {
+            cause: cause
+          }
+        });
       };
     });
+
+  })
+  .config(function(uiSelectConfig) {
+
+    uiSelectConfig.theme = 'bootstrap';
 
   })
   .config(function($httpProvider) {

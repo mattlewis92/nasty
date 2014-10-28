@@ -14,7 +14,7 @@
  * @apiSuccess {Object} user An object containing the updated user fields.
  * @apiSuccessExample Example response:
  * {
- *    "_id": "wfereffrer",
+ *    "_id": "530490471d7b6a025ca54f70",
  *    "email": "hello@google.com",
  *    "name": {
  *      "first": "John",

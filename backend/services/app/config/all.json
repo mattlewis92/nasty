@@ -48,5 +48,63 @@
   "redis": {
     "host": "127.0.0.1",
     "port": 6379
+  },
+  "session": {
+    "name": "auth.cookie",
+    "secret": "$`qsPCSKNPdtFj:]z3#Tg]}KV#-FjqG9N3=H{UD",
+    "cookie": {
+      "maxAge": "120 seconds"
+    },
+    "resave": false,
+    "saveUninitialized": false
+  },
+  "authenticationStrategies": {
+    "twitter": {
+      "auth": {
+        "consumerKey": "<<DELETED>>",
+        "consumerSecret": "<<DELETED>>"
+      }
+    },
+    "linkedin": {
+      "auth": {
+        "consumerKey": "<<DELETED>>",
+        "consumerSecret": "<<DELETED>>",
+        "profileFields": [
+          "id",
+          "first-name",
+          "last-name",
+          "formatted-name",
+          "location",
+          "summary",
+          "specialties",
+          "positions",
+          "picture-url",
+          "api-standard-profile-request",
+          "last-modified-timestamp",
+          "interests",
+          "languages",
+          "skills",
+          "date-of-birth",
+          "main-address",
+          "twitter-accounts",
+          "im-accounts",
+          "primary-twitter-account",
+          "email-address",
+          "phone-numbers",
+          "bound-account-types",
+          "public-profile-url",
+          "headline",
+          "industry",
+          "three-current-positions",
+          "three-past-positions"
+        ],
+        "scope": [
+          "r_fullprofile",
+          "r_emailaddress",
+          "r_contactinfo",
+          "r_network"
+        ]
+      }
+    }
   }
 }

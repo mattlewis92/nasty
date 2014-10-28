@@ -21,6 +21,19 @@ angular
             return result;
           });
 
+        },
+        getSocialNetwork: function(type) {
+
+          var accounts = this.social_network_accounts.filter(function(account) {
+            return account.provider === type;
+          });
+
+          if (accounts.length === 0) {
+            return null;
+          } else {
+            return accounts[0];
+          }
+
         }
       },
       afterUpdate: function(resourceName, attrs, cb) {

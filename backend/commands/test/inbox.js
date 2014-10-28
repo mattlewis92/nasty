@@ -7,27 +7,27 @@ module.exports = function(program, services, suggestedName) {
     .description('Tests the email inbox')
     .action(function() {
 
-      var client;
+      var logger = services.get('logger').get('console'), client;
 
       services.get('inbox')('gmail').then(function(_client) {
 
-        console.log('CONNECTED');
+        logger.info('CONNECTED');
         client = _client;
 
         return client.processNewMessages('Inbox', function(message) {
-          console.log(message.text);
+          logger.info(message.text);
         }, 'Test');
 
       }).then(function(result) {
 
-        console.log(result);
+        logger.info(result);
 
         client.close();
         process.exit();
 
       }).catch(function(err) {
 
-        console.log('ERROR', err.message);
+        logger.error(err.message);
 
       });
 
