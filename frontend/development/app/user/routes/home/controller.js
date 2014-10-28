@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.user.ctrls')
+  .module('nasty.user.routes')
   .classy
   .controller({
 

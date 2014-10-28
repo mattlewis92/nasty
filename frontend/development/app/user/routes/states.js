@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.user')
+  .module('nasty.user.routes')
   .config(function($stateProvider) {
 
     $stateProvider
@@ -12,31 +12,31 @@ angular
       })
       .state('user.register', {
         url: '/register',
-        templateUrl: 'app/user/views/register.html',
+        templateUrl: 'app/user/routes/register/template.html',
         controller: 'UserRegisterCtrl as register',
         ifAuth: 'user.home'
       })
       .state('user.login', {
         url: '/login',
-        templateUrl: 'app/user/views/login.html',
+        templateUrl: 'app/user/routes/login/template.html',
         controller: 'UserLoginCtrl as login',
         ifAuth: 'user.home'
       })
       .state('user.resetPasswordRequest', {
         url: '/forgot',
-        templateUrl: 'app/user/views/resetPasswordRequest.html',
+        templateUrl: 'app/user/routes/resetPasswordRequest/template.html',
         controller: 'UserResetPasswordRequestCtrl as resetPasswordRequest',
         ifAuth: 'user.home'
       })
       .state('user.resetPassword', {
         url: '/forgot/:userId/:resetToken',
-        templateUrl: 'app/user/views/resetPassword.html',
+        templateUrl: 'app/user/routes/resetPassword/template.html',
         controller: 'UserResetPasswordCtrl as resetPassword',
         ifAuth: 'user.home'
       })
       .state('user.home', {
         url: '/home',
-        templateUrl: 'app/user/views/home.html',
+        templateUrl: 'app/user/routes/home/template.html',
         controller: 'UserHomeCtrl as home',
         resolve: {
           authUser: function(user) {
