@@ -36,15 +36,27 @@ module.exports = function(req, res, next, models, config, errors) {
 
   models.user
     .findFromToken(req.body.token, req.body.fingerprint)
-    .then(function() {
+    .then(function(user) {
 
       //This is just an example, you should probably upload this to AWS or a similar cloud storage provider
       //The result of this promise contains the authenticated user id, you can use this to link the file to the user
-      return imgur.uploadFile(req.files.file.path);
+      return [user, imgur.uploadFile(req.files.file.path)];
 
-    }).then(function(json) {
+    }).spread(function(user, json) {
 
-      res.json({url: json.data.link});
+      var file = new models.file({
+        name: req.files.file.name,
+        size: req.files.file.size,
+        mime: req.files.file.type,
+        url: json.data.link,
+        owner: user._id
+      });
+
+      return file.saveAsync();
+
+    }).spread(function(file) {
+
+      res.json(file.toObject());
       next();
 
     }).catch(next);
