@@ -1,44 +1,54 @@
-<form class="form-horizontal" role="form" novalidate name="registerForm" ng-submit="register.user.register(register.userDetails)">
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="FIRST_NAME"></label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="First name" ng-model="register.userDetails.forename" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="SURNAME"></label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" placeholder="Surname" ng-model="register.userDetails.surname" required>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="EMAIL"></label>
-    <div class="col-sm-10">
-      <input type="email" class="form-control" placeholder="Email" ng-model="register.userDetails.email" ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }" required email-available>
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="PASSWORD"></label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="Password" ng-model="register.userDetails.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="PASSWORD_REPEATED"></label>
-    <div class="col-sm-10">
-      <input type="password" class="form-control" placeholder="Password repeated" ng-model="register.userDetails.passwordRepeated" required password-repeat="register.userDetails.password" ng-minlength="8" ng-maxlength="20">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary" ng-disabled="registerForm.$invalid" loading-btn="register.user.meta.loadingTracker"><span translate="REGISTER"></span></button>
-    </div>
-  </div>
-</form>
+<div class="row">
+  <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    <h2>Create a new account</h2>
+    <br>
+    <form role="form" class="form-horizontal form-no-group-margin" novalidate name="registerForm" ng-submit="register.user.register(register.userDetails)">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="{{ 'FIRST_NAME' | translate }}" ng-model="register.userDetails.forename" required>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <input type="text" class="form-control input-lg" placeholder="{{ 'SURNAME' | translate }}" ng-model="register.userDetails.surname" required>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control input-lg" placeholder="{{ 'EMAIL' | translate }}" ng-model="register.userDetails.email" ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }" required email-available>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <input type="password" class="form-control input-lg" placeholder="{{ 'PASSWORD' | translate }}" ng-model="register.userDetails.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <div class="form-group">
+            <input type="password" class="form-control input-lg" placeholder="{{ 'PASSWORD_REPEATED' | translate }}" ng-model="register.userDetails.passwordRepeated" required password-repeat="register.userDetails.password" ng-minlength="8" ng-maxlength="20">
+          </div>
+        </div>
+      </div>
 
-<br><hr><br>
+      <button type="submit" class="btn btn-primary btn-lg pull-right" ng-disabled="registerForm.$invalid" loading-btn="register.user.meta.loadingTracker"><span translate="REGISTER"></span></button>
+      <div class="clearfix"></div>
+    </form>
 
-<div class="text-center">
-  <button class="btn btn-social btn-twitter" ng-click="register.socialNetwork.authenticate('twitter')"><i class="fa fa-twitter"></i> <span translate="SIGN_UP_WITH_TWITTER"></span></button>
-  <button class="btn btn-social btn-linkedin" ng-click="register.socialNetwork.authenticate('linkedin')"><i class="fa fa-linkedin"></i> <span translate="SIGN_UP_WITH_LINKEDIN"></span></button>
+    <br>
+    <div class="or-box">
+      <span class="or">OR</span>
+      <div class="or-box-content row">
+        <div class="col-sm-6">
+          <button class="btn btn-social btn-twitter" ng-click="register.socialNetwork.authenticate('twitter')"><i class="fa fa-twitter"></i> <span translate="SIGN_UP_WITH_TWITTER"></span></button>
+        </div>
+        <br class="visible-xs">
+        <div class="col-sm-6">
+          <button class="btn btn-social btn-linkedin" ng-click="register.socialNetwork.authenticate('linkedin')"><i class="fa fa-linkedin"></i> <span translate="SIGN_UP_WITH_LINKEDIN"></span></button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
 </div>
