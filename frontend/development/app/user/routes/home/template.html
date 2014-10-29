@@ -4,7 +4,7 @@
 
 <div class="row">
 
-  <div class="col-md-3">
+  <div class="col-md-4">
     <h3 translate="AVATAR"></h3>
     <div class="text-center" ng-show="home.authUser.avatar.url">
       <img ng-src="{{ home.authUser.avatar.url }}" class="avatar img-circle" alt="avatar" width="80" height="80">
@@ -13,7 +13,7 @@
     <file-picker uploader="home.uploader" on-save="home.authUser.save()"></file-picker>
   </div>
 
-  <div class="col-md-5">
+  <div class="col-md-4">
 
     <h3 translate="YOUR_DETAILS"></h3>
     <form role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
