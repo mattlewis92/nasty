@@ -8,6 +8,7 @@
     "bluebird": "~2.3.6",
     "body-parser": "~1.9.0",
     "chalk": "~0.5.1",
+    "checksum": "~0.1.1",
     "commander": "~2.5.0",
     "compression": "~1.2.0",
     "connect-multiparty": "~1.2.5",
@@ -119,7 +120,8 @@
     "mongoose",
     "winston",
     "fs",
-    "crypto"
+    "crypto",
+    "checksum"
   ],
   "apidoc": {
     "title": "Nasty boilerplate API docs",

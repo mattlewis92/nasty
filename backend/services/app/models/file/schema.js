@@ -6,6 +6,7 @@ module.exports = function(mongoose) {
     name: String,
     size: Number,
     mime: String,
+    checksum: String,
     url: {
       type: mongoose.SchemaTypes.Url,
       required: true

@@ -46,13 +46,13 @@ module.exports = function(schema, services) {
       if (!this.avatar.file) {
         this.avatar.url = null;
       } else {
-        
+
         services.get('models').file.findByIdAsync(this.avatar.file).then(function(file) {
 
           if (!file) {
-            next(new Error('The file with id ' + this.avatar.file + ' does not exist'));
+            next(new Error('The file with id ' + self.avatar.file + ' does not exist'));
           } else if (!file.isOfType('image')) {
-            next(new Error('The file with id ' + this.avatar.file + ' is not an image'));
+            next(new Error('The file with id ' + self.avatar.file + ' is not an image'));
           } else {
             self.avatar.url = file.url;
             next();
