@@ -7,14 +7,7 @@ angular
 
     name: 'UserHomeCtrl',
 
-    inject: [
-      'authUser',
-      'user',
-      'config',
-      'socialNetwork',
-      'flash',
-      'uploader'
-    ],
+    inject: ['authUser', 'user', 'config', 'socialNetwork', 'flash', 'uploader'],
 
     data: function() {
 
