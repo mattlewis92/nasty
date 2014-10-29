@@ -2,115 +2,106 @@
 <div flash-message="passwordSaved"></div>
 
 <div class="row">
-  <div class="col-md-6">
 
-    <form class="form-horizontal" role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="CREATED_AT"></label>
-        <div class="col-sm-8">
-          <p class="form-control-static">{{ home.authUser.created_at | date:'medium' }}</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="UPDATED_AT"></label>
-        <div class="col-sm-8">
-          <p class="form-control-static">{{ home.authUser.updated_at | date:'medium' }}</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="FIRST_NAME"></label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="First name" ng-model="home.authUser.name.first" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="SURNAME"></label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="Surname" ng-model="home.authUser.name.last" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="EMAIL"></label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" placeholder="Email" ng-model="home.authUser.email" required>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="AVATAR"></label>
-        <div class="col-sm-8">
-          <file-picker></file-picker>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-4 control-label" translate="PREFERRED_LANGUAGE"></label>
-        <div class="col-sm-8">
-          <ui-select ng-model="home.authUser.language" search-enabled="false">
-            <ui-select-match placeholder="Select a language">{{ $select.selected.label }}</ui-select-match>
-            <ui-select-choices repeat="language.key as language in home.config.i18n.languages">
-              <div ng-bind-html="language.label | highlight: $select.search"></div>
-            </ui-select-choices>
-          </ui-select>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-          <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
-        </div>
-      </div>
-    </form>
+  <div class="col-md-3">
+    <div class="text-center">
+      <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+      <h6>Upload a different photo...</h6>
+
+      <file-picker></file-picker>
+    </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-5">
 
-    <form class="form-horizontal" role="form" novalidate name="passwordForm" ng-submit="home.authUser.changePassword(home.password)">
+    <h3>Your details</h3>
+    <form role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
       <div class="form-group">
-        <label class="col-sm-4 control-label" translate="NEW_PASSWORD"></label>
-        <div class="col-sm-8">
-          <input type="password" class="form-control" placeholder="{{ 'NEW_PASSWORD' | translate }}" ng-model="home.password" required ng-minlength="8" ng-maxlength="20" ng-model-options="{updateOn: 'blur'}">
-        </div>
+        <label translate="FIRST_NAME"></label>
+        <input type="text" class="form-control" placeholder="First name" ng-model="home.authUser.name.first" required>
       </div>
       <div class="form-group">
-        <label class="col-sm-4 control-label" translate="NEW_PASSWORD_REPEATED"></label>
-        <div class="col-sm-8">
-          <input type="password" class="form-control" placeholder="{{ 'NEW_PASSWORD_REPEATED' | translate }}" ng-model="home.passwordRepeated" required password-repeat="home.password" ng-minlength="8" ng-maxlength="20">
-        </div>
+        <label translate="SURNAME"></label>
+        <input type="text" class="form-control" placeholder="Surname" ng-model="home.authUser.name.last" required>
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-          <button type="submit" class="btn btn-primary" ng-disabled="passwordForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
-        </div>
+        <label translate="EMAIL"></label>
+        <input type="email" class="form-control" placeholder="Email" ng-model="home.authUser.email" required>
+      </div>
+      <div class="form-group">
+        <label translate="PREFERRED_LANGUAGE"></label>
+        <ui-select ng-model="home.authUser.language" search-enabled="false">
+          <ui-select-match placeholder="Select a language">{{ $select.selected.label }}</ui-select-match>
+          <ui-select-choices repeat="language.key as language in home.config.i18n.languages">
+            <div ng-bind-html="language.label | highlight: $select.search"></div>
+          </ui-select-choices>
+        </ui-select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
       </div>
     </form>
 
-    <br>
+  </div>
 
-    <div class="row">
-      <div class="col-sm-offset-4 col-sm-8">
+  <div class="col-md-4">
 
-        <div class="input-group">
+    <h3>Change your password</h3>
+
+    <form role="form" novalidate name="passwordForm" ng-submit="home.authUser.changePassword(home.password)">
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="{{ 'NEW_PASSWORD' | translate }}"
+          ng-model="home.password"
+          required
+          ng-minlength="8"
+          ng-maxlength="20"
+          ng-model-options="{updateOn: 'blur'}">
+      </div>
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="{{ 'NEW_PASSWORD_REPEATED' | translate }}"
+          ng-model="home.passwordRepeated"
+          required
+          password-repeat="home.password"
+          ng-minlength="8"
+          ng-maxlength="20">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary" ng-disabled="passwordForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
+      </div>
+    </form>
+
+    <hr>
+
+    <h3>Social network accounts</h3>
+
+    <div class="input-group">
           <span class="input-group-addon">
             <i class="fa fa-twitter"></i>
           </span>
-          <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('twitter').account_name }}">
+      <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('twitter').account_name }}">
           <span class="input-group-btn">
             <button class="btn btn-twitter" ng-click="home.socialNetwork.authorize('twitter')" translate="LINK"></button>
           </span>
-        </div>
+    </div>
 
-        <br>
+    <br>
 
-        <div class="input-group">
+    <div class="input-group">
           <span class="input-group-addon">
             <i class="fa fa-linkedin"></i>
           </span>
-          <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('linkedin').account_name }}">
+      <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('linkedin').account_name }}">
           <span class="input-group-btn">
             <button class="btn btn-linkedin" ng-click="home.socialNetwork.authorize('linkedin')" translate="LINK"></button>
           </span>
-        </div>
-
-      </div>
     </div>
 
   </div>
+
 </div>
