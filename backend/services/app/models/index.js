@@ -83,8 +83,11 @@ module.exports = function(app) {
       schema.options.toObject.virtuals = true;
 
       schema.methods.extend = function(obj, schema) {
-        var filtered = _.pickDeep(obj, schema);
-        return _.extend(this, filtered);
+        var result = _.extend(this, _.pickDeep(obj, schema)), self = this;
+        schema.forEach(function(field) {
+          self.markModified(field);
+        });
+        return result;
       };
 
       schema.pre('save', function(next) {

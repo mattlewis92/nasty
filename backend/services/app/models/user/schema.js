@@ -55,7 +55,13 @@ module.exports = function(mongoose) {
         select: false
       }
     },
-    avatar: mongoose.SchemaTypes.Url,
+    avatar: {
+      url: mongoose.SchemaTypes.Url,
+      file: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'file'
+      }
+    },
     social_network_accounts: [{
       provider: {
         type: String,

@@ -93,7 +93,7 @@ module.exports = function(schema, services) {
       this.social_network_accounts.push(account);
     }
 
-    this.hydrateProfileFromSocialNetworkProfile(profile);
+    return this.hydrateProfileFromSocialNetworkProfile(profile);
 
   };
 

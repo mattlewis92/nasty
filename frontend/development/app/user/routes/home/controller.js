@@ -21,7 +21,10 @@ angular
       var self = this, uploader = new this.uploader(function(promise) {
 
         promise.then(function(result) {
-          self.authUser.avatar = result.url;
+          self.authUser.avatar = {
+            url: result.url,
+            file: result._id
+          };
         }).catch(function(error) {
           self.flash.error(error.response.message, 'avatarError', true);
         });

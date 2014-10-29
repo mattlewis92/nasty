@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt'),
     uuid = require('node-uuid'),
     SALT_WORK_FACTOR = 10;
 
-module.exports = function(schema) {
+module.exports = function(schema, services) {
 
   schema.pre('save', function(next) {
     var user = this;
@@ -32,6 +32,37 @@ module.exports = function(schema) {
       this.token_salt = uuid.v4();
     }
     next();
+
+  });
+
+  schema.pre('save', function(next) {
+
+    var self = this;
+
+    if (!this.isModified('avatar.file')) {
+      return next();
+    } else {
+
+      if (!this.avatar.file) {
+        this.avatar.url = null;
+      } else {
+        
+        services.get('models').file.findByIdAsync(this.avatar.file).then(function(file) {
+
+          if (!file) {
+            next(new Error('The file with id ' + this.avatar.file + ' does not exist'));
+          } else if (!file.isOfType('image')) {
+            next(new Error('The file with id ' + this.avatar.file + ' is not an image'));
+          } else {
+            self.avatar.url = file.url;
+            next();
+          }
+
+        }).catch(next);
+
+      }
+
+    }
 
   });
 

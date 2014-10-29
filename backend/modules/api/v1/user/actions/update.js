@@ -43,7 +43,7 @@ module.exports = function(req, res, next, userAuthenticate, models, errors) {
     .findByIdAsync(userAuthenticate._id)
     .then(function(user) {
 
-      user = user.extend(req.body, ['name.first', 'name.last', 'email', 'language', 'avatar']);
+      user = user.extend(req.body, ['name.first', 'name.last', 'email', 'language', 'avatar.file']);
 
       return user.saveAsync();
 

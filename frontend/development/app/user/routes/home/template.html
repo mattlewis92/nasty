@@ -6,8 +6,8 @@
 
   <div class="col-md-3">
     <h3 translate="AVATAR"></h3>
-    <div class="text-center" ng-show="home.authUser.avatar">
-      <img ng-src="{{ home.authUser.avatar }}" class="avatar img-circle" alt="avatar" width="80" height="80">
+    <div class="text-center" ng-show="home.authUser.avatar.url">
+      <img ng-src="{{ home.authUser.avatar.url }}" class="avatar img-circle" alt="avatar" width="80" height="80">
       <h6 translate="UPLOAD_A_DIFFERENT_PHOTO"></h6>
     </div>
     <file-picker uploader="home.uploader" on-save="home.authUser.save()"></file-picker>
