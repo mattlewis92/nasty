@@ -6,12 +6,20 @@ angular
     return {
       restrict: 'EA',
       templateUrl: 'app/core/directives/filePicker/template.html',
-      scope: true,
+      scope: {
+        uploader: '=',
+        onSave: '&'
+      },
       controller: function($scope) {
 
         this.setFileText = function(text) {
           $scope.fileText = text;
-        }
+        };
+
+        $scope.save = function() {
+          $scope.fileText = null;
+          $scope.onSave();
+        };
 
       }
     };

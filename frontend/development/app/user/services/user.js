@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.services')
-  .factory('user', function($state, $translate, DSHttpAdapter, resourceFactory, authentication, flash) {
+  .factory('user', function($state, $translate, DSHttpAdapter, FileUploader, resourceFactory, authentication, flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
@@ -50,7 +50,7 @@ angular
 
       return User.doPOST('password/reset/request', {email: email}).then(function(result) {
 
-        Flash.confirm('PASSWORD_RESET_REQUESTED', 'passwordResetRequested');
+        flash.confirm('PASSWORD_RESET_REQUESTED', 'passwordResetRequested');
 
         return result;
       });

@@ -5,7 +5,6 @@ angular
   .directive('fileInput', function() {
     return {
       restrict: 'A',
-      scope: true,
       require: '^filePicker',
       link: function(scope, elm, attrs, filePickerCtrl) {
 

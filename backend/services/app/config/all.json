@@ -23,6 +23,9 @@
       "prefix": "q"
     }
   },
+  "imgur": {
+    "token": "de44c1f57f60e41"
+  },
   "mailer": {
     "service": "Gmail",
     "auth": {

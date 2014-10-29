@@ -29,7 +29,7 @@ module.exports = function(req, res, next, passport, logger, models) {
 
     }).spread(function(user) {
 
-      req.session.auth = { token : user.createAccessToken(req.session.fingerprint), user: {_id: user._id} }
+      req.session.auth = { token : user.createAccessToken(req.session.fingerprint), user: {_id: user._id} };
       return user;
 
     });

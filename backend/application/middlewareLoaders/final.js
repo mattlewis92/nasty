@@ -1,8 +1,21 @@
 'use strict';
 
-var expressWinston = require('express-winston');
+var expressWinston = require('express-winston'),
+    fs = require('fs');
 
 module.exports = function(app, di) {
+
+  app.use(function(err, req, res, next) {
+
+    if (req.files) {
+      for (var key in req.files) {
+        fs.unlink(req.files[key].path);
+      }
+    }
+
+    next(err);
+
+  });
 
   app.use(function(err, req, res, next) {
 

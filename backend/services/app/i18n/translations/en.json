@@ -40,7 +40,6 @@
 	"EMAIL_ADDRESS_TAKEN": "This email address has already been registered by another user.",
 	"AVATAR": "Avatar",
 	"BROWSE": "Browse",
-	"This user does not exist. edit": "This user does not exist. edit",
 	"A user could not be found with the email address you provided.": "A user could not be found with the email address you provided.",
 	"Something went wrong and we couldn't log you in. Please try again.": "Something went wrong and we couldn't log you in. Please try again.",
 	"LINK": "Link",
@@ -56,5 +55,11 @@
 	"UPLOAD_A_DIFFERENT_PHOTO": "Upload a different photo...",
 	"YOUR_DETAILS": "Your details",
 	"CHANGE_YOUR_PASSWORD": "Change your password",
-	"SOCIAL_NETWORK_ACCOUNTS": "Social network accounts"
+	"SOCIAL_NETWORK_ACCOUNTS": "Social network accounts",
+	"UPLOADING": "Uploading",
+	"The file size is above the maximum allowed file size of %s": "The file size is above the maximum allowed file size of %s",
+	"The file size is above the maximum allowed size of %s": "The file size is above the maximum allowed size of %s",
+	"The file type of %s is not in the allowed file types %s": "The file type of %s is not in the allowed file types %s",
+	"The file type of %s is not in the allowed file types (%s)": "The file type of %s is not in the allowed file types (%s)",
+	"The file type of %s is not of the allowed type %s": "The file type of %s is not of the allowed type %s"
 }

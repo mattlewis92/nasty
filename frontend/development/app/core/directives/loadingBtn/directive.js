@@ -29,7 +29,7 @@ angular
           if (isActive) {
             elm.attr('disabled', 'disabled');
             originalHtml = elm.html();
-            elm.html('<i class="fa fa-spin fa-spinner"></i> ' + loadingText + '...');
+            elm.html('<i class="fa fa-spin fa-spinner"></i> ' + loadingText + '&hellip;');
           } else {
             if (!scope.isDisabled) {
               elm.removeAttr('disabled');

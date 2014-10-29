@@ -68,15 +68,15 @@ module.exports = function(schema, services) {
 
     var existingAccounts = this.social_network_accounts.filter(function(sna) {
       return sna.provider === profile.provider && sna.account_id === profile.id;
-    });
+    }), account;
 
     if (existingAccounts.length > 0) {
 
-      var account = existingAccounts[0];
+      account = existingAccounts[0];
 
     } else {
 
-      var account = {
+      account = {
         provider: profile.provider,
         account_id: profile.id
       };

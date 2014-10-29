@@ -1,15 +1,16 @@
 <div flash-message="userSaved"></div>
 <div flash-message="passwordSaved"></div>
+<div flash-message="avatarError"></div>
 
 <div class="row">
 
   <div class="col-md-3">
-    <div class="text-center">
-      <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+    <h3 translate="AVATAR"></h3>
+    <div class="text-center" ng-show="home.authUser.avatar">
+      <img ng-src="{{ home.authUser.avatar }}" class="avatar img-circle" alt="avatar" width="80" height="80">
       <h6 translate="UPLOAD_A_DIFFERENT_PHOTO"></h6>
-
-      <file-picker></file-picker>
     </div>
+    <file-picker uploader="home.uploader" on-save="home.authUser.save()"></file-picker>
   </div>
 
   <div class="col-md-5">
@@ -93,25 +94,21 @@
     <h3 translate="SOCIAL_NETWORK_ACCOUNTS"></h3>
 
     <div class="input-group">
-          <span class="input-group-addon">
-            <i class="fa fa-twitter"></i>
-          </span>
+      <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
       <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('twitter').account_name }}">
-          <span class="input-group-btn">
-            <button class="btn btn-twitter" ng-click="home.socialNetwork.authorize('twitter')" translate="LINK"></button>
-          </span>
+      <span class="input-group-btn">
+        <button class="btn btn-twitter" ng-click="home.socialNetwork.authorize('twitter')" translate="LINK"></button>
+      </span>
     </div>
 
     <br>
 
     <div class="input-group">
-          <span class="input-group-addon">
-            <i class="fa fa-linkedin"></i>
-          </span>
+      <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
       <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('linkedin').account_name }}">
-          <span class="input-group-btn">
-            <button class="btn btn-linkedin" ng-click="home.socialNetwork.authorize('linkedin')" translate="LINK"></button>
-          </span>
+      <span class="input-group-btn">
+        <button class="btn btn-linkedin" ng-click="home.socialNetwork.authorize('linkedin')" translate="LINK"></button>
+      </span>
     </div>
 
   </div>

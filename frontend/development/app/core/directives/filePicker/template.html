@@ -1,8 +1,12 @@
 <div class="input-group">
   <input type="text" class="form-control" readonly ng-model="fileText">
   <span class="input-group-btn">
-      <span class="btn btn-primary btn-file">
-          <span translate="BROWSE"></span>&hellip; <input type="file" file-input>
-      </span>
+    <button class="btn btn-default btn-file" ng-disabled="uploader.isUploading">
+      <span translate="BROWSE" ng-hide="uploader.isUploading"></span>
+      <span translate="UPLOADING" ng-show="uploader.isUploading"></span>
+      &hellip;
+      <input type="file" file-input nv-file-select uploader="uploader">
+    </button>
+    <button class="btn btn-primary" ng-if="onSave && !uploader.isUploading && fileText" ng-click="save()"><i class="fa fa-save"></i></button>
   </span>
 </div>

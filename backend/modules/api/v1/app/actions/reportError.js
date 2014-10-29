@@ -8,12 +8,12 @@ var imgur = require('imgur');
  * @apiGroup App
  *
  */
-module.exports = function(req, res, logger) {
+module.exports = function(req, res, logger, config) {
 
   var exception = JSON.parse(req.body.exception);
   delete exception.data.DOMDump;
 
-  imgur.setClientId('de44c1f57f60e41');
+  imgur.setClientId(config.get('imgur:token'));
 
   var base64Img = exception.data.screenshot.replace('data:image/png;base64,', '');
   imgur.uploadBase64(base64Img).then(function(result) {
