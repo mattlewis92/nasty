@@ -45,6 +45,7 @@ module.exports = function(schema, services) {
 
       if (!this.avatar.file) {
         this.avatar.url = null;
+        next();
       } else {
 
         services.get('models').file.findByIdAsync(this.avatar.file).then(function(file) {
