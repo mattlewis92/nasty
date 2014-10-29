@@ -1,6 +1,8 @@
+<div flash-message="userSaved"></div>
+<div flash-message="passwordSaved"></div>
+
 <div class="row">
   <div class="col-md-6">
-    <div flash-message="userSaved"></div>
 
     <form class="form-horizontal" role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
       <div class="form-group">
@@ -59,7 +61,6 @@
   </div>
 
   <div class="col-md-6">
-    <div flash-message="passwordSaved"></div>
 
     <form class="form-horizontal" role="form" novalidate name="passwordForm" ng-submit="home.authUser.changePassword(home.password)">
       <div class="form-group">

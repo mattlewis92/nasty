@@ -1,50 +1,86 @@
 <div flash-message="passwordResetCompleted"></div>
+<div class="row">
+  <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+    <h2 translate="LOGIN_TO_YOUR_ACCOUNT"></h2>
+    <br>
+    <form
+      role="form"
+      class="form-horizontal form-no-group-margin"
+      novalidate
+      name="loginForm"
+      ng-submit="login.user.login(login.userDetails)">
 
-<form class="form-horizontal" role="form" novalidate name="loginForm" ng-submit="login.user.login(login.userDetails)">
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="EMAIL"></label>
-    <div class="col-sm-10">
-      <input
-        type="email"
-        class="form-control"
-        placeholder="{{ 'EMAIL' | translate }}"
-        required
-        ng-model="login.userDetails.email">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label" translate="PASSWORD"></label>
-    <div class="col-sm-10">
-      <input
-        type="password"
-        class="form-control"
-        placeholder="{{ 'PASSWORD' | translate }}"
-        required
-        ng-minlength="8"
-        ng-maxlength="20"
-        ng-model="login.userDetails.password"
-        ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <label class="font-weight-normal">
-        <checkbox ng-model="login.authentication.isPersistent"></checkbox>
-        <span translate="REMEMBER_ME"></span>
-      </label>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <a href="javascript:;" ui-sref="user.resetPasswordRequest" class="btn btn-default pull-right"><i class="fa fa-unlock"></i> <span translate="FORGOT_PASSWORD"></span></a>
-      <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid" loading-btn="login.user.meta.loadingTracker"><i class="fa fa fa-sign-in"></i> <span translate="SIGN_IN"></span></button>
-    </div>
-  </div>
-</form>
+      <div class="form-group">
 
-<br><hr><br>
+        <input
+          type="email"
+          class="form-control input-lg"
+          placeholder="{{ 'EMAIL' | translate }}"
+          ng-model="login.userDetails.email"
+          required>
 
-<div class="text-center">
-  <button class="btn btn-social btn-twitter" ng-click="login.socialNetwork.authenticate('twitter')"><i class="fa fa-twitter"></i> <span translate="LOGIN_WITH_TWITTER"></span></button>
-  <button class="btn btn-social btn-linkedin" ng-click="login.socialNetwork.authenticate('linkedin')"><i class="fa fa-linkedin"></i> <span translate="LOGIN_WITH_LINKEDIN"></span></button>
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          class="form-control input-lg"
+          placeholder="{{ 'PASSWORD' | translate }}"
+          required
+          ng-minlength="8"
+          ng-maxlength="20"
+          ng-model="login.userDetails.password"
+          ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }">
+      </div>
+
+      <div class="form-group">
+        <a href="javascript:;" ui-sref="user.resetPasswordRequest" class="pull-right"><span translate="FORGOT_PASSWORD"></span></a>
+        <label class="font-weight-normal">
+          <checkbox ng-model="login.authentication.isPersistent"></checkbox>
+          <span translate="REMEMBER_ME"></span>
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary btn-lg pull-right"
+        ng-disabled="loginForm.$invalid"
+        loading-btn="login.user.meta.loadingTracker">
+
+          <i class="fa fa fa-sign-in"></i>
+          <span translate="SIGN_IN"></span>
+
+      </button>
+      <div class="clearfix"></div>
+
+    </form>
+
+    <br>
+    <div class="or-box">
+      <span class="or text-uppercase" translate="OR"></span>
+      <div class="or-box-content row">
+        <div class="col-sm-6">
+
+          <button
+            class="btn btn-social btn-twitter"
+            ng-click="register.socialNetwork.authenticate('twitter')">
+            <i class="fa fa-twitter"></i>
+            <span translate="LOGIN_WITH_TWITTER"></span>
+          </button>
+
+        </div>
+        <br class="visible-xs">
+        <div class="col-sm-6">
+
+          <button
+            class="btn btn-social btn-linkedin"
+            ng-click="register.socialNetwork.authenticate('linkedin')">
+            <i class="fa fa-linkedin"></i>
+            <span translate="LOGIN_WITH_LINKEDIN"></span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
