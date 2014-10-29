@@ -6,7 +6,7 @@
   <div class="col-md-3">
     <div class="text-center">
       <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-      <h6>Upload a different photo...</h6>
+      <h6 translate="UPLOAD_A_DIFFERENT_PHOTO"></h6>
 
       <file-picker></file-picker>
     </div>
@@ -14,19 +14,19 @@
 
   <div class="col-md-5">
 
-    <h3>Your details</h3>
+    <h3 translate="YOUR_DETAILS"></h3>
     <form role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
       <div class="form-group">
         <label translate="FIRST_NAME"></label>
-        <input type="text" class="form-control" placeholder="First name" ng-model="home.authUser.name.first" required>
+        <input type="text" class="form-control" placeholder="{{ 'FIRST_NAME' | translate }}" ng-model="home.authUser.name.first" required>
       </div>
       <div class="form-group">
         <label translate="SURNAME"></label>
-        <input type="text" class="form-control" placeholder="Surname" ng-model="home.authUser.name.last" required>
+        <input type="text" class="form-control" placeholder="{{ 'SURNAME' | translate }}" ng-model="home.authUser.name.last" required>
       </div>
       <div class="form-group">
         <label translate="EMAIL"></label>
-        <input type="email" class="form-control" placeholder="Email" ng-model="home.authUser.email" required>
+        <input type="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" ng-model="home.authUser.email" required>
       </div>
       <div class="form-group">
         <label translate="PREFERRED_LANGUAGE"></label>
@@ -38,7 +38,13 @@
         </ui-select>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" ng-disabled="editForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          ng-disabled="editForm.$invalid"
+          loading-btn="home.user.meta.loadingTracker">
+          <span translate="SAVE"></span>
+        </button>
       </div>
     </form>
 
@@ -46,7 +52,7 @@
 
   <div class="col-md-4">
 
-    <h3>Change your password</h3>
+    <h3 translate="CHANGE_YOUR_PASSWORD"></h3>
 
     <form role="form" novalidate name="passwordForm" ng-submit="home.authUser.changePassword(home.password)">
       <div class="form-group">
@@ -72,13 +78,19 @@
           ng-maxlength="20">
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" ng-disabled="passwordForm.$invalid" loading-btn="home.user.meta.loadingTracker"><span translate="SAVE"></span></button>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          ng-disabled="passwordForm.$invalid"
+          loading-btn="home.user.meta.loadingTracker">
+          <span translate="SAVE"></span>
+        </button>
       </div>
     </form>
 
     <hr>
 
-    <h3>Social network accounts</h3>
+    <h3 translate="SOCIAL_NETWORK_ACCOUNTS"></h3>
 
     <div class="input-group">
           <span class="input-group-addon">

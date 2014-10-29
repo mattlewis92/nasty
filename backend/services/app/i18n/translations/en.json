@@ -52,5 +52,9 @@
 	"CREATE_A_NEW_ACCOUNT": "Create a new account",
 	"LOGIN_TO_YOUR_ACCOUNT": "Login to your account",
 	"RESET_YOUR_PASSWORD": "Reset your password",
-	"BACK": "Back"
+	"BACK": "Back",
+	"UPLOAD_A_DIFFERENT_PHOTO": "Upload a different photo...",
+	"YOUR_DETAILS": "Your details",
+	"CHANGE_YOUR_PASSWORD": "Change your password",
+	"SOCIAL_NETWORK_ACCOUNTS": "Social network accounts"
 }
