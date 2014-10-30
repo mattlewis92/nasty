@@ -2,15 +2,17 @@
 
 angular
   .module('nasty.core.services')
-  .factory('httpInterceptor', function($q, $rootScope, $injector) {
+  .factory('httpInterceptor', function($q, $rootScope, $injector, $timeout) {
     return {
       responseError: function(response) {
 
         if (401 === response.status) {
 
-          $injector.get('$state').go('user.login').then(function() {
-            $injector.get('authentication').clear();
-            $injector.get('errorHandler').http(response);
+          $timeout(function() {
+            $injector.get('$state').go('user.login').then(function() {
+              $injector.get('authentication').clear();
+              $injector.get('errorHandler').http(response);
+            });
           });
 
         } else {
