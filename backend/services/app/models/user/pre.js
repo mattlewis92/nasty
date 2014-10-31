@@ -46,7 +46,7 @@ module.exports = function(schema, services) {
     if (this.isModified('avatar.file')) {
 
       if (!this.avatar.file) {
-        this.avatar.url = null;
+        this.avatar = {};
         return next();
       }
 
@@ -58,6 +58,7 @@ module.exports = function(schema, services) {
           next(new Error('The file with id ' + self.avatar.file + ' is not an image'));
         } else {
           self.avatar.url = file.url;
+          self.avatar.source = 'local';
           next();
         }
 
@@ -68,14 +69,14 @@ module.exports = function(schema, services) {
     if (this.isModified('avatar.url')) {
 
       if (!this.avatar.url) {
-        this.avatar.file = null;
+        this.avatar = {};
         return next();
       }
 
-      services.get('fileHandler').saveFileFromUrl(this.avatar.url).then(function(url) {
+      services.get('fileHandler').saveFileFromUrl(this.avatar.url, this).spread(function(file) {
 
-        //TODO - create a file object in the database
-        self.avatar.url = url;
+        self.avatar.url = file.url;
+        self.avatar.file = file._id;
         next();
 
       }).catch(next);

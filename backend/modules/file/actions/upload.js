@@ -35,20 +35,7 @@ module.exports = function(req, res, next, models, fileHandler, errors) {
     .findFromToken(req.body.token, req.body.fingerprint)
     .then(function(user) {
 
-      return [user, fileHandler.saveFileFromPath(req.files.file.path), fileHandler.getFileChecksumFromPath(req.files.file.path)];
-
-    }).spread(function(user, fileUrl, checksum) {
-
-      var file = new models.file({
-        name: req.files.file.name,
-        size: req.files.file.size,
-        mime: req.files.file.type,
-        checksum: checksum,
-        url: fileUrl,
-        owner: user._id
-      });
-
-      return file.saveAsync();
+      return fileHandler.saveFileFromPath(req.files.file.path, user);
 
     }).spread(function(file) {
 
