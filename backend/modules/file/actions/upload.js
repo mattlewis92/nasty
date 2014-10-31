@@ -1,10 +1,8 @@
 'use strict';
 
-var imgur = require('imgur'),
-    checksum = require('checksum'),
-    prettyBytes = require('pretty-bytes');
+var prettyBytes = require('pretty-bytes');
 
-module.exports = function(req, res, next, models, config, errors) {
+module.exports = function(req, res, next, models, fileHandler, errors) {
 
   if (req.body.max_file_size && req.files.file.size > parseInt(req.body.max_file_size)) {
     var humanizedMaxSize = prettyBytes(parseInt(req.body.max_file_size));
@@ -33,24 +31,20 @@ module.exports = function(req, res, next, models, config, errors) {
     }
   }
 
-  imgur.setClientId(config.get('imgur:token'));
-
   models.user
     .findFromToken(req.body.token, req.body.fingerprint)
     .then(function(user) {
 
-      //This is just an example, you should probably upload this to AWS or a similar cloud storage provider
-      //The result of this promise contains the authenticated user id, you can use this to link the file to the user
-      return [user, imgur.uploadFile(req.files.file.path), checksum.fileAsync(req.files.file.path)];
+      return [user, fileHandler.saveFileFromPath(req.files.file.path), fileHandler.getFileChecksumFromPath(req.files.file.path)];
 
-    }).spread(function(user, json, checksum) {
+    }).spread(function(user, fileUrl, checksum) {
 
       var file = new models.file({
         name: req.files.file.name,
         size: req.files.file.size,
         mime: req.files.file.type,
         checksum: checksum,
-        url: json.data.link,
+        url: fileUrl,
         owner: user._id
       });
 

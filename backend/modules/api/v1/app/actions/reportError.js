@@ -1,24 +1,20 @@
 'use strict';
 
-var imgur = require('imgur');
-
 /**
  * @api {post} /app/report_error Logs an error from the frontend
  * @apiName ReportError
  * @apiGroup App
  *
  */
-module.exports = function(req, res, logger, config) {
+module.exports = function(req, res, logger, fileHandler) {
 
   var exception = JSON.parse(req.body.exception);
   delete exception.data.DOMDump;
 
-  imgur.setClientId(config.get('imgur:token'));
-
   var base64Img = exception.data.screenshot.replace('data:image/png;base64,', '');
-  imgur.uploadBase64(base64Img).then(function(result) {
+  fileHandler.saveFileFromBase64(base64Img).then(function(url) {
 
-    exception.data.screenshot = result.data.link;
+    exception.data.screenshot = url;
 
   }).finally(function() {
 
