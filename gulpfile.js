@@ -365,8 +365,7 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
     'bower.json',
     files.css,
     files.frontEndJs,
-    files.views,
-    directories.frontend.dev + '/index.html'
+    files.views
   ]).on('change', gp.livereload.changed);
 
 });
