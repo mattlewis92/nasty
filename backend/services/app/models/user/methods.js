@@ -120,8 +120,9 @@ module.exports = function(schema, services) {
     }
 
     //Set the avatar
-    if (profile.photos && profile.photos.length > 0 && !this.avatar) {
-      this.avatar = profile.photos[0].value;
+    if (profile.photos && profile.photos.length > 0 && (!this.avatar.url || this.avatar.source === profile.provider)) {
+      this.avatar.url = profile.photos[0].value;
+      this.avatar.source = profile.provider;
     }
 
   };

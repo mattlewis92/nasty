@@ -39,29 +39,46 @@ module.exports = function(schema, services) {
 
     var self = this;
 
-    if (!this.isModified('avatar.file')) {
+    if (!this.isModified('avatar.file') && !this.isModified('avatar.url')) {
       return next();
-    } else {
+    }
+
+    if (this.isModified('avatar.file')) {
 
       if (!this.avatar.file) {
         this.avatar.url = null;
-        next();
-      } else {
-
-        services.get('models').file.findByIdAsync(this.avatar.file).then(function(file) {
-
-          if (!file) {
-            next(new Error('The file with id ' + self.avatar.file + ' does not exist'));
-          } else if (!file.isOfType('image')) {
-            next(new Error('The file with id ' + self.avatar.file + ' is not an image'));
-          } else {
-            self.avatar.url = file.url;
-            next();
-          }
-
-        }).catch(next);
-
+        return next();
       }
+
+      services.get('models').file.findByIdAsync(this.avatar.file).then(function(file) {
+
+        if (!file) {
+          next(new Error('The file with id ' + self.avatar.file + ' does not exist'));
+        } else if (!file.isOfType('image')) {
+          next(new Error('The file with id ' + self.avatar.file + ' is not an image'));
+        } else {
+          self.avatar.url = file.url;
+          next();
+        }
+
+      }).catch(next);
+
+    }
+
+    if (this.isModified('avatar.url')) {
+
+      if (!this.avatar.url) {
+        this.avatar.file = null;
+        return next();
+      }
+
+      services.get('fileHandler').saveFileFromUrl(this.avatar.url).then(function(url) {
+
+        //TODO - create a file object in the database
+        self.avatar.url = url;
+        next();
+
+      }).catch(next);
 
     }
 

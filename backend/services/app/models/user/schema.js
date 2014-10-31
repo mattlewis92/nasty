@@ -60,6 +60,10 @@ module.exports = function(mongoose) {
       file: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'file'
+      },
+      source: {
+        type: String,
+        default: 'local'
       }
     },
     social_network_accounts: [{
