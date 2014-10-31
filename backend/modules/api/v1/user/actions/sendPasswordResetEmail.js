@@ -38,7 +38,8 @@ module.exports = function(req, res, next, models, errors, config) {
 
     user.password_reset = {
       token: resetToken.toString('hex'),
-      expires_at: expiresAt
+      expires_at: expiresAt,
+      ip_address: req.ip
     };
 
     return [user.password_reset.token, user.saveAsync().spread(function(user) {

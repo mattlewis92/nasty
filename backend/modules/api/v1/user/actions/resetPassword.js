@@ -26,7 +26,8 @@ module.exports = function(req, res, next, models, errors) {
     'password_reset.token': req.params.token,
     'password_reset.expires_at': {
       $gt: new Date()
-    }
+    },
+    'password_reset.ip_address': req.ip
   }, {
     password: true
   }).then(function(user) {
@@ -37,6 +38,7 @@ module.exports = function(req, res, next, models, errors) {
       user.password = req.body.password;
       user.password_reset.token = null;
       user.password_reset.expires_at = null;
+      user.password_reset.ip_address = null;
       return user.saveAsync().then(function() {
         res.json({success: true});
       });

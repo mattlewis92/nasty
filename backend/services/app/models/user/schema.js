@@ -53,7 +53,8 @@ module.exports = function(mongoose) {
       expires_at: {
         type: Date,
         select: false
-      }
+      },
+      ip_address: String
     },
     avatar: {
       url: mongoose.SchemaTypes.Url,
