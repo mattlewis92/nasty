@@ -222,7 +222,7 @@ gulp.task('build:assets:js', function() {
     .pipe(gp.ngAnnotate())
     .pipe(gp.sourcemaps.init())
     .pipe(gp.concat('app.js'))
-    .pipe(gp.dereserve())
+    //.pipe(gp.dereserve())
     .pipe(gp.uglify())
     .pipe(gp.header(banner, { pkg : pkg } ))
     .pipe(gp.rev())
@@ -244,7 +244,7 @@ gulp.task('build:assets:css', ['less'], function() {
     .pipe(gp.concat('app.css'))
     .pipe(gp.replace('../fonts/fontawesome', 'fonts/fontawesome'))
     .pipe(gp.uncss({
-      html: glob.sync(directories.frontend.dev + '/**/*.html'),
+      html: glob.sync(files.views).concat([directories.frontend.dev + '/index.html']),
       ignore: [
         /alert/,
         /error/,
