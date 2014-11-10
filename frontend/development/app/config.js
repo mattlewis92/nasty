@@ -6,14 +6,22 @@ angular
 
     $locationProvider.html5Mode(true);
 
-  })
-  .config(function(DSProvider) {
+  }).config(function($httpProvider) {
+
+    //Combine processing of multiple http responses received at around the same time
+    $httpProvider.useApplyAsync(true);
+
+  }).config(function($compileProvider) {
+
+    //Disable runtime debug information in the compiler
+    $compileProvider.debugInfoEnabled(false);
+
+  }).config(function(DSProvider) {
 
     DSProvider.defaults.idAttribute = '_id';
     DSProvider.defaults.baseURL = '/api/v1/';
 
-  })
-  .config(function($translateProvider, DSProvider) {
+  }).config(function($translateProvider, DSProvider) {
 
     $translateProvider
       .useUrlLoader(DSProvider.defaults.baseURL + 'translations/fetch')
@@ -22,8 +30,7 @@ angular
       .useMissingTranslationHandlerLog()
       .fallbackLanguage('en');
 
-  })
-  .config(function($provide) {
+  }).config(function($provide) {
 
     $provide.decorator('$exceptionHandler', function($delegate, $window) {
       return function(exception, cause) {
@@ -37,13 +44,11 @@ angular
       };
     });
 
-  })
-  .config(function(uiSelectConfig) {
+  }).config(function(uiSelectConfig) {
 
     uiSelectConfig.theme = 'bootstrap';
 
-  })
-  .config(function($httpProvider) {
+  }).config(function($httpProvider) {
 
     if (!$httpProvider.defaults.headers.get) {
       $httpProvider.defaults.headers.get = {};
