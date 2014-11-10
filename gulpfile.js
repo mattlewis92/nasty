@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     gp = require('gulp-load-plugins')(),
     streamqueue = require('streamqueue')
-    glob = require('glob');
+    glob = require('glob'),
+    uncssIgnore = require('./.uncssignore');
 
 var directories = {
   frontend: {
@@ -147,8 +148,15 @@ var getTemplates = function() {
   return gulp
     .src(files.views)
     .pipe(gp.angularHtmlify())
-    .pipe(gp.minifyHtml({empty: true, conditionals: true, spare: true, quotes: true}))
-    .pipe(gp.angularTemplatecache({standalone: false, module: 'nasty.views', root: 'app/'}));
+    .pipe(gp.htmlmin({
+      removeComments: true,
+      collapseWhitespace: true
+    }))
+    .pipe(gp.angularTemplatecache({
+      standalone: false,
+      module: 'nasty.views',
+      root: 'app/'
+    }));
 
 };
 
@@ -245,18 +253,7 @@ gulp.task('build:assets:css', ['less'], function() {
     .pipe(gp.replace('../fonts/fontawesome', 'fonts/fontawesome'))
     .pipe(gp.uncss({
       html: glob.sync(files.views).concat([directories.frontend.dev + '/index.html']),
-      ignore: [
-        /alert/,
-        /error/,
-        /help/,
-        /fa/,
-        /control/,
-        /disabled/,
-        /btn/,
-        /button/,
-        /close/,
-        /sr/
-      ]
+      ignore: uncssIgnore
     }))
     .pipe(gp.autoprefixer())
     .pipe(gp.minifyCss())

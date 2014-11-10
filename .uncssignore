@@ -1,0 +1,15 @@
+module.exports = [
+  /alert/,
+  /error/,
+  /help/,
+  /fa/,
+  /control/,
+  /disabled/,
+  /btn/,
+  /button/,
+  /close/,
+  /sr/,
+  /dropdown/,
+  /caret/,
+  /ui\-select/
+];
