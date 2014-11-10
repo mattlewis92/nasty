@@ -21,6 +21,7 @@ angular.module('nasty', [
   'ui.checkbox',
   'angularFileUpload',
   'ui.select',
+  'mwl.bluebird',
   'nasty.views',
   'nasty.constants',
   'nasty.core',
