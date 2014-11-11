@@ -22,7 +22,7 @@ angular
       link: function(scope, elm, attrs, ctrl) {
 
         ctrl.$asyncValidators.emailAvailable = function(email) {
-          return API.GET('user/email_check?email=' + email, {autoError: false});
+          return API.get('user/email_check?email=' + email, {autoError: false});
         };
       }
     };

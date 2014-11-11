@@ -6,9 +6,9 @@ angular
 
     var config = {};
 
-    API.GET('app/info').then(function(result) {
-      for (var key in result.data) {
-        config[key] = result.data[key];
+    API.get('app/info').success(function(result) {
+      for (var key in result) {
+        config[key] = result[key];
       }
       $translate.fallbackLanguage(config.i18n.default);
     });
