@@ -9,6 +9,7 @@ var imgur = require('imgur'),
     checksum = require('checksum'),
     bluebird = require('bluebird'),
     fs = require('fs'),
+    fileModel = null,
     request = require('request'),
     mmmagic = require('mmmagic'),
     magic = new mmmagic.Magic(false, mmmagic.MAGIC_MIME_TYPE);
@@ -16,7 +17,7 @@ var imgur = require('imgur'),
 bluebird.promisifyAll(magic);
 bluebird.promisifyAll(request);
 
-//Change these 3x functions to swap imgur for another cloud provider
+//Change these 2 functions to swap imgur for another cloud provider
 
 function uploadFromFromPath(path) {
 
@@ -108,8 +109,6 @@ function saveFileFromPath(path, owner, saveToDatabase) {
 
 }
 
-var fileModel;
-
 module.exports = function() {
 
   return function(config, models) {
@@ -121,8 +120,8 @@ module.exports = function() {
       saveFileFromBase64: saveFileFromBase64,
       saveFileFromUrl: saveFileFromUrl,
       saveFileFromPath: saveFileFromPath
-    }
+    };
 
-  }
+  };
 
-}
+};
