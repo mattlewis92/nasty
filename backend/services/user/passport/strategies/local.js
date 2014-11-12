@@ -13,7 +13,7 @@ module.exports = function(passport, services) {
       services
         .get('models')
         .user
-        .findOneAsync({ email: email }, {password: true, token_salt: true})
+        .findOneAsync({ email: email.toLowerCase() }, {password: true, token_salt: true})
         .then(function(user) {
           if (!user) {
             done(new UserError('A user could not be found with the email address you provided.', 401));
