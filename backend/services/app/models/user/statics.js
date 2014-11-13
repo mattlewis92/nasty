@@ -6,12 +6,14 @@ module.exports = function(schema, services) {
 
   schema.statics.findFromToken = function(accessToken, fingerPrint) {
 
+    accessToken = accessToken || '';
+
     var jwtKey = services.get('config').get('jwtKey'),
         UserError = services.get('errors').user,
         self = this;
 
     return jwt
-      .verifyAsync(accessToken, jwtKey, { audience: fingerPrint })
+      .verifyAsync(accessToken.replace('Bearer ', ''), jwtKey, { audience: fingerPrint })
       .then(function(decoded) {
         return [decoded, self.findByIdAsync(decoded.user._id, {token_salt: true})];
       })

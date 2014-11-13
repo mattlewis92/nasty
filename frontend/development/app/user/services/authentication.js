@@ -48,9 +48,9 @@ angular
 
     service.setHeaders = function() {
       var headers = {};
-      headers['x-finger-print'] = service.getBrowserFingerprint();
+      headers['Client-Identifier'] = service.getBrowserFingerprint();
       if (service.isAuthenticated()) {
-        headers['x-access-token'] = service.retrieve().token;
+        headers.Authorization = 'Bearer ' + service.retrieve().token;
       }
       angular.extend(DSHttpAdapter.defaults.$httpConfig, {headers: headers});
       angular.extend($http.defaults.headers.common, headers);

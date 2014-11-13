@@ -2,8 +2,8 @@
 
 /**
  * @apiDefineHeaderStructure AuthenticationHeader
- * @apiHeader {String} x-access-token The JWT issued when the user authenticated with their username and password.
- * @apiHeader {String} x-finger-print The users browser fingerprint. Can be any value.
+ * @apiHeader {String} Authorization The JWT issued when the user authenticated with their username and password.
+ * @apiHeader {String} Client-Identifier A unique identifier for a client.
  */
 module.exports = function(services) {
 
@@ -12,7 +12,7 @@ module.exports = function(services) {
     services
       .get('models')
       .user
-      .findFromToken(req.headers['x-access-token'], req.headers['x-finger-print'])
+      .findFromToken(req.headers.authorization, req.headers['client-identifier'])
       .then(function(user) {
 
         req.user = user;

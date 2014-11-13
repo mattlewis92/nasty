@@ -5,7 +5,7 @@
  * @apiName AuthenticateUser
  * @apiGroup User
  *
- * @apiHeader {String} x-finger-print The users browser fingerprint. Can be any value.
+ * @apiHeader {String} Client-Identifier The users browser fingerprint. Can be any value.
  *
  * @apiParam {Email} email The users email
  * @apiParam {String} password The users password
@@ -29,7 +29,7 @@ module.exports = function(req, res, next, errors, passport) {
   req.checkBody('email', 'Required').notEmpty();
   req.checkBody('email', 'Valid email required').isEmail();
   req.checkBody('password', 'Required').notEmpty();
-  req.checkHeader('x-finger-print', 'Required').notEmpty();
+  req.checkHeader('client-identifier', 'Required').notEmpty();
 
   if (req.validationErrors()) {
     return next(new errors.validation(req.validationErrors(true)));
@@ -41,7 +41,7 @@ module.exports = function(req, res, next, errors, passport) {
       return next(err);
     }
 
-    var token = user.createAccessToken(req.headers['x-finger-print']);
+    var token = user.createAccessToken(req.headers['client-identifier']);
 
     res.json({ token : token, user: {_id: user._id} });
 

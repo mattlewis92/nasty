@@ -3,7 +3,7 @@
 module.exports = function(req, res, next, models) {
 
   models.user
-    .findFromToken(req.headers['x-access-token'], req.headers['x-finger-print'])
+    .findFromToken(req.headers.authorization, req.headers['client-identifier'])
     .then(function(user) {
 
       req.session.user = {_id: user._id};
