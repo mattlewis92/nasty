@@ -12,31 +12,31 @@ angular
       })
       .state('user.register', {
         url: '/register',
-        templateUrl: 'app/user/routes/register/template.html',
+        templateUrl: 'app/user/states/register/user.register.template.html',
         controller: 'UserRegisterCtrl as register',
         ifAuth: 'user.home'
       })
       .state('user.login', {
         url: '/login',
-        templateUrl: 'app/user/routes/login/template.html',
+        templateUrl: 'app/user/states/login/user.login.template.html',
         controller: 'UserLoginCtrl as login',
         ifAuth: 'user.home'
       })
       .state('user.resetPasswordRequest', {
         url: '/forgot',
-        templateUrl: 'app/user/routes/resetPasswordRequest/template.html',
+        templateUrl: 'app/user/states/resetPasswordRequest/user.resetPasswordRequest.template.html',
         controller: 'UserResetPasswordRequestCtrl as resetPasswordRequest',
         ifAuth: 'user.home'
       })
       .state('user.resetPassword', {
         url: '/forgot/:userId/:resetToken',
-        templateUrl: 'app/user/routes/resetPassword/template.html',
+        templateUrl: 'app/user/states/resetPassword/user.resetPassword.template.html',
         controller: 'UserResetPasswordCtrl as resetPassword',
         ifAuth: 'user.home'
       })
       .state('user.home', {
         url: '/home',
-        templateUrl: 'app/user/routes/home/template.html',
+        templateUrl: 'app/user/states/home/user.home.template.html',
         controller: 'UserHomeCtrl as home',
         resolve: {
           authUser: function(user) {

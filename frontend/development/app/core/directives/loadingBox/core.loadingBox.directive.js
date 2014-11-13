@@ -7,7 +7,7 @@ angular
     return {
       restrict: 'EA',
       transclude: true,
-      templateUrl: 'app/core/directives/loadingBox/template.html',
+      templateUrl: 'app/core/directives/loadingBox/core.loadingBox.template.html',
       controller: function($scope) {
         $scope.loading = loading;
       }
