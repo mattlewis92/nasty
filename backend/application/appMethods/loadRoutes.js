@@ -164,7 +164,7 @@ module.exports = function(app) {
 
   var di = app.get('services');
 
-  app.loadModules = function(modulePath) {
+  app.loadRoutes = function(modulePath) {
 
     initMiddleware(this, di, true);
 

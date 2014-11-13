@@ -4,7 +4,7 @@ var application = require(__dirname + '/application'),
     app = new application();
 
 app.loadServices(__dirname + '/services', __dirname + '/../');
-app.loadModules(__dirname + '/modules');
+app.loadRoutes(__dirname + '/routes');
 
 app.startServer(function(err) {
 
