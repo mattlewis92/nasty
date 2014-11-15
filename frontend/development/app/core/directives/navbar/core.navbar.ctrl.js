@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.core.ctrls')
+  .module('nasty.core.directives')
   .classy
   .controller({
 
