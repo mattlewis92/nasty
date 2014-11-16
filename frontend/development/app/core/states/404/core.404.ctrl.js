@@ -7,6 +7,6 @@ angular
 
     name: 'Core404Ctrl',
 
-    inject: ['historyManager', 'authentication']
+    inject: ['$previousState', 'authentication']
 
   });
