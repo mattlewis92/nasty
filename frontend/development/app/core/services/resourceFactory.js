@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.core.services')
-  .factory('resourceFactory', function(DS, DSHttpAdapter, promiseTracker) {
+  .factory('resourceFactory', function(DS, DSHttpAdapter, promiseTracker, HTTPFactory) {
 
     return {
       create: function(resourceConfig) {
@@ -12,7 +12,7 @@ angular
         resourceConfig.meta = resourceConfig.meta || {};
         resourceConfig.meta.loadingTracker = promiseTracker();
 
-        var resourceHTTPAdapter = DSHttpAdapter.createInstance({
+        var resourceHTTPAdapter = HTTPFactory({
           resource: resourceConfig.name,
           tracker: resourceConfig.meta.loadingTracker
         });
