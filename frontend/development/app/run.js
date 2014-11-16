@@ -19,7 +19,7 @@ angular
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
 
       if (authentication.isAuthenticated() && toState.ifAuth) {
         $state.go(toState.ifAuth);

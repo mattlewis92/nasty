@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     gp = require('gulp-load-plugins')(),
-    streamqueue = require('streamqueue')
+    streamqueue = require('streamqueue'),
+    runSequence = require('run-sequence'),
     glob = require('glob'),
     uncssIgnore = require('./.uncssignore');
 
@@ -320,7 +321,11 @@ gulp.task('build:assets:fonts', function() {
     .pipe(gulp.dest(directories.frontend.prod + '/fonts'));
 });
 
-gulp.task('build', gp.sequence(['lint', 'build:clean'], ['build:assets', 'build:images', 'build:assets:fonts'], 'build:manifest', 'server:start:prod'));
+gulp.task('build', function(callback) {
+
+  runSequence(['lint', 'build:clean'], ['build:assets', 'build:images', 'build:assets:fonts'], 'build:manifest', 'server:start:prod', callback);
+
+});
 
 gulp.task('lint', ['jshint', 'jscs', 'htmlhint']);
 
