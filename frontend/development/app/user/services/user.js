@@ -2,14 +2,14 @@
 
 angular
   .module('nasty.user.services')
-  .factory('user', function($state, $translate, DSHttpAdapter, FileUploader, resourceFactory, authentication, flash) {
+  .factory('user', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
       DSHttpAdapter.defaults.$httpConfig.headers['Accept-Language'] = lang;
     }
 
-    var User = resourceFactory.create({
+    var User = new ResourceFactory({
       name: 'user',
       methods: {
         changePassword: function(password) {

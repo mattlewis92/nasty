@@ -27,7 +27,7 @@ angular
           //Create the cache if it doesnt exist
           requestCache = DSCacheFactory.get(requestConfig.cache);
           if (!requestCache) {
-            requestCache = DSCacheFactory(requestConfig.cache);
+            requestCache = new DSCacheFactory(requestConfig.cache);
           }
 
           //The cache key is the URL (as this is a GET request)
