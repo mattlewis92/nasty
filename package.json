@@ -68,7 +68,7 @@
     "update": "bower update --config.interactive=false"
   },
   "devDependencies": {
-    "glob": "~4.0.5",
+    "glob": "~4.1.1",
     "gulp": "~3.8.7",
     "gulp-angular-filesort": "~1.0.4",
     "gulp-angular-htmlify": "~1.2.0",

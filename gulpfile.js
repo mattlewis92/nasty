@@ -228,10 +228,10 @@ var banner = ['/**',
 gulp.task('build:assets:js', function() {
 
   return getProductionAssets('js')
+    .pipe(gp.dereserve())
     .pipe(gp.ngAnnotate())
     .pipe(gp.sourcemaps.init())
     .pipe(gp.concat('app.js'))
-    //.pipe(gp.dereserve())
     .pipe(gp.uglify())
     .pipe(gp.header(banner, { pkg : pkg } ))
     .pipe(gp.rev())
