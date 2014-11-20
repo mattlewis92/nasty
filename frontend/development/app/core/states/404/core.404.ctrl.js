@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-  .module('nasty.core.routes')
+  .module('nasty.core.states')
   .classy
   .controller({
 
