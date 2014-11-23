@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "Nasty boilerplate",
+    "name": "<%= appName %>",
     "logRequests": false,
     "tokenExpiryTime": "30 days"
   },
@@ -29,7 +29,7 @@
   "mailer": {
     "service": "Gmail",
     "auth": {
-      "user": "matt@iwaz.at",
+      "user": "<<DELETED>>",
       "pass": "<<DELETED>>"
     },
     "defaultSender": "Your app <no-reply@your-app.tld>",
@@ -42,7 +42,7 @@
       "options": {
         "secureConnection": true,
         "auth": {
-          "user": "matt@iwaz.at",
+          "user": "<<DELETED>>",
           "pass": "<<DELETED>>"
         }
       }

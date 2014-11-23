@@ -1,6 +1,6 @@
 {
-  "name": "nasty",
-  "description": "An opinionated set of MEAN boilerplate code ideal for starting any new project.",
+  "name": "<%= _.slugify(appName) %>",
+  "description": "<%= appDescription %>",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -125,7 +125,7 @@
     "checksum"
   ],
   "apidoc": {
-    "title": "Nasty boilerplate API docs",
+    "title": "<%= appName %> API docs",
     "url": "/api/v1",
     "template": {
       "withCompare": false,

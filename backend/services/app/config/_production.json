@@ -3,7 +3,7 @@
   "mongo": {
     "host": "127.0.0.1",
     "port": 27017,
-    "database": "nasty"
+    "database": "<%= _.slugify(appName) %>"
   },
   "jwtKey": "pF^e*%=^t+;^S*SP*3SRsU|ppF~9.^T:%*4*8.P6-N%_D~|--8=S=_5z8t2V8:z|;Z^_rT_J~:3*%6|K.ty2V6+t5+~QF2+|::zV"
 }

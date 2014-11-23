@@ -1,11 +1,7 @@
 {
-  "name": "nasty",
+  "name": "<%= _.slugify(appName) %>",
   "version": "0.0.1",
-  "homepage": "https://github.com/mattlewis92/nasty",
-  "authors": [
-    "Matt Lewis <matt@iwaz.at>"
-  ],
-  "description": "An opinionated set of MEAN boilerplate code ideal for starting any new project.",
+  "description": "<%= appDescription %>",
   "moduleType": [
     "globals",
     "node"

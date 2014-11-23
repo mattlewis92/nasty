@@ -8,7 +8,7 @@
 	"Valid email required": "Valid email required",
 	"The password you provided was incorrect.": "The password you provided was incorrect.",
 	"This user does not exist.": "This user does not exist.",
-	"APP_NAME": "Nasty Boilerplate",
+	"APP_NAME": "<%= appName %>",
 	"HOME": "Home",
 	"LOGOUT": "Logout",
 	"LOGIN": "Login",
