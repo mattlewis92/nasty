@@ -48,7 +48,7 @@ function startServer(env) {
 
 }
 
-gulp.task('server:start:dev', ['inject'], function() {
+gulp.task('server:start:dev'<% if (hasFrontend) { %>, ['inject']<% } %>, function() {
   startServer({});
 });
 
@@ -359,8 +359,8 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
   gp.livereload.listen();
 
   gulp.watch(files.server, ['server:restart']);
-  gulp.watch(files.less, ['less']);
-  <% if (hasFrontend) { %>gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);<% } %>
+  <% if (hasFrontend) { %>gulp.watch(files.less, ['less']);
+  gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);<% } %>
   gulp.watch([files.server<% if (hasFrontend) { %>, files.frontEndJs, files.views<% } %>], ['lint']);
 
   <% if (hasFrontend) { %>gulp.watch([
