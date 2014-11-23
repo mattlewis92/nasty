@@ -41,7 +41,7 @@ function startServer(env) {
   return gp.developServer.listen({ path: directories.server, env: env }, function(err) {
     if (!err) {
       setTimeout(function() {
-        gulp.start('open');
+        <% if (hasFrontend) { %>gulp.start('open');<% } %>
       }, 1000);
     }
   });
@@ -68,7 +68,7 @@ gulp.task('server:restart', function(cb) {
   });
 
 });
-
+<% if (hasFrontend) { %>
 gulp.task('less', function() {
 
   return gulp
@@ -335,7 +335,7 @@ gulp.task('apidoc', function() {
     dest: 'frontend/development/api/'
   });
 });
-
+<% } %>
 gulp.task('workers:start', function() {
 
   var options = {
@@ -360,15 +360,15 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 
   gulp.watch(files.server, ['server:restart']);
   gulp.watch(files.less, ['less']);
-  gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);
-  gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
+  <% if (hasFrontend) { %>gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);<% } %>
+  gulp.watch([files.server<% if (hasFrontend) { %>, files.frontEndJs, files.views<% } %>], ['lint']);
 
-  gulp.watch([
+  <% if (hasFrontend) { %>gulp.watch([
     'bower.json',
     files.css,
     files.frontEndJs,
     files.views
-  ]).on('change', gp.livereload.changed);
+  ]).on('change', gp.livereload.changed);<% } %>
 
 });
 
