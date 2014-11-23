@@ -14,7 +14,7 @@ module.exports = function(app, di, isRoot) {
   app.disable('x-powered-by');
 
   app.use(require('express-domain-middleware'));
-
+<% if (hasFrontend) { %>
   if (isRoot) {
     app.use(require('static-favicon')());
 
@@ -30,7 +30,7 @@ module.exports = function(app, di, isRoot) {
       app.use(express.static(config.get('rootPath') + config.get('frontendPath')));
     }
   }
-
+<% } %>
   app.use(require('body-parser').urlencoded({
     extended: true,
     limit: '10mb'
