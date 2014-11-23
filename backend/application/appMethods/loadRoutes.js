@@ -144,11 +144,11 @@ function addCatchAllApp(app) {
   initMiddleware(subApp, di);
 
   //Now let's add some default routes (as it's own sub app otherwise they'll override every other route)
-  subApp.get('*', function(req, res) {
+<% if (hasFrontend) { %>  subApp.get('*', function(req, res) {
     res.sendFile(indexFile);
   });
 
-  subApp.all('*', function(req, res) {
+  <% } %>subApp.all('*', function(req, res) {
     res.status(404).json({message: 'This API method does not exist.'});
   });
 
