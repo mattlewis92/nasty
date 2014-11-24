@@ -9,9 +9,11 @@ angular.module('nasty.core.states', [
 };
 
 angular.module('nasty.core.services', []);
+angular.module('nasty.core.filters', []);
 
 angular.module('nasty.core', [
   'nasty.core.states',
   'nasty.core.services',
+  'nasty.core.filters',
   'nasty.core.directives'
 ]);

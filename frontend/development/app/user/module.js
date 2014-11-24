@@ -10,8 +10,11 @@ angular.module('nasty.user.states', [
 
 angular.module('nasty.user.services', []);
 
+angular.module('nasty.user.filters', []);
+
 angular.module('nasty.user', [
   'nasty.user.states',
   'nasty.user.services',
+  'nasty.user.filters',
   'nasty.user.directives'
 ]);
