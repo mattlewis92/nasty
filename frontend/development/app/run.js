@@ -6,8 +6,7 @@ angular
 
     authentication.setHeaders().socketAuthInit();
 
-  })
-  .run(function($rootScope, $state, errorHandler, authentication) {
+  }).run(function($rootScope, $state, errorHandler, authentication) {
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
@@ -27,15 +26,13 @@ angular
 
     });
 
-  })
-  .run(function($location, socialNetwork) {
+  }).run(function($location, socialNetwork) {
 
     if ($location.search().authCallback) {
       socialNetwork.authenticateCallback();
     }
 
-  })
-  .run(function(bootstrap3ElementModifier) {
+  }).run(function(bootstrap3ElementModifier) {
     //A hack to use font awesome instead of glyphicons for auto validation icons
     var makeValid = bootstrap3ElementModifier.makeValid,
         makeInvalid = bootstrap3ElementModifier.makeInvalid,
