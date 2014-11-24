@@ -10,8 +10,11 @@ angular.module('<%= _.slugify(angularAppName) %>.core.states', [
 
 angular.module('<%= _.slugify(angularAppName) %>.core.services', []);
 
+angular.module('<%= _.slugify(angularAppName) %>.core.filters', []);
+
 angular.module('<%= _.slugify(angularAppName) %>.core', [
   '<%= _.slugify(angularAppName) %>.core.states',
   '<%= _.slugify(angularAppName) %>.core.services',
+  '<%= _.slugify(angularAppName) %>.core.filters',
   '<%= _.slugify(angularAppName) %>.core.directives'
 ]);

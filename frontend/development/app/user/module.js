@@ -10,8 +10,11 @@ angular.module('<%= _.slugify(angularAppName) %>.user.states', [
 
 angular.module('<%= _.slugify(angularAppName) %>.user.services', []);
 
+angular.module('<%= _.slugify(angularAppName) %>.user.filters', []);
+
 angular.module('<%= _.slugify(angularAppName) %>.user', [
   '<%= _.slugify(angularAppName) %>.user.states',
   '<%= _.slugify(angularAppName) %>.user.services',
+  '<%= _.slugify(angularAppName) %>.user.filters',
   '<%= _.slugify(angularAppName) %>.user.directives'
 ]);
