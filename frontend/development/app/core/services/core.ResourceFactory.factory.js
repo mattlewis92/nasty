@@ -15,9 +15,10 @@ angular
         resource: resourceConfig.name,
         tracker: resourceConfig.meta.loadingTracker
       });
-      DS.adapters[resourceConfig.name] = resourceHTTPAdapter;
-      resourceConfig.defaultAdapter = resourceConfig.name;
 
+      DS.adapters[resourceConfig.name] = resourceHTTPAdapter;
+
+      resourceConfig.defaultAdapter = resourceConfig.name;
       resourceConfig.methods = resourceConfig.methods || {};
 
       var extraMethods = {
