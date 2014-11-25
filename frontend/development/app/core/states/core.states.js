@@ -7,7 +7,7 @@ angular
     $stateProvider
       .state('index', {
         url: '/',
-        controller: 'CoreIndexCtrl as index',
+        controller: 'CoreIndexCtrl as indexCtrl',
         templateUrl: 'app/core/states/index/core.index.html'
       })
       .state('404', {
