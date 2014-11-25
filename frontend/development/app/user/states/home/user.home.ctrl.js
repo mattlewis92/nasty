@@ -9,7 +9,7 @@ angular
 
     inject: [
       'authUser',
-      'user',
+      'userModel',
       'config',
       'socialNetwork',
       'flash',

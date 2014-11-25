@@ -8,7 +8,7 @@
       class="form-horizontal form-no-group-margin"
       novalidate
       name="loginForm"
-      ng-submit="login.user.login(login.userDetails)">
+      ng-submit="login.userModel.login(login.userDetails)">
 
       <div class="form-group">
 
@@ -45,7 +45,7 @@
         type="submit"
         class="btn btn-primary btn-lg pull-right"
         ng-disabled="loginForm.$invalid"
-        loading-btn="login.user.meta.loadingTracker">
+        loading-btn="login.userModel.meta.loadingTracker">
 
           <i class="fa fa fa-sign-in"></i>
           <span translate="SIGN_IN"></span>

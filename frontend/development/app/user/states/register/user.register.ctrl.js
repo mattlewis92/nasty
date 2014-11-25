@@ -7,7 +7,7 @@ angular
 
     name: 'UserRegisterCtrl',
 
-    inject: ['user', 'socialNetwork'],
+    inject: ['userModel', 'socialNetwork'],
 
     data: {
       userDetails: {}

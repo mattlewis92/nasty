@@ -39,8 +39,8 @@ angular
         templateUrl: 'app/user/states/home/user.home.template.html',
         controller: 'UserHomeCtrl as home',
         resolve: {
-          authUser: function(user) {
-            return user.getAuthUser();
+          authUser: function(userModel) {
+            return userModel.getAuthUser();
           }
         }
       });

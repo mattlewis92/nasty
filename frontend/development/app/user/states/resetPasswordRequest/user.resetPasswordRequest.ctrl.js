@@ -7,7 +7,7 @@ angular
 
     name: 'UserResetPasswordRequestCtrl',
 
-    inject: ['user'],
+    inject: ['userModel'],
 
     methods: {
       resetRequested: function() {
