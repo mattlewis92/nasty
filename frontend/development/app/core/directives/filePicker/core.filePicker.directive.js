@@ -5,7 +5,7 @@ angular
   .directive('filePicker', function() {
     return {
       restrict: 'EA',
-      templateUrl: 'app/core/directives/filePicker/core.filePicker.template.html',
+      templateUrl: 'app/core/directives/filePicker/core.filePicker.html',
       scope: {
         uploader: '=',
         onSave: '&'
