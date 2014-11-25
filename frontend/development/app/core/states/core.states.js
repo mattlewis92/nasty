@@ -7,13 +7,13 @@ angular
     $stateProvider
       .state('index', {
         url: '/',
-        controller: 'CoreIndexCtrl as index',
-        templateUrl: 'app/core/states/index/core.index.template.html'
+        controller: 'CoreIndexCtrl as indexCtrl',
+        templateUrl: 'app/core/states/index/core.index.html'
       })
       .state('404', {
         url: '/404',
         controller: 'Core404Ctrl as errorCtrl',
-        templateUrl: 'app/core/states/404/core.404.template.html'
+        templateUrl: 'app/core/states/404/core.404.html'
       });
 
     $urlRouterProvider.otherwise('/404');

@@ -12,35 +12,35 @@ angular
       })
       .state('user.register', {
         url: '/register',
-        templateUrl: 'app/user/states/register/user.register.template.html',
-        controller: 'UserRegisterCtrl as register',
+        templateUrl: 'app/user/states/register/user.register.html',
+        controller: 'UserRegisterCtrl as registerCtrl',
         ifAuth: 'user.home'
       })
       .state('user.login', {
         url: '/login',
-        templateUrl: 'app/user/states/login/user.login.template.html',
-        controller: 'UserLoginCtrl as login',
+        templateUrl: 'app/user/states/login/user.login.html',
+        controller: 'UserLoginCtrl as loginCtrl',
         ifAuth: 'user.home'
       })
       .state('user.resetPasswordRequest', {
         url: '/forgot',
-        templateUrl: 'app/user/states/resetPasswordRequest/user.resetPasswordRequest.template.html',
-        controller: 'UserResetPasswordRequestCtrl as resetPasswordRequest',
+        templateUrl: 'app/user/states/resetPasswordRequest/user.resetPasswordRequest.html',
+        controller: 'UserResetPasswordRequestCtrl as resetPasswordRequestCtrl',
         ifAuth: 'user.home'
       })
       .state('user.resetPassword', {
         url: '/forgot/:userId/:resetToken',
-        templateUrl: 'app/user/states/resetPassword/user.resetPassword.template.html',
-        controller: 'UserResetPasswordCtrl as resetPassword',
+        templateUrl: 'app/user/states/resetPassword/user.resetPassword.html',
+        controller: 'UserResetPasswordCtrl as resetPasswordCtrl',
         ifAuth: 'user.home'
       })
       .state('user.home', {
         url: '/home',
-        templateUrl: 'app/user/states/home/user.home.template.html',
-        controller: 'UserHomeCtrl as home',
+        templateUrl: 'app/user/states/home/user.home.html',
+        controller: 'UserHomeCtrl as homeCtrl',
         resolve: {
-          authUser: function(user) {
-            return user.getAuthUser();
+          authUser: function(userModel) {
+            return userModel.getAuthUser();
           }
         }
       });

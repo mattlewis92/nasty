@@ -6,34 +6,34 @@
 
   <div class="col-md-4">
     <h3 translate="AVATAR"></h3>
-    <div class="text-center" ng-show="home.authUser.avatar.url">
-      <img ng-src="{{ home.authUser.avatar.url }}" class="avatar img-circle" alt="avatar" width="80" height="80">
+    <div class="text-center" ng-show="homeCtrl.authUser.avatar.url">
+      <img ng-src="{{ homeCtrl.authUser.avatar.url }}" class="avatar img-circle" alt="avatar" width="80" height="80">
       <h6 translate="UPLOAD_A_DIFFERENT_PHOTO"></h6>
     </div>
-    <file-picker uploader="home.uploader" on-save="home.authUser.save()"></file-picker>
+    <file-picker uploader="homeCtrl.uploader" on-save="homeCtrl.authUser.save()"></file-picker>
   </div>
 
   <div class="col-md-4">
 
     <h3 translate="YOUR_DETAILS"></h3>
-    <form role="form" novalidate name="editForm" ng-submit="home.authUser.save()">
+    <form role="form" novalidate name="editForm" ng-submit="homeCtrl.authUser.save()">
       <div class="form-group">
         <label translate="FIRST_NAME"></label>
-        <input type="text" class="form-control" placeholder="{{ 'FIRST_NAME' | translate }}" ng-model="home.authUser.name.first" required>
+        <input type="text" class="form-control" placeholder="{{ 'FIRST_NAME' | translate }}" ng-model="homeCtrl.authUser.name.first" required>
       </div>
       <div class="form-group">
         <label translate="SURNAME"></label>
-        <input type="text" class="form-control" placeholder="{{ 'SURNAME' | translate }}" ng-model="home.authUser.name.last" required>
+        <input type="text" class="form-control" placeholder="{{ 'SURNAME' | translate }}" ng-model="homeCtrl.authUser.name.last" required>
       </div>
       <div class="form-group">
         <label translate="EMAIL"></label>
-        <input type="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" ng-model="home.authUser.email" required>
+        <input type="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" ng-model="homeCtrl.authUser.email" required>
       </div>
       <div class="form-group">
         <label translate="PREFERRED_LANGUAGE"></label>
-        <ui-select ng-model="home.authUser.language" search-enabled="false">
+        <ui-select ng-model="homeCtrl.authUser.language" search-enabled="false">
           <ui-select-match placeholder="Select a language">{{ $select.selected.label }}</ui-select-match>
-          <ui-select-choices repeat="language.key as language in home.config.i18n.languages">
+          <ui-select-choices repeat="language.key as language in homeCtrl.config.i18n.languages">
             <div ng-bind-html="language.label | highlight: $select.search"></div>
           </ui-select-choices>
         </ui-select>
@@ -43,7 +43,7 @@
           type="submit"
           class="btn btn-primary"
           ng-disabled="editForm.$invalid"
-          loading-btn="home.user.meta.loadingTracker">
+          loading-btn="homeCtrl.userModel.meta.loadingTracker">
           <span translate="SAVE"></span>
         </button>
       </div>
@@ -55,13 +55,13 @@
 
     <h3 translate="CHANGE_YOUR_PASSWORD"></h3>
 
-    <form role="form" novalidate name="passwordForm" ng-submit="home.authUser.changePassword(home.password)">
+    <form role="form" novalidate name="passwordForm" ng-submit="homeCtrl.authUser.changePassword(homeCtrl.password)">
       <div class="form-group">
         <input
           type="password"
           class="form-control"
           placeholder="{{ 'NEW_PASSWORD' | translate }}"
-          ng-model="home.password"
+          ng-model="homeCtrl.password"
           required
           ng-minlength="8"
           ng-maxlength="20"
@@ -72,9 +72,9 @@
           type="password"
           class="form-control"
           placeholder="{{ 'NEW_PASSWORD_REPEATED' | translate }}"
-          ng-model="home.passwordRepeated"
+          ng-model="homeCtrl.passwordRepeated"
           required
-          password-repeat="home.password"
+          password-repeat="homeCtrl.password"
           ng-minlength="8"
           ng-maxlength="20">
       </div>
@@ -83,7 +83,7 @@
           type="submit"
           class="btn btn-primary"
           ng-disabled="passwordForm.$invalid"
-          loading-btn="home.user.meta.loadingTracker">
+          loading-btn="homeCtrl.userModel.meta.loadingTracker">
           <span translate="SAVE"></span>
         </button>
       </div>
@@ -95,9 +95,9 @@
 
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
-      <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('twitter').account_name }}">
+      <input type="text" class="form-control" readonly value="{{ ::homeCtrl.authUser.getSocialNetwork('twitter').account_name }}">
       <span class="input-group-btn">
-        <button class="btn btn-twitter" ng-click="home.socialNetwork.authorize('twitter')" translate="LINK"></button>
+        <button class="btn btn-twitter" ng-click="homeCtrl.socialNetwork.authorize('twitter')" translate="LINK"></button>
       </span>
     </div>
 
@@ -105,9 +105,9 @@
 
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
-      <input type="text" class="form-control" readonly value="{{ ::home.authUser.getSocialNetwork('linkedin').account_name }}">
+      <input type="text" class="form-control" readonly value="{{ ::homeCtrl.authUser.getSocialNetwork('linkedin').account_name }}">
       <span class="input-group-btn">
-        <button class="btn btn-linkedin" ng-click="home.socialNetwork.authorize('linkedin')" translate="LINK"></button>
+        <button class="btn btn-linkedin" ng-click="homeCtrl.socialNetwork.authorize('linkedin')" translate="LINK"></button>
       </span>
     </div>
 

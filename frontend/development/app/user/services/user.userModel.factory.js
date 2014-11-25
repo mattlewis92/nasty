@@ -2,19 +2,19 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.user.services')
-  .factory('user', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash) {
+  .factory('userModel', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
       DSHttpAdapter.defaults.$httpConfig.headers['Accept-Language'] = lang;
     }
 
-    var User = new ResourceFactory({
+    var userModel = new ResourceFactory({
       name: 'user',
       methods: {
         changePassword: function(password) {
 
-          return User.doPUT('password', {password: password}).then(function(result) {
+          return userModel.doPUT('password', {password: password}).then(function(result) {
 
             flash.confirm('PASSWORD_CHANGED', 'passwordSaved');
 
@@ -46,9 +46,9 @@ angular
       }
     });
 
-    User.resetPasswordRequest = function(email) {
+    userModel.resetPasswordRequest = function(email) {
 
-      return User.doPOST('password/reset/request', {email: email}).then(function(result) {
+      return userModel.doPOST('password/reset/request', {email: email}).then(function(result) {
 
         flash.confirm('PASSWORD_RESET_REQUESTED', 'passwordResetRequested');
 
@@ -57,9 +57,9 @@ angular
 
     };
 
-    User.resetPassword = function(userId, token, password) {
+    userModel.resetPassword = function(userId, token, password) {
 
-      return User.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
+      return userModel.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
 
         $state.go('user.login').then(function() {
           flash.confirm('PASSWORD_RESET_COMPLETED', 'passwordResetCompleted');
@@ -70,9 +70,9 @@ angular
 
     };
 
-    User.login = function(user) {
+    userModel.login = function(user) {
 
-      return User.doPOST('authenticate', user).then(function(result) {
+      return userModel.doPOST('authenticate', user).then(function(result) {
         authentication.store(result.data);
         $state.go('user.home');
         return result;
@@ -80,29 +80,29 @@ angular
 
     };
 
-    User.logout = function() {
+    userModel.logout = function() {
 
       authentication.clear();
       $state.go('user.login');
 
     };
 
-    User.register = function(user) {
+    userModel.register = function(user) {
 
-      return User.doPOST('register', user).then(function() {
-        return User.login(user);
+      return userModel.doPOST('register', user).then(function() {
+        return userModel.login(user);
       });
 
     };
 
-    User.getAuthUser = function() {
+    userModel.getAuthUser = function() {
       var userId = authentication.isAuthenticated() ? authentication.retrieve().user._id : 'current';
-      return User.find(userId).then(function(user) {
+      return userModel.find(userId).then(function(user) {
         changeLanguage(user.language);
         return user;
       });
     };
 
-    return User;
+    return userModel;
 
   });

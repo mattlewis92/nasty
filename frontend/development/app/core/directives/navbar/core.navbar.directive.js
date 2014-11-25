@@ -6,7 +6,7 @@ angular
 
     return {
       restrict: 'EA',
-      templateUrl: 'app/core/directives/navbar/core.navbar.template.html',
+      templateUrl: 'app/core/directives/navbar/core.navbar.html',
       controller: 'CoreNavbarCtrl',
       controllerAs: 'navbar'
     };

@@ -7,7 +7,7 @@
       class="form-horizontal form-no-group-margin"
       novalidate
       name="registerForm"
-      ng-submit="register.user.register(register.userDetails)">
+      ng-submit="registerCtrl.userModel.register(registerCtrl.userDetails)">
 
         <div class="row">
           <div class="col-xs-12 col-sm-6 col-md-6">
@@ -17,7 +17,7 @@
                 type="text"
                 class="form-control input-lg"
                 placeholder="{{ 'FIRST_NAME' | translate }}"
-                ng-model="register.userDetails.forename"
+                ng-model="registerCtrl.userDetails.forename"
                 required>
 
             </div>
@@ -29,7 +29,7 @@
                 type="text"
                 class="form-control input-lg"
                 placeholder="{{ 'SURNAME' | translate }}"
-                ng-model="register.userDetails.surname"
+                ng-model="registerCtrl.userDetails.surname"
                 required>
 
             </div>
@@ -41,7 +41,7 @@
             type="email"
             class="form-control input-lg"
             placeholder="{{ 'EMAIL' | translate }}"
-            ng-model="register.userDetails.email"
+            ng-model="registerCtrl.userDetails.email"
             ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }"
             required
             email-available>
@@ -55,7 +55,7 @@
                 type="password"
                 class="form-control input-lg"
                 placeholder="{{ 'PASSWORD' | translate }}"
-                ng-model="register.userDetails.password"
+                ng-model="registerCtrl.userDetails.password"
                 required
                 ng-minlength="8"
                 ng-maxlength="20"
@@ -71,9 +71,9 @@
                 type="password"
                 class="form-control input-lg"
                 placeholder="{{ 'PASSWORD_REPEATED' | translate }}"
-                ng-model="register.userDetails.passwordRepeated"
+                ng-model="registerCtrl.userDetails.passwordRepeated"
                 required
-                password-repeat="register.userDetails.password"
+                password-repeat="registerCtrl.userDetails.password"
                 ng-minlength="8"
                 ng-maxlength="20">
 
@@ -86,7 +86,7 @@
           type="submit"
           class="btn btn-primary btn-lg pull-right"
           ng-disabled="registerForm.$invalid"
-          loading-btn="register.user.meta.loadingTracker">
+          loading-btn="registerCtrl.userModel.meta.loadingTracker">
             <span translate="REGISTER"></span>
         </button>
 
@@ -101,7 +101,7 @@
 
           <button
             class="btn btn-social btn-twitter"
-            ng-click="register.socialNetwork.authenticate('twitter')">
+            ng-click="registerCtrl.socialNetwork.authenticate('twitter')">
             <i class="fa fa-twitter"></i>
             <span translate="SIGN_UP_WITH_TWITTER"></span>
           </button>
@@ -112,7 +112,7 @@
 
           <button
             class="btn btn-social btn-linkedin"
-            ng-click="register.socialNetwork.authenticate('linkedin')">
+            ng-click="registerCtrl.socialNetwork.authenticate('linkedin')">
             <i class="fa fa-linkedin"></i>
             <span translate="SIGN_UP_WITH_LINKEDIN"></span>
           </button>

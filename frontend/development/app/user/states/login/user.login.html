@@ -8,7 +8,7 @@
       class="form-horizontal form-no-group-margin"
       novalidate
       name="loginForm"
-      ng-submit="login.user.login(login.userDetails)">
+      ng-submit="loginCtrl.userModel.login(loginCtrl.userDetails)">
 
       <div class="form-group">
 
@@ -16,7 +16,7 @@
           type="email"
           class="form-control input-lg"
           placeholder="{{ 'EMAIL' | translate }}"
-          ng-model="login.userDetails.email"
+          ng-model="loginCtrl.userDetails.email"
           required>
 
       </div>
@@ -29,14 +29,14 @@
           required
           ng-minlength="8"
           ng-maxlength="20"
-          ng-model="login.userDetails.password"
+          ng-model="loginCtrl.userDetails.password"
           ng-model-options="{ debounce : { 'default' : 500, blur : 0 } }">
       </div>
 
       <div class="form-group">
         <a href="javascript:;" ui-sref="user.resetPasswordRequest" class="pull-right"><span translate="FORGOT_PASSWORD"></span></a>
         <label class="font-weight-normal">
-          <checkbox ng-model="login.authentication.isPersistent"></checkbox>&nbsp;
+          <checkbox ng-model="loginCtrl.authentication.isPersistent"></checkbox>&nbsp;
           <span translate="REMEMBER_ME"></span>
         </label>
       </div>
@@ -45,7 +45,7 @@
         type="submit"
         class="btn btn-primary btn-lg pull-right"
         ng-disabled="loginForm.$invalid"
-        loading-btn="login.user.meta.loadingTracker">
+        loading-btn="loginCtrl.userModel.meta.loadingTracker">
 
           <i class="fa fa fa-sign-in"></i>
           <span translate="SIGN_IN"></span>

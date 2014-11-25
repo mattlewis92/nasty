@@ -7,7 +7,7 @@ angular
 
     name: 'CoreNavbarCtrl',
 
-    inject: ['$scope', 'authentication', 'user'],
+    inject: ['$scope', 'authentication', 'userModel'],
 
     data: {
       authentication: 'authentication'
