@@ -45,13 +45,8 @@ module.exports = function(app, di, isRoot) {
   app.use(di.get('passport').initialize());
 
   if (true === config.get('app:logRequests')) {
-    var transports = [];
-    for (var key in di.get('logger').get('request').transports) {
-      transports.push(di.get('logger').get('request').transports[key]);
-    }
-
     app.use(expressWinston.logger({
-      transports: transports
+      winstonInstance: di.get('logger').get('request')
     }));
   }
 
