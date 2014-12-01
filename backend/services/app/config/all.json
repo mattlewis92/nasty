@@ -6,7 +6,7 @@
   },
   "server": {
     "host": "127.0.0.1",
-    "port": 3008
+    "port": 5000
   },
   "i18n": {
     "locales": {
@@ -18,7 +18,7 @@
     "extension": ".json"
   },
   "kue": {
-    "adminPort": 3001,
+    "adminPort": 5001,
     "options": {
       "prefix": "q"
     }

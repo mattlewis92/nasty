@@ -2,7 +2,16 @@
 
 angular
   .module('nasty')
-  .run(function(config, authentication) {
+  .run(function(config, $translate, API) {
+
+    API.get('app/info').success(function(result) {
+      for (var key in result) {
+        config[key] = result[key];
+      }
+      $translate.fallbackLanguage(config.i18n.default);
+    });
+
+  }).run(function(authentication) {
 
     authentication.setHeaders().socketAuthInit();
 
