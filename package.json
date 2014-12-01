@@ -110,6 +110,7 @@
     "gulp-uglify": "~1.0.1",
     "gulp-uncss": "~0.5.0",
     "gulp-util": "~3.0.0",
+    "gulp-watch": "~2.0.0",
     "jshint-stylish": "~1.0.0",
     "longjohn": "~0.2.4",
     "main-bower-files": "~2.4.0",

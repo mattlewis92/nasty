@@ -36,24 +36,27 @@ gulp.task('open', function() {
 
 });
 
-function startServer(env) {
+function startServer(env, cb) {
 
   return gp.developServer.listen({ path: directories.server, env: env }, function(err) {
     if (!err) {
       setTimeout(function() {
         gulp.start('open');
+        cb();
       }, 1000);
+    } else {
+      cb();
     }
   });
 
 }
 
-gulp.task('server:start:dev', ['inject'], function() {
-  startServer({});
+gulp.task('server:start:dev', ['inject'], function(cb) {
+  startServer({}, cb);
 });
 
-gulp.task('server:start:prod', function() {
-  startServer({NODE_ENV: 'production'});
+gulp.task('server:start:prod', function(cb) {
+  startServer({NODE_ENV: 'production'}, cb);
 });
 
 gulp.task('server:restart', function(cb) {
@@ -269,12 +272,13 @@ gulp.task('build:assets', ['build:assets:js', 'build:assets:css'], function() {
 
   return gulp
     .src(directories.frontend.dev + '/index.tpl.html')
-    .pipe(gp.inject(
-      gulp.src(
-        [directories.frontend.prod + '/*.js', directories.frontend.prod + '/*.css'],
-        {read: false}),
-        {
-          transform: function(filepath, file, index, length, targetFile) {
+    .pipe(
+      gp.inject(
+        gulp.src(
+          [directories.frontend.prod + '/*.js', directories.frontend.prod + '/*.css'],
+          {read: false}
+        ), {
+          transform: function(filepath) {
             var file = filepath.replace(directories.frontend.prod, '').replace(/\//g, '');
             if (file.indexOf('.css') > -1) {
               return '<link rel="stylesheet" href="' + file + '">';
@@ -358,17 +362,26 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 
   gp.livereload.listen();
 
-  gulp.watch(files.server, ['server:restart']);
-  gulp.watch(files.less, ['less']);
-  gulp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], ['inject']);
+  gp.watch(files.server, function(files, cb) {
+    gulp.start('server:restart', cb);
+  });
+
+  gp.watch(files.less, function(files, cb) {
+    gulp.start('less', cb);
+  });
+
+  gp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], function(files, cb) {
+    gulp.start('inject', cb);
+  });
+
   gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
 
-  gulp.watch([
+  gp.watch([
     'bower.json',
     files.css,
     files.frontEndJs,
     files.views
-  ]).on('change', gp.livereload.changed);
+  ]).pipe(gp.livereload({ auto: false }));
 
 });
 
@@ -382,4 +395,4 @@ function gracefulShutdown() {
 
 process.on('SIGTERM', gracefulShutdown);
 process.on('SIGINT' , gracefulShutdown);
-process.on('uncaughtException' , gracefulShutdown);
+process.on('uncaughtException', function() {});
