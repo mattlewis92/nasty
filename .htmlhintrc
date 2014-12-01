@@ -11,7 +11,6 @@
   "id-unique": true,
   "src-not-empty": true,
   "doctype-html5": true,
-  "head-script-disabled": true,
   "style-disabled": true,
   "space-tab-mixed-disabled": true
 }

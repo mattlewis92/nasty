@@ -64,6 +64,18 @@ angular
         return resourceHTTPAdapter.DEL(resourceConfig.name + '/' + method, data, config);
       };
 
+      model.findOne = function(params, options) {
+        return model.findAll(params, options).then(function(results) {
+
+          if (angular.isArray(results)) {
+            return results[0];
+          } else {
+            return results; //if the server returned a single object then return that
+          }
+
+        });
+      };
+
       return model;
 
     };

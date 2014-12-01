@@ -42,13 +42,8 @@ module.exports = function(app, di) {
 
   });
 
-  var transports = [];
-  for (var key in di.get('logger').get('error').transports) {
-    transports.push(di.get('logger').get('error').transports[key]);
-  }
-
   app.use(expressWinston.errorLogger({
-    transports: transports
+    winstonInstance: di.get('logger').get('error')
   }));
 
   /*jshint unused:false*/

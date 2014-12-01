@@ -16,7 +16,7 @@ module.exports = function(res, next, userAuthenticate, models) {
     .user
     .findByIdAsync(userAuthenticate._id)
     .then(function(user) {
-      res.json(user.toObject());
+      res.json(user);
     })
     .catch(next);
 

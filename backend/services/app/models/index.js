@@ -50,11 +50,12 @@ module.exports = function(app) {
     delete models.index; //remove this file
     delete models.pagination; //remove the pagination patch
 
-    for (var model in models) {
+    Object.keys(models).forEach(function(model) {
+
       var elems = models[model],
-          schema = new mongoose.Schema(elems.schema(mongoose));
-      if (!schema.options.toObject) {
-        schema.options.toObject = {};
+        schema = new mongoose.Schema(elems.schema(mongoose));
+      if (!schema.options.toJSON) {
+        schema.options.toJSON = {};
       }
 
       ['plugins', 'pre', 'post', 'methods', 'options', 'statics', 'virtuals'].forEach(function(key) {
@@ -64,23 +65,21 @@ module.exports = function(app) {
       });
 
       var originalTransform;
-      if (schema.options.toObject.transform) {
-        originalTransform = schema.options.toObject.transform;
+      if (schema.options.toJSON.transform) {
+        originalTransform = schema.options.toJSON.transform;
       }
 
-      schema.options.toObject.transform = function(doc, ret, options) {
+      schema.options.toJSON.transform = function(doc, ret, options) {
         delete ret.id; //Remove the virtual id
-        //This is called when saving the object to the database, so dont apply the transformation then
-        if (options._useSchemaOptions) {
-          delete ret.__v; // remove the __v of every document before returning the result
-          if (originalTransform) {
-            originalTransform(doc, ret, options);
-          }
+        delete ret.__v; // remove the __v of every document before returning the result
+        if (originalTransform) {
+          originalTransform(doc, ret, options);
         }
+
       };
 
-      schema.options.toObject.getters = true;
-      schema.options.toObject.virtuals = true;
+      schema.options.toJSON.getters = true;
+      schema.options.toJSON.virtuals = true;
 
       schema.methods.extend = function(obj, schema) {
         var result = _.extend(this, _.pickDeep(obj, schema)), self = this;
@@ -96,7 +95,8 @@ module.exports = function(app) {
       });
 
       models[model] = mongoose.model(model, schema, model);
-    }
+
+    });
 
     return models;
 

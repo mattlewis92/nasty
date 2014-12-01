@@ -2,7 +2,16 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>')
-  .run(function(config, authentication) {
+  .run(function(config, $translate, API) {
+
+    API.get('app/info').success(function(result) {
+      for (var key in result) {
+        config[key] = result[key];
+      }
+      $translate.fallbackLanguage(config.i18n.default);
+    });
+
+  }).run(function(authentication) {
 
     authentication.setHeaders().socketAuthInit();
 
@@ -18,9 +27,10 @@ angular
 
     });
 
-    $rootScope.$on('$stateChangeSuccess', function(event, toState) {
+    $rootScope.$on('$stateChangeStart', function(event, toState) {
 
       if (authentication.isAuthenticated() && toState.ifAuth) {
+        event.preventDefault();
         $state.go(toState.ifAuth);
       }
 
@@ -32,7 +42,7 @@ angular
       socialNetwork.authenticateCallback();
     }
 
-  }).run(function(bootstrap3ElementModifier) {
+  }).run(function(bootstrap3ElementModifier, validator) {
     //A hack to use font awesome instead of glyphicons for auto validation icons
     var makeValid = bootstrap3ElementModifier.makeValid,
         makeInvalid = bootstrap3ElementModifier.makeInvalid,
@@ -49,5 +59,8 @@ angular
       makeInvalid(el, msg);
       insertAfter(el, angular.element('<span class="fa fa-times form-control-feedback"></span>'));
     };
+
+    //Disable valid element styling
+    validator.setValidElementStyling(false);
 
   });

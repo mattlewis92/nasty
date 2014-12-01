@@ -39,7 +39,7 @@ module.exports = function(req, res, next, models, fileHandler, errors) {
 
     }).spread(function(file) {
 
-      res.json(file.toObject());
+      res.json(file);
       next();
 
     }).catch(next);

@@ -2,7 +2,7 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.user.states')
-  .config(function($stateProvider) {
+  .config(function($stateProvider, configProvider) {
 
     $stateProvider
       .state('user', {
@@ -14,25 +14,25 @@ angular
         url: '/register',
         templateUrl: 'app/user/states/register/user.register.html',
         controller: 'UserRegisterCtrl as registerCtrl',
-        ifAuth: 'user.home'
+        ifAuth: configProvider.redirectStates.login
       })
       .state('user.login', {
         url: '/login',
         templateUrl: 'app/user/states/login/user.login.html',
         controller: 'UserLoginCtrl as loginCtrl',
-        ifAuth: 'user.home'
+        ifAuth: configProvider.redirectStates.login
       })
       .state('user.resetPasswordRequest', {
         url: '/forgot',
         templateUrl: 'app/user/states/resetPasswordRequest/user.resetPasswordRequest.html',
         controller: 'UserResetPasswordRequestCtrl as resetPasswordRequestCtrl',
-        ifAuth: 'user.home'
+        ifAuth: configProvider.redirectStates.login
       })
       .state('user.resetPassword', {
         url: '/forgot/:userId/:resetToken',
         templateUrl: 'app/user/states/resetPassword/user.resetPassword.html',
         controller: 'UserResetPasswordCtrl as resetPasswordCtrl',
-        ifAuth: 'user.home'
+        ifAuth: configProvider.redirectStates.login
       })
       .state('user.home', {
         url: '/home',

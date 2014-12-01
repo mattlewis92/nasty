@@ -2,7 +2,7 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.user.services')
-  .factory('userModel', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash) {
+  .factory('userModel', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash, config) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
@@ -74,7 +74,7 @@ angular
 
       return userModel.doPOST('authenticate', user).then(function(result) {
         authentication.store(result.data);
-        $state.go('user.home');
+        $state.go(config.redirectStates.login);
         return result;
       });
 
@@ -83,7 +83,7 @@ angular
     userModel.logout = function() {
 
       authentication.clear();
-      $state.go('user.login');
+      $state.go(config.redirectStates.logout);
 
     };
 
