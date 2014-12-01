@@ -25,7 +25,14 @@ module.exports = function(req, res, models, errors, next) {
     return next(new errors.validation(req.validationErrors(true)));
   }
 
-  models.user.countAsync({email: req.query.email}).then(function(count) {
+  var query = {email: req.query.email};
+  if (req.query.current_user_id) {
+    query._id = {
+      $ne: req.query.current_user_id
+    };
+  }
+
+  models.user.countAsync(query).then(function(count) {
 
     if (count === 0) {
       res.json({exists: false});
