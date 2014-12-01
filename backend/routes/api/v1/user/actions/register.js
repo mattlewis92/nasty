@@ -50,7 +50,7 @@ module.exports = function(req, res, models, errors, next) {
 
   user.saveAsync().spread(function(savedUser) {
 
-    res.json(savedUser.toObject());
+    res.json(savedUser);
 
   })
   .catch(function(err) {

@@ -49,7 +49,7 @@ module.exports = function(req, res, next, userAuthenticate, models, errors) {
 
     })
     .spread(function(user) {
-      res.json(user.toObject());
+      res.json(user);
     })
     .catch(function(err) {
 
