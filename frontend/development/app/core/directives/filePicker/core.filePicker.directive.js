@@ -21,6 +21,9 @@ angular
           $scope.onSave();
         };
 
+      },
+      link: function(scope, elm, attrs) {
+        scope.hasOnSave = !!attrs.onSave;
       }
     };
 
