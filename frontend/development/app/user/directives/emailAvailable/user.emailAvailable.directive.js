@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.directives')
-  .directive('emailAvailable', function(defaultErrorMessageResolver, $translate, userModel) {
+  .directive('emailAvailable', function(defaultErrorMessageResolver, $translate, userModel, authentication) {
 
     var msg;
     $translate('EMAIL_ADDRESS_TAKEN').then(function(str) {

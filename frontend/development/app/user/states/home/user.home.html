@@ -19,15 +19,28 @@
     <form role="form" novalidate name="editForm" ng-submit="homeCtrl.user.save()">
       <div class="form-group">
         <label translate="FIRST_NAME"></label>
-        <input type="text" class="form-control" placeholder="{{ 'FIRST_NAME' | translate }}" ng-model="homeCtrl.user.name.first" required>
+        <input type="text"
+               class="form-control"
+               placeholder="{{ 'FIRST_NAME' | translate }}"
+               ng-model="homeCtrl.user.name.first"
+               required>
       </div>
       <div class="form-group">
         <label translate="SURNAME"></label>
-        <input type="text" class="form-control" placeholder="{{ 'SURNAME' | translate }}" ng-model="homeCtrl.user.name.last" required>
+        <input type="text"
+               class="form-control"
+               placeholder="{{ 'SURNAME' | translate }}"
+               ng-model="homeCtrl.user.name.last"
+               required>
       </div>
       <div class="form-group">
         <label translate="EMAIL"></label>
-        <input type="email" class="form-control" placeholder="{{ 'EMAIL' | translate }}" ng-model="homeCtrl.user.email" required>
+        <input type="email"
+               class="form-control"
+               placeholder="{{ 'EMAIL' | translate }}"
+               ng-model="homeCtrl.user.email"
+               email-available
+               required>
       </div>
       <div class="form-group">
         <label translate="PREFERRED_LANGUAGE"></label>
@@ -95,9 +108,15 @@
 
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-twitter"></i></span>
-      <input type="text" class="form-control" readonly value="{{ ::homeCtrl.user.getSocialNetwork('twitter').account_name }}">
+      <input type="text"
+             class="form-control"
+             readonly
+             value="{{ ::homeCtrl.user.getSocialNetwork('twitter').account_name }}">
+
       <span class="input-group-btn">
-        <button class="btn btn-twitter" ng-click="homeCtrl.socialNetwork.authorize('twitter')" translate="LINK"></button>
+        <button class="btn btn-twitter"
+                ng-click="homeCtrl.socialNetwork.authorize('twitter')"
+                translate="LINK"></button>
       </span>
     </div>
 
@@ -105,9 +124,15 @@
 
     <div class="input-group">
       <span class="input-group-addon"><i class="fa fa-linkedin"></i></span>
-      <input type="text" class="form-control" readonly value="{{ ::homeCtrl.user.getSocialNetwork('linkedin').account_name }}">
+      <input type="text"
+             class="form-control"
+             readonly
+             value="{{ ::homeCtrl.user.getSocialNetwork('linkedin').account_name }}">
+      
       <span class="input-group-btn">
-        <button class="btn btn-linkedin" ng-click="homeCtrl.socialNetwork.authorize('linkedin')" translate="LINK"></button>
+        <button class="btn btn-linkedin"
+                ng-click="homeCtrl.socialNetwork.authorize('linkedin')"
+                translate="LINK"></button>
       </span>
     </div>
 
