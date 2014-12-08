@@ -26,7 +26,7 @@ module.exports = function(req, res, next, models, errors, config) {
   models.user.findOneAsync({email: req.body.email.toLowerCase().trim()}).then(function(user) {
 
     if (!user) {
-      return next(new errors.user('This user does not exist!'));
+      throw new errors.user('This user does not exist!');
     }
 
     return [user, crypto.randomBytesAsync(32)];
