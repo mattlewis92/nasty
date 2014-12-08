@@ -362,16 +362,16 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 
   gp.livereload.listen();
 
-  gp.watch(files.server, function(files, cb) {
-    gulp.start('server:restart', cb);
+  gp.watch(files.server, function() {
+    gulp.start('server:restart');
   });
 
-  gp.watch(files.less, function(files, cb) {
-    gulp.start('less', cb);
+  gp.watch(files.less, function() {
+    gulp.start('less');
   });
 
-  gp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], function(files, cb) {
-    gulp.start('inject', cb);
+  gp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], function() {
+    gulp.start('inject');
   });
 
   gulp.watch([files.server, files.frontEndJs, files.views], ['lint']);
