@@ -74,17 +74,23 @@ angular
 
       return userModel.doPOST('authenticate', user).then(function(result) {
         authentication.store(result.data);
-        $state.go(config.redirectStates.login);
+        userModel.loginRedirect();
         return result;
       });
 
     };
 
+    userModel.loginRedirect = function() {
+      return $state.go('user.home');
+    };
+
     userModel.logout = function() {
-
       authentication.clear();
-      $state.go(config.redirectStates.logout);
+      return userModel.logoutRedirect();
+    };
 
+    userModel.logoutRedirect = function() {
+      return $state.go('user.login');
     };
 
     userModel.register = function(user) {

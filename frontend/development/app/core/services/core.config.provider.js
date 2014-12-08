@@ -4,12 +4,7 @@ angular
   .module('nasty.core.services')
   .provider('config', function() {
 
-    var config = {
-      redirectStates: {
-        logout: 'user.login', //where to redirect on logout
-        login: 'user.home' //where to redirect on login
-      }
-    };
+    var config = {};
 
     var self = this;
     angular.forEach(config, function(value, key) {
