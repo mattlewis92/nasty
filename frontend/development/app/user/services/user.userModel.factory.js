@@ -102,8 +102,7 @@ angular
     };
 
     userModel.getAuthUser = function() {
-      var userId = authentication.isAuthenticated() ? authentication.retrieve().user._id : 'current';
-      return userModel.find(userId).then(function(user) {
+      return userModel.findOne().then(function(user) {
         changeLanguage(user.language);
         return user;
       });
