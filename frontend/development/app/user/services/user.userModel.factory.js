@@ -2,7 +2,7 @@
 
 angular
   .module('nasty.user.services')
-  .factory('userModel', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, flash, config) {
+  .factory('userModel', function($state, $translate, DSHttpAdapter, FileUploader, ResourceFactory, authentication, growl) {
 
     function changeLanguage(lang) {
       $translate.use(lang);
@@ -16,7 +16,7 @@ angular
 
           return userModel.doPUT('password', {password: password}).then(function(result) {
 
-            flash.confirm('PASSWORD_CHANGED', 'passwordSaved');
+            growl.success('PASSWORD_CHANGED', {referenceId: 'passwordSaved'});
 
             return result;
           });
@@ -38,7 +38,7 @@ angular
       },
       afterUpdate: function(resourceName, attrs, cb) {
 
-        flash.confirm('PROFILE_UPDATED', 'userSaved');
+        growl.success('PROFILE_UPDATED', {referenceId: 'userSaved'});
 
         changeLanguage(attrs.language);
 
@@ -50,7 +50,7 @@ angular
 
       return userModel.doPOST('password/reset/request', {email: email}).then(function(result) {
 
-        flash.confirm('PASSWORD_RESET_REQUESTED', 'passwordResetRequested');
+        growl.success('PASSWORD_RESET_REQUESTED', {referenceId: 'passwordResetRequested'});
 
         return result;
       });
@@ -62,7 +62,7 @@ angular
       return userModel.doPUT('password/reset/' + userId + '/' + token, {password: password}).then(function(result) {
 
         $state.go('user.login').then(function() {
-          flash.confirm('PASSWORD_RESET_COMPLETED', 'passwordResetCompleted');
+          growl.success('PASSWORD_RESET_COMPLETED', {referenceId: 'passwordResetCompleted'});
         });
 
         return result;

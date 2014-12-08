@@ -30,6 +30,13 @@ angular
       .useMissingTranslationHandlerLog()
       .fallbackLanguage('en');
 
+  }).config(function(growlProvider) {
+
+    growlProvider.globalReversedOrder(true);
+    growlProvider.globalTimeToLive(60 * 1000);
+    growlProvider.globalDisableCountDown(true);
+    growlProvider.globalInlineMessages(true);
+
   }).config(function($provide) {
 
     $provide.decorator('$exceptionHandler', function($delegate, $window) {

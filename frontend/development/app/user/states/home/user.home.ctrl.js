@@ -12,7 +12,7 @@ angular
       'userModel',
       'config',
       'socialNetwork',
-      'flash',
+      'growl',
       'uploader'
     ],
 
@@ -26,7 +26,7 @@ angular
             file: result._id
           };
         }).catch(function(error) {
-          self.flash.error(error.response.message, 'avatarError', true);
+          self.growl.error(error.response.message, {referenceId: 'avatarError', translateMessage: false});
         });
 
       }, 'image', 1024 * 1024 * 5);

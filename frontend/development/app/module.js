@@ -22,6 +22,7 @@ angular.module('nasty', [
   'angularFileUpload',
   'ui.select',
   'cgPrompt',
+  'angular-growl',
   'mwl.bluebird',
   'nasty.views',
   'nasty.constants',
