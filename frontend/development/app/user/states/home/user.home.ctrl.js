@@ -37,6 +37,10 @@ angular
         passwordRepeated: ''
       };
 
+    },
+
+    init: function() {
+      this.user.watchForUnsavedChanges();
     }
 
   });
