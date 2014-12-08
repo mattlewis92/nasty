@@ -2,9 +2,11 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.core.services')
-  .factory('ResourceFactory', function(DS, DSHttpAdapter, promiseTracker, HTTPFactory) {
+  .factory('ResourceFactory', function($rootScope, $state, DS, DSHttpAdapter, promiseTracker, prompt, HTTPFactory) {
 
-    return function(resourceConfig) {
+    return function(resourceConfig, paginationLimit) {
+
+      paginationLimit = paginationLimit || 20;
 
       var model;
 
@@ -23,7 +25,11 @@ angular
 
       var extraMethods = {
         save: function(options) {
-          return model.save(this._id, options);
+          if (this._id) {
+            return model.save(this._id, options);
+          } else {
+            return model.create(this, options);
+          }
         },
         update: function(attrs, options) {
           return model.update(this._id, attrs, options);
@@ -33,6 +39,43 @@ angular
         },
         refresh: function(options) {
           return model.refresh(this._id, options);
+        },
+        hasChanges: function() {
+          return model.hasChanges(this._id);
+        },
+        revertChanges: function() {
+          var self = this;
+          angular.forEach(model.previous(this._id), function(value, key) {
+            self[key] = value;
+          });
+        },
+        watchForUnsavedChanges: function() {
+          var self = this;
+
+          function cancelListeners() {
+            deregisterStart();
+            deregisterEnd();
+          }
+
+          var deregisterStart = $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+
+            if (self.hasChanges()) {
+              event.preventDefault();
+              prompt({
+                title: 'You have unsaved changes!',
+                message: 'Are you sure you want to navigate away from the page?'
+              }).then(function() {
+                self.revertChanges();
+                cancelListeners();
+                $state.go(toState, toParams);
+              });
+            } else {
+              cancelListeners();
+            }
+
+          });
+
+          var deregisterEnd = $rootScope.$on('$stateChangeSuccess', cancelListeners);
         }
       };
 
@@ -62,6 +105,13 @@ angular
 
       model.doDELETE = function(method, data, config) {
         return resourceHTTPAdapter.DEL(resourceConfig.name + '/' + method, data, config);
+      };
+
+      model.loadPage = function(page, options) {
+        options = options || {};
+        options.limit = paginationLimit;
+        options.skip = paginationLimit * (page - 1);
+        return model.findAll(options);
       };
 
       model.findOne = function(params, options) {

@@ -21,6 +21,8 @@ angular.module('<%= _.slugify(angularAppName) %>', [
   'ui.checkbox',
   'angularFileUpload',
   'ui.select',
+  'cgPrompt',
+  'angular-growl',
   'mwl.bluebird',
   '<%= _.slugify(angularAppName) %>.views',
   '<%= _.slugify(angularAppName) %>.constants',

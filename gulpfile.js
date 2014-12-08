@@ -363,16 +363,16 @@ gulp.task('watch', ['server:start:dev', 'workers:start'], function() {
 
   <% if (hasFrontend) { %>gp.livereload.listen();<% } %>
 
-  gp.watch(files.server, function(files, cb) {
-    gulp.start('server:restart', cb);
+  gp.watch(files.server, function() {
+    gulp.start('server:restart');
   });
 
-  <% if (hasFrontend) { %>gp.watch(files.less, function(files, cb) {
-    gulp.start('less', cb);
+  <% if (hasFrontend) { %>gp.watch(files.less, function() {
+    gulp.start('less');
   });
 
-  gp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], function(files, cb) {
-    gulp.start('inject', cb);
+  gp.watch(['bower.json', files.css, files.frontEndJs, directories.frontend.dev + '/index.tpl.html'], function() {
+    gulp.start('inject');
   });<% } %>
 
   gulp.watch([files.server<% if (hasFrontend) { %>, files.frontEndJs, files.views<% } %>], ['lint']);

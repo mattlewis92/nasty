@@ -5,8 +5,8 @@ angular
   .classy
   .controller({
 
-    name: 'Core404Ctrl',
+    name: 'CoreErrorCtrl',
 
-    inject: ['$previousState', 'authentication']
+    inject: ['$location', '$previousState', 'authentication']
 
   });

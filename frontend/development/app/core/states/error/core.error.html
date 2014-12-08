@@ -1,11 +1,21 @@
 <div class="row">
   <div class="col-md-12">
     <div class="text-center">
-      <h2>This page does not exist!</h2>
-      <br>
-      <div>
-        Sorry, but the page you were looking for could not be found.
+      <div ng-show="errorCtrl.$location.search().code == 404">
+        <h2>This page does not exist!</h2>
+        <br>
+        <div>
+          Sorry, but the page you were looking for could not be found.
+        </div>
       </div>
+      <div ng-hide="errorCtrl.$location.search().code == 404">
+        <h2>An error occured!</h2>
+        <br>
+        <div>
+          Oops, it looks like something went wrong. Please try again.
+        </div>
+      </div>
+
       <br>
       <br>
       <div>

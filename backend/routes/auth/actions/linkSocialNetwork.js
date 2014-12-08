@@ -38,10 +38,25 @@ module.exports = function(req, res, next, passport, logger, models) {
 
   function authorizeUser(profile, authToken) {
 
-    return models.user.findByIdAsync(req.session.user._id).then(function(user) {
+    return models.user.find({
+      'social_network_accounts.provider': req.params.provider,
+      'social_network_accounts.account_id': profile.id
+    }).findOneAsync().then(function(user) {
 
-      user.addSocialNetworkAccount(profile, authToken);
-      return user.saveAsync();
+      if (!user) { //If no user has this account linked, then add it to the session user
+        return models.user.findByIdAsync(req.session.user._id).then(function(user) {
+          user.addSocialNetworkAccount(profile, authToken);
+          return user.saveAsync();
+        });
+      } else if (user._id.equals(req.session.user._id)) { //else if the session user already has this account linked
+        user.addSocialNetworkAccount(profile, authToken);
+        return user.saveAsync();
+      } else { //otherwise this account is linked to another user
+        throw new Error(
+          'This account has already been linked to another user. ' +
+          'Found user id: ' + user._id + ', session user id: ' + req.session.user._id
+        );
+      }
 
     });
 
@@ -52,7 +67,7 @@ module.exports = function(req, res, next, passport, logger, models) {
     var redirect = req.session.redirect ? req.session.redirect : '/';
 
     function handleError(err) {
-      logger.get('error').error(err.message);
+      logger.get('error').error(err.message, profile);
       redirect += (redirect.indexOf('?') === -1 ? '?' : '&') + 'errorAddingSocialNetwork=' + req.params.provider;
       res.redirect(redirect);
       req.session.destroy();

@@ -2,7 +2,7 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.user.services')
-  .factory('socialNetwork', function($http, $window, $location, $timeout, $state, authentication, config) {
+  .factory('socialNetwork', function($http, $window, $location, $timeout, $state, authentication, userModel) {
 
     var socialNetwork = {};
 
@@ -33,7 +33,7 @@ angular
 
         authentication.store(result.auth);
         $timeout(function() {
-          $state.go(config.redirectStates.login);
+          userModel.loginRedirect();
         });
 
       });

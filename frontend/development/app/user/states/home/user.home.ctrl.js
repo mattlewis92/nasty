@@ -8,11 +8,11 @@ angular
     name: 'UserHomeCtrl',
 
     inject: [
-      'authUser',
+      'user',
       'userModel',
       'config',
       'socialNetwork',
-      'flash',
+      'growl',
       'uploader'
     ],
 
@@ -21,12 +21,12 @@ angular
       var self = this, uploader = new this.uploader(function(promise) {
 
         promise.then(function(result) {
-          self.authUser.avatar = {
+          self.user.avatar = {
             url: result.url,
             file: result._id
           };
         }).catch(function(error) {
-          self.flash.error(error.response.message, 'avatarError', true);
+          self.growl.error(error.response.message, {referenceId: 'avatarError', translateMessage: false});
         });
 
       }, 'image', 1024 * 1024 * 5);
@@ -37,6 +37,10 @@ angular
         passwordRepeated: ''
       };
 
+    },
+
+    init: function() {
+      this.user.watchForUnsavedChanges();
     }
 
   });

@@ -11,6 +11,12 @@ module.exports = function(passport, services) {
     profile.url = profile._json.publicProfileUrl;
     profile.username = profile.displayName;
 
+    if (profile._json.pictureUrl) {
+      profile.photos = [{
+        value: profile._json.pictureUrl
+      }];
+    }
+
     done(null, profile, {token: token, token_secret: tokenSecret});
 
   }));

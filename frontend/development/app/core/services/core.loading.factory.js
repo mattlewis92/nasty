@@ -11,7 +11,9 @@ angular
     $rootScope.$on('$stateChangeStart', function(event, toState) {
       if (toState.resolve) {
         timer = $timeout(function() {
-          service.isLoading = true;
+          if (!event.defaultPrevented) {
+            service.isLoading = true;
+          }
         }, 200); //If the request takes < 200ms then don't show the loading page
       }
     });

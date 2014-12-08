@@ -15,7 +15,7 @@ angular
 
     authentication.setHeaders().socketAuthInit();
 
-  }).run(function($rootScope, $state, errorHandler, authentication) {
+  }).run(function($rootScope, $state, errorHandler, authentication, userModel) {
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
 
@@ -23,15 +23,17 @@ angular
 
       if (fromState.name && fromState.name !== '') {
         $state.go(fromState.name);
+      } else {
+        $state.go('error');
       }
 
     });
 
     $rootScope.$on('$stateChangeStart', function(event, toState) {
 
-      if (authentication.isAuthenticated() && toState.ifAuth) {
+      if (authentication.isAuthenticated() && toState.redirectOnAuthentication === true) {
         event.preventDefault();
-        $state.go(toState.ifAuth);
+        userModel.loginRedirect();
       }
 
     });

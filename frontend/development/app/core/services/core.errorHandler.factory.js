@@ -2,12 +2,12 @@
 
 angular
   .module('<%= _.slugify(angularAppName) %>.core.services')
-  .factory('errorHandler', function($log, flash) {
+  .factory('errorHandler', function($log, growl) {
 
     var service = {};
 
     service.http = function(error) {
-      flash.error(error.data.message, 'http', true);
+      growl.error(error.data.message, {referenceId: 'http', translateMessage: false});
     };
 
     service.generic = function(error) {
