@@ -23,6 +23,8 @@ angular
 
       if (fromState.name && fromState.name !== '') {
         $state.go(fromState.name);
+      } else {
+        $state.go('error');
       }
 
     });

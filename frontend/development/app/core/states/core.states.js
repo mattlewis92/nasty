@@ -10,12 +10,12 @@ angular
         controller: 'CoreIndexCtrl as indexCtrl',
         templateUrl: 'app/core/states/index/core.index.html'
       })
-      .state('404', {
-        url: '/404',
-        controller: 'Core404Ctrl as errorCtrl',
-        templateUrl: 'app/core/states/404/core.404.html'
+      .state('error', {
+        url: '/error',
+        controller: 'CoreErrorCtrl as errorCtrl',
+        templateUrl: 'app/core/states/error/core.error.html'
       });
 
-    $urlRouterProvider.otherwise('/404');
+    $urlRouterProvider.otherwise('/error?code=404');
 
   });
