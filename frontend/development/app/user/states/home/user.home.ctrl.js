@@ -8,7 +8,7 @@ angular
     name: 'UserHomeCtrl',
 
     inject: [
-      'authUser',
+      'user',
       'userModel',
       'config',
       'socialNetwork',
@@ -21,7 +21,7 @@ angular
       var self = this, uploader = new this.uploader(function(promise) {
 
         promise.then(function(result) {
-          self.authUser.avatar = {
+          self.user.avatar = {
             url: result.url,
             file: result._id
           };

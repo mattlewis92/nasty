@@ -39,7 +39,7 @@ angular
         templateUrl: 'app/user/states/home/user.home.html',
         controller: 'UserHomeCtrl as homeCtrl',
         resolve: {
-          authUser: function(userModel) {
+          user: function(userModel) {
             return userModel.getAuthUser();
           }
         }
