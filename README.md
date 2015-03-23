@@ -14,6 +14,18 @@ There is a set of yeoman generators that you can use for scaffolding the app and
 
 You can find more info about the generators here: https://github.com/mattlewis92/generator-nasty
 
+##TODO
+* Replace jslint and jscs with eslint + angular plugins -> https://github.com/Gillespie59/eslint-plugin-angular
+* Use hjson
+* Update all dependencies
+* Replace authentication with satellizer
+* Replace localStorage with localForage
+* Minify and concat all CSS
+* Replace less with sass
+* Remove ui-router-extras
+* Better file upload module
+* Add tests
+* Review and rethink everything
 
 ## License
 

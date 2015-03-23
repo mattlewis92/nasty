@@ -35,7 +35,7 @@ module.exports = function(req, res, next, models, fileHandler, errors) {
     .findFromToken(req.body.token, req.body.fingerprint)
     .then(function(user) {
 
-      return fileHandler.saveFileFromPath(req.files.file.path, user);
+      return fileHandler.saveFileFromPath(req.files.file.path, req.files.file.name, user);
 
     }).spread(function(file) {
 

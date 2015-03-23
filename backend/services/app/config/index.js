@@ -17,6 +17,7 @@ module.exports = function(app) {
         .parse(str);
     };
 
+    //TODO use http://hjson.org/ instead of JSON
     nconf
       .overrides({
         NODE_ENV: process.env.NODE_ENV || 'development',
@@ -29,7 +30,6 @@ module.exports = function(app) {
 
     //Longer stack traces for non production environments
     if ('production' !== nconf.get('NODE_ENV')) {
-      require('longjohn');
       bluebird.longStackTraces();
     }
 

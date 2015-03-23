@@ -8,9 +8,10 @@ angular
 
         if (401 === response.status) {
 
+          $injector.get('authentication').clear();
+
           $timeout(function() {
             $injector.get('userModel').logoutRedirect().then(function() {
-              $injector.get('authentication').clear();
               $injector.get('errorHandler').http(response);
             });
           });

@@ -79,7 +79,7 @@ function saveFileFromUrl(url, owner, saveToDatabase) {
 
 }
 
-function saveFileFromPath(path, owner, saveToDatabase) {
+function saveFileFromPath(path, filename, owner, saveToDatabase) {
 
   var promises = [];
 
@@ -91,7 +91,7 @@ function saveFileFromPath(path, owner, saveToDatabase) {
   return bluebird.all(promises).spread(function(size, mime, checksum, url) {
 
     var model = fileModel({
-      name: path.split('/').pop(),
+      name: filename,
       size: size,
       mime: mime,
       checksum: checksum,
