@@ -19,11 +19,11 @@ You can find more info about the generators here: https://github.com/mattlewis92
 * Use hjson
 * Update all dependencies
 * Replace authentication with satellizer
-* Replace localStorage with localForage
 * Minify and concat all CSS
-* Replace less with sass
 * Remove ui-router-extras
 * Better file upload module
+* Respect id attribute if not _id in frontend
+* https://www.npmjs.com/package/ghooks
 * Add tests
 * Review and rethink everything
 
