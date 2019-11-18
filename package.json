@@ -51,7 +51,7 @@
     "passport-twitter": "~1.0.2",
     "pretty-bytes": "~1.0.1",
     "prettyjson": "~1.0.0",
-    "request": "~2.49.0",
+    "request": "~2.88.0",
     "require-all": "~1.0.0",
     "socket.io": "~1.2.0",
     "socket.io-emitter": "~0.2.0",
